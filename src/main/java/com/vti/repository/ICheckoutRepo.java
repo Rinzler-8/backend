@@ -11,6 +11,6 @@ import com.vti.entity.Checkout;
 
 @Repository
 public interface ICheckoutRepo extends JpaRepository<Checkout, Integer> {
-	@Query("Select checkCart  FROM Checkout checkCart WHERE checkCart.user_id=:user_id")
-	List<Checkout> getByuserId(@Param("user_id") int user_id);
+	@Query("Select checkCart FROM Checkout checkCart WHERE checkCart.user_id=:user_id")
+	List<Checkout> getOrderByUserId(@Param("user_id") int user_id);
 }

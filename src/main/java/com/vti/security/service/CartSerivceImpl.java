@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.vti.entity.Cart;
 import com.vti.entity.Checkout;
+import com.vti.entity.OrderItems;
 import com.vti.entity.Product;
 import com.vti.repository.IAddToCartRepo;
 import com.vti.repository.ICheckoutRepo;
+import com.vti.repository.IOrderItemsRepo;
 
 @Service
 public class CartSerivceImpl implements ICartService {
@@ -20,6 +22,8 @@ public class CartSerivceImpl implements ICartService {
 	IAddToCartRepo addCartRepo;
 	@Autowired
 	ICheckoutRepo checkOutRepo;
+	@Autowired
+	IOrderItemsRepo orderItemsRepo;
 	@Autowired
 	ProductService proServices;
 	private static final Logger logger = LoggerFactory.getLogger(CartSerivceImpl.class);
@@ -99,8 +103,18 @@ public class CartSerivceImpl implements ICartService {
 	}
 
 	@Override
-	public List<Checkout> getCheckoutByUserId(int userId) {
-		return checkOutRepo.getByuserId(userId);
+	public List<Checkout> getOrderByUserId(int userId) {
+		return checkOutRepo.getOrderByUserId(userId);
+	}
+
+	@Override
+	public List<OrderItems> getOrderItemsByOrderId(int orderId) {
+		return orderItemsRepo.getOrderItemsByOrderId(orderId);
+	}
+
+	@Override
+	public List<OrderItems> getOrderItemsBySessionId(int sessionId) {
+		return orderItemsRepo.getOrderItemsBySessionId(sessionId);
 	}
 
 	@Override
@@ -109,7 +123,23 @@ public class CartSerivceImpl implements ICartService {
 			int user_id = tmp.get(0).getUser_id();
 			if (tmp.size() > 0) {
 				checkOutRepo.saveAll(tmp);
-				return this.getCheckoutByUserId(user_id);
+				return this.getOrderByUserId(user_id);
+			} else {
+				throw new Exception("Should not be empty");
+			}
+		} catch (Exception e) {
+			throw new Exception("Error while checkout " + e.getMessage());
+		}
+
+	}
+
+	@Override
+	public List<OrderItems> saveOrderItems(List<OrderItems> tmp2) throws Exception {
+		try {
+			int order_id = tmp2.get(0).getOrder_id();
+			if (tmp2.size() > 0) {
+				orderItemsRepo.saveAll(tmp2);
+				return this.getOrderItemsByOrderId(order_id);
 			} else {
 				throw new Exception("Should not be empty");
 			}

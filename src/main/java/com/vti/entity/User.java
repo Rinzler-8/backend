@@ -39,9 +39,6 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-//	@Column(name = "FullName", length = 50, nullable = false)
-//	private String fullname;
-
 	@NotBlank
 	@Size(max = 20)
 	@Column(name = "username", length = 50)
