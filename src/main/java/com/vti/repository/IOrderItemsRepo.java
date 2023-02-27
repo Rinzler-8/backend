@@ -12,7 +12,7 @@ import com.vti.entity.OrderItems;
 @Repository
 public interface IOrderItemsRepo extends JpaRepository<OrderItems, Integer> {
 
-	@Query("Select item FROM OrderItems item WHERE item.order_id=:order_id")
+	@Query("Select item FROM OrderItems item WHERE item.order_id=order_id")
 	List<OrderItems> getOrderItemsByOrderId(@Param("order_id") int order_id);
 
 	@Query("Select item FROM OrderItems item WHERE item.session_id=:session_id")

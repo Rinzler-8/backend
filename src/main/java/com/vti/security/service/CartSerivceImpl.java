@@ -28,30 +28,6 @@ public class CartSerivceImpl implements ICartService {
 	ProductService proServices;
 	private static final Logger logger = LoggerFactory.getLogger(CartSerivceImpl.class);
 
-//	@Override
-//	public List<Cart> addCartbyUserIdAndProductId(int productId, int userId, int quantity, double price)
-//			throws Exception {
-//		try {
-//			if (addCartRepo.getCartByProductIdAnduserId(userId, productId).isPresent()) {
-//				throw new Exception("Product is already exist.");
-//			}
-//			Cart obj = new Cart();
-//			obj.setQuantity(quantity);
-//			obj.setUser_id(userId);
-//			Product pro = proServices.getProductById(productId);
-//			obj.setProduct(pro);
-//			// TODO price has to check with quantity
-//			obj.settotal_price(price);
-//			addCartRepo.save(obj);
-//			return this.getCartByUserId(userId);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			logger.error("" + e.getMessage());
-//			throw new Exception(e.getMessage());
-//		}
-//
-//	}
-//
 	@Override
 	public List<Cart> addCartbyUserIdAndProductId(int productId, int userId, int quantity, double price)
 			throws Exception {
@@ -103,8 +79,8 @@ public class CartSerivceImpl implements ICartService {
 	}
 
 	@Override
-	public List<Checkout> getOrderByUserId(int userId) {
-		return checkOutRepo.getOrderByUserId(userId);
+	public Checkout getOrderInfo(int orderId) {
+		return checkOutRepo.getOrderInfo(orderId);
 	}
 
 	@Override
@@ -118,15 +94,13 @@ public class CartSerivceImpl implements ICartService {
 	}
 
 	@Override
-	public List<Checkout> saveProductsForCheckout(List<Checkout> tmp) throws Exception {
+	public Checkout saveProductsForCheckout(Checkout tmp) throws Exception {
 		try {
-			int user_id = tmp.get(0).getUser_id();
-			if (tmp.size() > 0) {
-				checkOutRepo.saveAll(tmp);
-				return this.getOrderByUserId(user_id);
-			} else {
-				throw new Exception("Should not be empty");
-			}
+			int user_id = tmp.getUser_id();
+			int order_id = tmp.getOrder_id();
+			checkOutRepo.save(tmp);
+			return this.getOrderInfo(order_id);
+
 		} catch (Exception e) {
 			throw new Exception("Error while checkout " + e.getMessage());
 		}

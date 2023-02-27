@@ -28,22 +28,6 @@ public class CartController {
 	private ICartService cartService;
 
 	@PostMapping("addToCart/{id}")
-//	public ResponseEntity<?> addCartwithProduct(@RequestBody CartDTO cartDto) {
-//		try {
-//			int productId = cartDto.getProduct_id();
-//			int userId = cartDto.getUser_id();
-//			int quantity = cartDto.getQuantity();
-//			double price = cartDto.getPrice();
-////			List<Cart> obj = cartService.addCartbyUserIdAndProductId(productId, userId, quantity, price);
-//			List<Cart> obj = cartService.addCartbyUserIdAndProductId(productId, userId, price);
-//			return ResponseEntity.ok(obj);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return new ResponseEntity<>("Can not add to cart", HttpStatus.NOT_FOUND);
-//		}
-//
-//	}
-
 	public ResponseEntity<?> addCartwithProduct(@PathVariable(name = "id") int id, @RequestBody CartDTO cartDto) {
 		try {
 			int productId = cartDto.getProduct_id();
@@ -58,24 +42,6 @@ public class CartController {
 		}
 
 	}
-
-//	@PutMapping("updateQtyForCart")
-//	public ResponseEntity<?> updateQtyForCart(@RequestBody HashMap<String, String> addCartRequest) {
-//		try {
-//			String keys[] = { "cartId", "userId", "quantity", "price" };
-//			int cartId = Integer.parseInt(addCartRequest.get("cartId"));
-//			int userId = Integer.parseInt(addCartRequest.get("userId"));
-//			int quantity = Integer.parseInt(addCartRequest.get("quantity"));
-//			double price = Double.parseDouble(addCartRequest.get("price"));
-//			cartService.updateQtyByCartId(cartId, quantity, price);
-//			List<Cart> obj = cartService.getCartByUserId(userId);
-//			return ResponseEntity.ok(obj);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return new ResponseEntity<>("Not found", HttpStatus.NOT_FOUND);
-//		}
-//
-//	}
 
 	@PutMapping("updateQtyForCart/{id}")
 	public ResponseEntity<?> updateQtyForCart(@PathVariable(name = "id") int id, @RequestBody CartDTO cartDto) {
