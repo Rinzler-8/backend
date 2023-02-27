@@ -155,6 +155,7 @@ DROP TABLE IF EXISTS `Checkout`;
 CREATE TABLE IF NOT EXISTS `Checkout` (
     order_id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_id BIGINT NOT NULL,
+    session_id BIGINT NOT NULL,
     product_id BIGINT DEFAULT NULL,
     quantity INT DEFAULT NULL, 
     first_name VARCHAR(20) NOT NULL,
@@ -167,7 +168,22 @@ CREATE TABLE IF NOT EXISTS `Checkout` (
     modified_At DATETIME DEFAULT CURRENT_TIMESTAMP,
     Note VARCHAR(535),
     FOREIGN KEY (user_id) REFERENCES User (id) ON DELETE CASCADE
-);----------------------------------------------
+);
+-- ----------------------------------------------
+-- Table structure for table `Order_Items`
+--
+
+CREATE TABLE IF NOT EXISTS `Order_Items` (
+  item_id bigint NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  order_id bigint NOT NULL,
+  session_id BIGINT NOT NULL,
+  product_id SMALLINT UNSIGNED NOT NULL,
+  quantity int not null,
+  created_At DATETIME DEFAULT current_timestamp,
+  modified_At  DATETIME DEFAULT current_timestamp,
+  FOREIGN KEY (order_id) REFERENCES `Checkout` (order_id) ON DELETE CASCADE,
+  FOREIGN KEY (product_id) REFERENCES `Product` (product_id) ON DELETE CASCADE);
+
 
 --
 -- Table structure for table `Payment_Details`
@@ -197,20 +213,6 @@ CREATE TABLE IF NOT EXISTS `Payment_Details` (
 --   FOREIGN KEY (paymentID) REFERENCES `Payment_Details` (paymentID) ON DELETE CASCADE);
 
 -- --------------------------------------------------------
-
---
--- Table structure for table `Order_Items`
---
-
--- CREATE TABLE IF NOT EXISTS `Order_Items` (
---   itemID bigint NOT NULL PRIMARY KEY,
---   orderID bigint NOT NULL,
---   product_id SMALLINT UNSIGNED NOT NULL,
---   quantity int not null,
---   created_At DATETIME DEFAULT current_timestamp,
---   modified_At  DATETIME DEFAULT current_timestamp,
---   FOREIGN KEY (orderID) REFERENCES `Order_Details` (orderID) ON DELETE CASCADE,
---   FOREIGN KEY (product_id) REFERENCES `Product` (product_id) ON DELETE CASCADE);
 
 /*============================== INSERT DATABASE =======================================*/
 /*======================================================================================*/
