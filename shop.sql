@@ -156,8 +156,6 @@ CREATE TABLE IF NOT EXISTS `Checkout` (
     order_id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_id BIGINT NOT NULL,
     session_id BIGINT NOT NULL,
-    product_id BIGINT DEFAULT NULL,
-    quantity INT DEFAULT NULL, 
     first_name VARCHAR(20) NOT NULL,
     last_name VARCHAR(20) NOT NULL,
     mobile VARCHAR(10) NOT NULL, 
@@ -169,6 +167,8 @@ CREATE TABLE IF NOT EXISTS `Checkout` (
     Note VARCHAR(535),
     FOREIGN KEY (user_id) REFERENCES User (id) ON DELETE CASCADE
 );
+
+-- F:\Documents\ISD\Project\backend\shop.sql 
 -- ----------------------------------------------
 -- Table structure for table `Order_Items`
 --

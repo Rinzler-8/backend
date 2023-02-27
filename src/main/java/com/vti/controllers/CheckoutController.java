@@ -51,7 +51,7 @@ public class CheckoutController {
 				orderItemList.add(item);
 			}
 			cartService.saveOrderItems(orderItemList);
-			return ResponseEntity.ok("Order placed successfully");
+			return ResponseEntity.ok(cart);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Can not checkout", HttpStatus.NOT_FOUND);
@@ -97,10 +97,10 @@ public class CheckoutController {
 		}
 	}
 
-	@GetMapping(value = "/getOrderItems/{id}")
-	public ResponseEntity<?> getFullOrderByOrderId(@PathVariable(name = "id") int id) {
+	@GetMapping(value = "/getOrderItems/{session_id}")
+	public ResponseEntity<?> getFullOrderByOrderId(@PathVariable(name = "session_id") int session_id) {
 		try {
-			List<OrderItems> obj = cartService.getOrderItemsBySessionId(id);
+			List<OrderItems> obj = cartService.getOrderItemsBySessionId(session_id);
 			return ResponseEntity.ok(obj);
 		} catch (Exception e) {
 			return new ResponseEntity<>("Can not get checkout by session id", HttpStatus.NOT_FOUND);
