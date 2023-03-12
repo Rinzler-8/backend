@@ -222,7 +222,7 @@ CREATE TABLE IF NOT EXISTS `Payment_Details` (
 -- Dumping data for table `User`
 --
 INSERT INTO `user` (`username`,`email`,`mobile`,`password`, `avatar_path`, `status`) VALUES 
-('admin1', 'admin1@gmail.com', '0984328735', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', ' ', '1'),
+('admin1', 'madboss1803@gmail.com', '0984328735', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', ' ', '1'),
 ('admin2', 'admin2@gmail.com', '0684621963', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', ' ', '1'),
 ('manager1', 'manager1@gmail.com', '084984161', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', ' ', '0'),
 ('manager2', 'manager2@gmail.com', '084984161', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', ' ', '0'),

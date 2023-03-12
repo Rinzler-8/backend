@@ -33,7 +33,6 @@ public class CheckoutController {
 		try {
 			List<Cart> cartItems = cartService.getCartByUserId(id);
 			Checkout cart = new Checkout();
-			cart.setSession_id(this.getOrderId());
 			cart.setFirst_name(checkoutDto.getFirst_name());
 			cart.setLast_name(checkoutDto.getLast_name());
 			cart.setMobile(checkoutDto.getMobile());

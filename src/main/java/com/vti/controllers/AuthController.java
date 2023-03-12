@@ -139,7 +139,8 @@ public class AuthController {
 
 		userService.registerUser(user);
 
-		return new ResponseEntity<>("We have sent an email. Please check email to active account!", HttpStatus.OK);
+		return new ResponseEntity<>("We have sent an email. Please check email to activate your account!",
+				HttpStatus.OK);
 	}
 
 	@GetMapping("/activeUser")

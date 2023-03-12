@@ -136,20 +136,9 @@ public class ProductController {
 
 	}
 
-//				Update sản phẩm
-//	@PutMapping(value = "/{id}")
-//	public ResponseEntity<?> updateProduct(@PathVariable(name = "id") short id,
-//			@RequestBody ProductFormForUpdating productUpdateForm) {
-//		try {
-//			productService.updateProduct(id, productUpdateForm);
-//			return new ResponseEntity<>("Update account ok", HttpStatus.OK);
-//		} catch (Exception e) {
-//			return new ResponseEntity<>("Not found", HttpStatus.NOT_FOUND);
-//		}
-//
-//	}
+// Update sản phẩm
 
-	@PutMapping("/{id}")
+	@PutMapping(value = "/{id}")
 	public ResponseEntity<?> updateProduct(@PathVariable(name = "id") int id,
 			@RequestBody ProductFormForUpdating productUpdateForm) {
 		try {
@@ -160,7 +149,7 @@ public class ProductController {
 		}
 	}
 
-//				Xóa sản phẩm theo id
+//	Xóa sản phẩm theo id
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<?> deleteProductById(@PathVariable(name = "id") int id) {
 		try {

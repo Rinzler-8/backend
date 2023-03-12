@@ -1,5 +1,7 @@
 package com.vti.dto;
 
+import java.util.Date;
+
 import com.vti.entity.PaymentType;
 
 //chuyển đổi giữa dữ liệu lấy được từ DB đẩy lên Frontend.
@@ -7,6 +9,15 @@ public class CheckoutDTO {
 
 	private int order_id, user_id, product_id, quantity, session_id;
 	private String first_name, last_name, mobile, delivery_address;
+	private Date created_at;
+
+	public Date getCreated_at() {
+		return created_at;
+	}
+
+	public void setCreated_at(Date created_at) {
+		this.created_at = created_at;
+	}
 
 	public int getSession_id() {
 		return session_id;

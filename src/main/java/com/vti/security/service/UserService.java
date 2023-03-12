@@ -1,6 +1,7 @@
 package com.vti.security.service;
 
 import java.io.File;
+import java.security.SecureRandom;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
@@ -14,7 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
@@ -49,7 +50,7 @@ public class UserService implements IUserService {
 	@Autowired
 	private ApplicationEventPublisher eventPublisher;
 
-	private PasswordEncoder passwordEncoder;
+	BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(10, new SecureRandom());
 
 	@Override
 	@Transactional
@@ -160,6 +161,14 @@ public class UserService implements IUserService {
 
 	@Override
 	public void sendResetPasswordViaEmail(String email) {
+		// find user by email
+		User user = findUserByEmail(email);
+
+		// remove token token if exists
+		resetPasswordTokenRepository.deleteByUserId(user.getId());
+
+		// create new reset password token
+		createNewResetPasswordToken(user);
 		eventPublisher.publishEvent(new OnResetPasswordViaEmailEvent(email));
 	}
 
@@ -179,7 +188,7 @@ public class UserService implements IUserService {
 
 		// change password
 		User user = resetPasswordToken.getUser();
-		user.setPassword(passwordEncoder.encode(newPassword));
+		user.setPassword(bCryptPasswordEncoder.encode(newPassword));
 		userRepository.save(user);
 
 		// remove Reset Password

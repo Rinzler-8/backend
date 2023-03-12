@@ -1,5 +1,7 @@
 package com.vti.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,6 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "Checkout")
@@ -25,6 +31,19 @@ public class Checkout {
 	private PaymentType paymentType = PaymentType.COD;
 
 	private int session_id;
+
+	@Column(name = "created_At")
+	@Temporal(TemporalType.DATE)
+	@CreationTimestamp
+	private Date created_at;
+
+	public Date getCreated_at() {
+		return created_at;
+	}
+
+	public void setCreated_at(Date created_at) {
+		this.created_at = created_at;
+	}
 
 	public int getSession_id() {
 		return session_id;
