@@ -1,5 +1,6 @@
 package com.vti.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -16,8 +17,8 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "Checkout")
-public class Checkout {
+@Table(name = "Order")
+public class Order implements Serializable {
 	@Column(name = "order_id")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +28,7 @@ public class Checkout {
 	private int user_id;
 
 	@Enumerated(EnumType.ORDINAL)
-	@Column(name = "`payment_type`", nullable = false)
+	@Column(name = "payment_type", nullable = false)
 	private PaymentType paymentType = PaymentType.COD;
 
 	private int session_id;

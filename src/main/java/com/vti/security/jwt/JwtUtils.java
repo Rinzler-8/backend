@@ -53,8 +53,8 @@ public class JwtUtils {
 		}
 	}
 
-	public String generateTokenFromUsername(String username) {
-		return Jwts.builder().setSubject(username).setIssuedAt(new Date())
+	public String generateTokenFromUsername(String email) {
+		return Jwts.builder().setSubject(email).setIssuedAt(new Date())
 				.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
 				.signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
 	}
@@ -71,7 +71,7 @@ public class JwtUtils {
 		return cookie;
 	}
 
-	public String getUserNameFromJwtToken(String token) {
+	public String getUsernameFromJwtToken(String token) {
 		return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
 	}
 

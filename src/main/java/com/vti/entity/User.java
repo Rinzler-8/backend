@@ -1,6 +1,5 @@
 package com.vti.entity;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -29,7 +28,6 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
-//@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "User", uniqueConstraints = { @UniqueConstraint(columnNames = "username"),
 		@UniqueConstraint(columnNames = "email") })
@@ -59,9 +57,6 @@ public class User {
 	@Size(max = 120)
 	@Column(name = "password", length = 120)
 	private String password;
-
-	@Column
-	private Date blockExpDate; // mốc thời gian user bị khoá
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -128,14 +123,6 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public Date getBlockExpDate() {
-		return blockExpDate;
-	}
-
-	public void setBlockExpDate(Date blockExpDate) {
-		this.blockExpDate = blockExpDate;
 	}
 
 	public List<Role> getRole() {

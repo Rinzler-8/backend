@@ -1,7 +1,6 @@
 package com.vti.controllers;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +28,6 @@ import com.vti.entity.ERole;
 import com.vti.entity.Role;
 import com.vti.entity.User;
 import com.vti.exceptions.AppException;
-import com.vti.exceptions.ErrorResponseBase;
 import com.vti.payload.request.LoginRequest;
 import com.vti.payload.request.SignupRequest;
 import com.vti.payload.response.MessageResponse;
@@ -69,16 +67,16 @@ public class AuthController {
 		Authentication authentication;
 		try {
 			authentication = authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+					new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
 		} catch (Exception ex) {
 			throw new AppException(ex);
 		}
-		if (userDetails.getBlockExpDate() != null && userDetails.getBlockExpDate().compareTo(new Date()) > 0) {
-			throw new AppException(ErrorResponseBase.USER_BLOCKED);
-		}
+//		if (userDetails.getBlockExpDate() != null && userDetails.getBlockExpDate().compareTo(new Date()) > 0) {
+//			throw new AppException(ErrorResponseBase.USER_BLOCKED);
+//		}
 		ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 
 		String jwt = jwtUtils.generateJwtToken(authentication);
@@ -120,12 +118,6 @@ public class AuthController {
 					roles.add(adminRole);
 
 					break;
-				case "MOD":
-					Role modRole = roleRepository.findByName(ERole.MANAGER)
-							.orElseThrow(() -> new RuntimeException("Error: Manager Role is not found."));
-					roles.add(modRole);
-
-					break;
 				default:
 					Role userRole = roleRepository.findByName(ERole.USER)
 							.orElseThrow(() -> new RuntimeException("Error: User Role is not found."));
@@ -149,7 +141,7 @@ public class AuthController {
 		// active user
 		userService.activeUser(token);
 
-		return new ResponseEntity<>("Active success!", HttpStatus.OK);
+		return new ResponseEntity<>("Activate account successfully!", HttpStatus.OK);
 	}
 
 	// resend confirm

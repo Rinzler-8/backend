@@ -29,6 +29,7 @@ import com.vti.event.OnResetPasswordViaEmailEvent;
 import com.vti.event.OnSendRegistrationUserConfirmViaEmailEvent;
 import com.vti.exceptions.AppException;
 import com.vti.exceptions.ErrorResponseBase;
+import com.vti.form.AccountFormForCreating;
 import com.vti.form.AccountFormForUpdating;
 import com.vti.repository.RegistrationUserTokenRepository;
 import com.vti.repository.ResetPasswordTokenRepository;
@@ -55,9 +56,20 @@ public class UserService implements IUserService {
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepository.findByUsername(username);
+		User user = userRepository.findByEmail(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("Account not found with username: " + username);
+		} else {
+			return UserDetailsImpl.build(user);
+		}
+	}
+
+	@Override
+	@Transactional
+	public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
+		User user = userRepository.findByEmail(email);
+		if (user == null) {
+			throw new UsernameNotFoundException("Account not found with email: " + email);
 		} else {
 			return UserDetailsImpl.build(user);
 		}
@@ -199,7 +211,7 @@ public class UserService implements IUserService {
 	public void upBlockExpDate(int id, Integer date) {
 		User user = userRepository.getById(id);
 		Date dateBlock = addSeconds(new Date(), date);
-		user.setBlockExpDate(dateBlock);
+//		user.setBlockExpDate(dateBlock);
 		userRepository.save(user);
 
 	}
@@ -207,8 +219,19 @@ public class UserService implements IUserService {
 	@Override
 	public void unBlockExpDate(int id) {
 		User user = userRepository.getById(id);
-		user.setBlockExpDate(null);
+//		user.setBlockExpDate(null);
 		userRepository.save(user);
+	}
+
+	@Override
+	public User createAccount(AccountFormForCreating accountNewForm) {
+		User account = new User();
+		account.setUsername(accountNewForm.getUsername());
+		account.setMobile(accountNewForm.getMobile());
+		account.setUrlAvatar(accountNewForm.getUrlAvatar());
+		account.setEmail(accountNewForm.getEmail());
+		User accountNew = userRepository.save(account);
+		return accountNew;
 	}
 
 	@Override
@@ -219,6 +242,11 @@ public class UserService implements IUserService {
 		account.setUrlAvatar(form.getUrlAvatar());
 		account.setEmail(form.getEmail());
 		userRepository.save(account);
+	}
+
+	@Override
+	public void deleteAccountById(int id) {
+		userRepository.deleteById(id);
 	}
 
 	@Override

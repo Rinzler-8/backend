@@ -7,7 +7,6 @@ public class ProductFormForUpdating {
 //	private String detail;
 //	private short ratingStar;
 //	private String imageName;
-	private short manufacturerId;
 	private short categoryId;
 
 	public ProductFormForUpdating() {
@@ -61,14 +60,6 @@ public class ProductFormForUpdating {
 //	public void setImageName(String imageName) {
 //		this.imageName = imageName;
 //	}
-
-	public short getManufacturerId() {
-		return manufacturerId;
-	}
-
-	public void setManufacturerId(short manufacturerId) {
-		this.manufacturerId = manufacturerId;
-	}
 
 	public short getCategoryId() {
 		return categoryId;

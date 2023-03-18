@@ -2,11 +2,20 @@
 package com.vti.form;
 
 public class AccountFormForCreating {
+	private int id;
 	private String email;
 	private String username;
 	private String urlAvatar;
 	private String mobile;
 	private String address;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getUrlAvatar() {
 		return urlAvatar;

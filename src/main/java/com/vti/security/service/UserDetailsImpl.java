@@ -14,16 +14,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vti.entity.Status;
 import com.vti.entity.User;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 public class UserDetailsImpl implements UserDetails {
 	private static final int serialVersionUID = (int) 1L;
@@ -44,14 +40,13 @@ public class UserDetailsImpl implements UserDetails {
 	private Collection<? extends GrantedAuthority> authorities;
 
 	public UserDetailsImpl(int id, String username, String email, String password, Status status,
-			Collection<? extends GrantedAuthority> authorities, Date blockExpDate) {
+			Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.authorities = authorities;
 		this.status = status;
-		this.blockExpDate = blockExpDate;
 	}
 
 	public static UserDetailsImpl build(User user) {
@@ -59,7 +54,7 @@ public class UserDetailsImpl implements UserDetails {
 				.map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
 
 		return new UserDetailsImpl(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(),
-				user.getStatus(), authorities, user.getBlockExpDate());
+				user.getStatus(), authorities);
 	}
 
 	@Override
@@ -135,14 +130,6 @@ public class UserDetailsImpl implements UserDetails {
 
 	public void setStatus(Status status) {
 		this.status = status;
-	}
-
-	public Date getBlockExpDate() {
-		return blockExpDate;
-	}
-
-	public void setBlockExpDate(Date blockExpDate) {
-		this.blockExpDate = blockExpDate;
 	}
 
 }

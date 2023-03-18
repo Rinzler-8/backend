@@ -23,6 +23,7 @@ public class AccountDTO {
 	private String email;
 	private String mobile;
 	private String username;
+	private String urlAvatar;
 	private List<Role> role;
 	private Status status;
 
@@ -74,4 +75,11 @@ public class AccountDTO {
 		this.status = status;
 	}
 
+	public String getUrlAvatar() {
+		return urlAvatar;
+	}
+
+	public void setUrlAvatar(String urlAvatar) {
+		this.urlAvatar = urlAvatar;
+	}
 }

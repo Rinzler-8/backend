@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vti.entity.Cart;
-import com.vti.entity.Checkout;
+import com.vti.entity.Order;
 import com.vti.entity.OrderItems;
 import com.vti.entity.Product;
 import com.vti.repository.IAddToCartRepo;
@@ -79,7 +79,7 @@ public class CartSerivceImpl implements ICartService {
 	}
 
 	@Override
-	public Checkout getOrderInfo(int orderId) {
+	public Order getOrderInfo(int orderId) {
 		return checkOutRepo.getOrderInfo(orderId);
 	}
 
@@ -94,7 +94,7 @@ public class CartSerivceImpl implements ICartService {
 	}
 
 	@Override
-	public Checkout saveProductsForCheckout(Checkout tmp) throws Exception {
+	public Order saveProductsForCheckout(Order tmp) throws Exception {
 		try {
 			int user_id = tmp.getUser_id();
 			int order_id = tmp.getOrder_id();

@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Product", catalog = "shop")
+@Table(name = "Product", catalog = "Genuine_Dignity")
 public class Product implements Serializable {
 	/**
 	 * 
@@ -37,10 +37,6 @@ public class Product implements Serializable {
 
 	@Column(name = "product_image_name", nullable = false)
 	private String imageName;
-
-	@ManyToOne
-	@JoinColumn(name = "manufacturer_id", nullable = false)
-	private Manufacturer manufacturer;
 
 	@ManyToOne
 	@JoinColumn(name = "category_id", nullable = false)
@@ -112,14 +108,6 @@ public class Product implements Serializable {
 
 	public void setImageName(String imageName) {
 		this.imageName = imageName;
-	}
-
-	public Manufacturer getManufacturer() {
-		return manufacturer;
-	}
-
-	public void setManufacturer(Manufacturer manufacturer) {
-		this.manufacturer = manufacturer;
 	}
 
 	public Category getCategory() {

@@ -15,7 +15,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "Order_Items")
+@Table(name = "OrderItems")
 public class OrderItems {
 
 	@Column(name = "item_id")
@@ -23,10 +23,10 @@ public class OrderItems {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int item_id;
 
-	@JoinTable(name = "Checkout", joinColumns = @JoinColumn(name = "order_id"))
+	@JoinTable(name = "Order", joinColumns = @JoinColumn(name = "order_id"))
 	private int order_id;
 
-	@JoinTable(name = "Checkout", joinColumns = @JoinColumn(name = "session_id"))
+	@JoinTable(name = "Order", joinColumns = @JoinColumn(name = "session_id"))
 	private int session_id;
 	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)

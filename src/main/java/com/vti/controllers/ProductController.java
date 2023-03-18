@@ -64,7 +64,6 @@ public class ProductController {
 			@Override
 			public ProductDto apply(Product product) {
 				ProductDto productDto = new ProductDto();
-//				productDto.setProduct_id(product.getProduct_id());
 				productDto.setProduct_id(product.getId());
 				productDto.setName(product.getName());
 				productDto.setPrice(product.getPrice());
@@ -72,7 +71,6 @@ public class ProductController {
 				productDto.setDetail(product.getDetail());
 				productDto.setRatingStar(product.getRatingStar());
 				productDto.setImageName(product.getImageName());
-				productDto.setManufacturerName(product.getManufacturer().getName().toString());
 				productDto.setCategoryName(product.getCategory().getName());
 				return productDto;
 			}
@@ -89,7 +87,6 @@ public class ProductController {
 			Product productDB = productService.getProductById(id);
 
 			ProductDto productDto = new ProductDto();
-//			productDto.setProduct_id(productDB.getProduct_id());
 			productDto.setProduct_id(productDB.getId());
 			productDto.setName(productDB.getName());
 			productDto.setPrice(productDB.getPrice());
@@ -97,7 +94,6 @@ public class ProductController {
 			productDto.setDetail(productDB.getDetail());
 			productDto.setRatingStar(productDB.getRatingStar());
 			productDto.setImageName(productDB.getImageName());
-			productDto.setManufacturerName(productDB.getManufacturer().getName().toString());
 			productDto.setCategoryName(productDB.getCategory().getName());
 
 			return new ResponseEntity<>(productDto, HttpStatus.OK);
@@ -118,7 +114,6 @@ public class ProductController {
 
 //			Convert
 			ProductDto productNewDto = new ProductDto();
-//			productNewDto.setProduct_id(productNew.getProduct_id());
 			productNewDto.setProduct_id(productNew.getId());
 			productNewDto.setName(productNew.getName());
 			productNewDto.setPrice(productNew.getPrice());
@@ -126,7 +121,6 @@ public class ProductController {
 			productNewDto.setDetail(productNew.getDetail());
 			productNewDto.setRatingStar(productNew.getRatingStar());
 			productNewDto.setImageName(productNew.getImageName());
-			productNewDto.setManufacturerName(productNew.getManufacturer().getName().toString());
 			productNewDto.setCategoryName(productNew.getCategory().getName());
 
 			return new ResponseEntity<>(productNewDto, HttpStatus.CREATED);

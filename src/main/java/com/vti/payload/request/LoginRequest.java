@@ -6,19 +6,15 @@ import javax.validation.constraints.NotBlank;
 
 import com.vti.entity.Status;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Data
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class LoginRequest {
-	@NotBlank
+
 	private String username;
 
 	@NotBlank
@@ -70,5 +66,8 @@ public class LoginRequest {
 		this.status = status;
 	}
 
-	
+	public LoginRequest() {
+		super();
+	}
+
 }

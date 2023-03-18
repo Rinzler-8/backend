@@ -9,10 +9,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vti.dto.AccountDTO;
 import com.vti.entity.User;
+import com.vti.form.AccountFormForCreating;
 import com.vti.form.AccountFormForUpdating;
 import com.vti.security.service.IUserService;
 
@@ -93,25 +95,48 @@ public class UserController {
 
 	}
 
+//	Thêm mới sản phẩm
+	@PostMapping()
+	public ResponseEntity<?> createNewAccount(@RequestBody AccountFormForCreating accountNewForm) {
+		try {
+//			Thêm mới Account
+//			Sau khi thêm mới, trả về thông tin Account vừa thêm
+			User accountNew = userService.createAccount(accountNewForm);
+
+//			Convert
+			AccountDTO accountNewDto = new AccountDTO();
+			accountNewDto.setId(accountNew.getId());
+			accountNewDto.setEmail(accountNew.getEmail());
+			accountNewDto.setUsername(accountNew.getUsername());
+			accountNewDto.setMobile(accountNew.getMobile());
+			accountNewDto.setUrlAvatar(accountNew.getUrlAvatar());
+
+			return new ResponseEntity<>(accountNewDto, HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<>("Can not create new account", HttpStatus.BAD_REQUEST);
+		}
+
+	}
+
+//	Xóa sản phẩm theo id
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<?> deleteAccountById(@PathVariable(name = "id") int id) {
+		try {
+
+			userService.deleteAccountById(id);
+
+			return new ResponseEntity<>("Delete account ok", HttpStatus.OK);
+		} catch (Exception e) {
+
+			return new ResponseEntity<>("Can not delete account", HttpStatus.NOT_FOUND);
+		}
+	}
+
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<?> updateAccount(@PathVariable(name = "id") short id,
 			@RequestBody AccountFormForUpdating form) {
 		userService.updateAccount(id, form);
 		return new ResponseEntity<String>("Update successfully!", HttpStatus.OK);
-	}
-
-	@PutMapping(value = "/block/{id}")
-	@PreAuthorize("hasAnyAuthority('ADMIN')")
-	public ResponseEntity<?> upBlockExpDate(@PathVariable(name = "id") int id,
-			@RequestParam(name = "blockExpDate") Integer date) {
-		userService.upBlockExpDate(id, date);
-		return null;
-	}
-
-	@PutMapping(value = "/unblock/{id}")
-	public ResponseEntity<?> unBlockExpDate(@PathVariable(name = "id") int id) {
-		userService.unBlockExpDate(id);
-		return null;
 	}
 
 	@GetMapping(value = "/avatar/{id}")
@@ -122,4 +147,18 @@ public class UserController {
 		return ResponseEntity.ok().headers(headers).contentType(MediaType.IMAGE_JPEG).body(userService.getAvatar(id));
 
 	}
+
+//	@PutMapping(value = "/block/{id}")
+//	@PreAuthorize("hasAnyAuthority('ADMIN')")
+//	public ResponseEntity<?> upBlockExpDate(@PathVariable(name = "id") int id,
+//			@RequestParam(name = "blockExpDate") Integer date) {
+//		userService.upBlockExpDate(id, date);
+//		return null;
+//	}
+//
+//	@PutMapping(value = "/unblock/{id}")
+//	public ResponseEntity<?> unBlockExpDate(@PathVariable(name = "id") int id) {
+//		userService.unBlockExpDate(id);
+//		return null;
+//	}
 }

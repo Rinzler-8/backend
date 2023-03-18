@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.vti.entity.Cart;
-import com.vti.entity.Checkout;
+import com.vti.entity.Order;
 import com.vti.entity.OrderItems;
 
 @Service
 public interface ICartService {
 	List<Cart> addCartbyUserIdAndProductId(int productId, int userId, int quantity, double price) throws Exception;
 
-	Checkout saveProductsForCheckout(Checkout tmp) throws Exception;
+	Order saveProductsForCheckout(Order tmp) throws Exception;
 
 	List<OrderItems> saveOrderItems(List<OrderItems> tmp2) throws Exception;
 
@@ -20,7 +20,7 @@ public interface ICartService {
 
 	List<Cart> getCartByUserId(int userId);
 
-	Checkout getOrderInfo(int orderId);
+	Order getOrderInfo(int orderId);
 
 	List<OrderItems> getOrderItemsByOrderId(int orderId);
 

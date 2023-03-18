@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vti.dto.CheckoutDTO;
 import com.vti.entity.Cart;
-import com.vti.entity.Checkout;
+import com.vti.entity.Order;
 import com.vti.entity.OrderItems;
 import com.vti.security.service.ICartService;
 
@@ -32,7 +32,7 @@ public class CheckoutController {
 	public ResponseEntity<?> createOrder(@PathVariable(name = "id") int id, @RequestBody CheckoutDTO checkoutDto) {
 		try {
 			List<Cart> cartItems = cartService.getCartByUserId(id);
-			Checkout cart = new Checkout();
+			Order cart = new Order();
 			cart.setFirst_name(checkoutDto.getFirst_name());
 			cart.setLast_name(checkoutDto.getLast_name());
 			cart.setMobile(checkoutDto.getMobile());
@@ -44,11 +44,12 @@ public class CheckoutController {
 			for (int i = 0; i < cartItems.size(); i++) {
 				OrderItems item = new OrderItems();
 				item.setOrder_id(cart.getOrder_id());
-				item.setSession_id(cart.getSession_id());
+				item.setSession_id(getOrderId());
 				item.setProduct(cartItems.get(i).getProduct());
 				item.setQuantity(cartItems.get(i).getQuantity());
 				orderItemList.add(item);
 			}
+			System.out.println(checkoutDto.getPaymentType());
 			cartService.saveOrderItems(orderItemList);
 			return ResponseEntity.ok(cart);
 		} catch (Exception e) {
@@ -89,7 +90,7 @@ public class CheckoutController {
 	@GetMapping(value = "/getOrderInfo/{order_id}")
 	public ResponseEntity<?> getOrderDetailsByUserId(@PathVariable(name = "order_id") int order_id) {
 		try {
-			Checkout obj = cartService.getOrderInfo(order_id);
+			Order obj = cartService.getOrderInfo(order_id);
 			return ResponseEntity.ok(obj);
 		} catch (Exception e) {
 			return new ResponseEntity<>("Can not get checkout by user id", HttpStatus.NOT_FOUND);

@@ -8,12 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.vti.entity.Category;
-import com.vti.entity.Manufacturer;
 import com.vti.entity.Product;
 import com.vti.form.ProductFormForCreating;
 import com.vti.form.ProductFormForUpdating;
 import com.vti.repository.ICategoryRepository;
-import com.vti.repository.IManufacturerRepository;
 import com.vti.repository.IProductRepository;
 import com.vti.specification.ProductSpecification;
 
@@ -21,8 +19,6 @@ import com.vti.specification.ProductSpecification;
 public class ProductService implements IProductService {
 	@Autowired
 	private IProductRepository productRepository;
-	@Autowired
-	private IManufacturerRepository manufacturerRepository;
 
 	@Autowired
 	private ICategoryRepository categoryRepository;
@@ -54,8 +50,6 @@ public class ProductService implements IProductService {
 
 	@Override
 	public Product createProduct(ProductFormForCreating productNewForm) {
-		// Tìm manufacturer theo id
-		Manufacturer manufacturer = manufacturerRepository.getById(productNewForm.getManufacturerId());
 		// Tìm category theo id
 		Category category = categoryRepository.getById(productNewForm.getCategoryId());
 		Product product = new Product();
@@ -65,7 +59,6 @@ public class ProductService implements IProductService {
 		product.setDetail(productNewForm.getDetail());
 		product.setRatingStar(productNewForm.getRatingStar());
 		product.setImageName(productNewForm.getImageName());
-		product.setManufacturer(manufacturer);
 		product.setCategory(category);
 		Product productNew = productRepository.save(product);
 		return productNew;
@@ -75,8 +68,6 @@ public class ProductService implements IProductService {
 	@Override
 	public Product updateProduct(int id, ProductFormForUpdating productUpdateForm) {
 		Product product = productRepository.getById(id);
-		// Tìm manufacturer theo id
-		Manufacturer manufacturer = manufacturerRepository.getById(productUpdateForm.getManufacturerId());
 
 		// Tìm manufacturer theo id
 		Category category = categoryRepository.getById(productUpdateForm.getCategoryId());
@@ -87,7 +78,6 @@ public class ProductService implements IProductService {
 //		product.setDetail(productUpdateForm.getDetail());
 //		product.setRatingStar(productUpdateForm.getRatingStar());
 //		product.setImageName(productUpdateForm.getImageName());
-		product.setManufacturer(manufacturer);
 		product.setCategory(category);
 
 		Product productUpdate = productRepository.save(product);

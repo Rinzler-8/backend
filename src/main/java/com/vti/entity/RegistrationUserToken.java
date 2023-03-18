@@ -18,14 +18,12 @@ import javax.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Data
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "`Registration_User_Token`")
 public class RegistrationUserToken implements Serializable {
@@ -92,5 +90,8 @@ public class RegistrationUserToken implements Serializable {
 		return serialVersionUID;
 	}
 
-	
+	public RegistrationUserToken() {
+		super();
+	}
+
 }

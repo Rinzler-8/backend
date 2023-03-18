@@ -15,8 +15,6 @@ public class ProductDto {
 
 	private String imageName;
 
-	private String manufacturerName;
-
 	private String categoryName;
 
 	public int getProduct_id() {
@@ -77,14 +75,6 @@ public class ProductDto {
 
 	public void setImageName(String imageName) {
 		this.imageName = imageName;
-	}
-
-	public String getManufacturerName() {
-		return manufacturerName;
-	}
-
-	public void setManufacturerName(String manufacturerName) {
-		this.manufacturerName = manufacturerName;
 	}
 
 	public String getCategoryName() {
