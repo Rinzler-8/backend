@@ -8,12 +8,12 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `Genuine_Dignity`
+-- Database: `shop`
 --
 
-DROP DATABASE IF EXISTS Genuine_Dignity;
-CREATE DATABASE Genuine_Dignity;
-USE Genuine_Dignity;
+DROP DATABASE IF EXISTS shop;
+CREATE DATABASE shop;
+USE shop;
 
 -- --------------------------------------------------------
 DROP TABLE IF EXISTS `User`;
@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `User` (
     avatar_path TEXT,
     url_avatar VARCHAR(100) UNIQUE KEY,
     `status` TINYINT DEFAULT 0, -- 0: Not Active, 1: Active
+    block_exp_date DATETIME,
     token VARCHAR(255),
     token_creation_date DATETIME
 )  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
@@ -64,8 +65,8 @@ CREATE TABLE IF NOT EXISTS `Role` (
 )  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
 
 -- --------------------------------------------------------
-DROP TABLE IF EXISTS `user_role`;
-CREATE TABLE IF NOT EXISTS `user_role` (
+DROP TABLE IF EXISTS User_Role;
+CREATE TABLE IF NOT EXISTS User_Role (
     user_id BIGINT NOT NULL,
     role_id BIGINT NOT NULL,
     FOREIGN KEY (user_id)
@@ -78,10 +79,20 @@ CREATE TABLE IF NOT EXISTS `user_role` (
 
 -- --------------------------------------------------------
 --
+-- Table structure for table `Manufacturer`
+--
+DROP TABLE IF EXISTS Manufacturer;
+CREATE TABLE IF NOT EXISTS Manufacturer (
+    manufacturer_id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    manufacturer_name ENUM('SAMSUNG', 'APPLE', 'XIAOMI', 'OPPO') NOT NULL UNIQUE KEY
+);
+
+-- --------------------------------------------------------
+--
 -- Table structure for table `Category`
 --
-DROP TABLE IF EXISTS Categories;
-CREATE TABLE IF NOT EXISTS Categories (
+DROP TABLE IF EXISTS Category;
+CREATE TABLE IF NOT EXISTS Category (
     category_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     category_name VARCHAR(30) NOT NULL UNIQUE KEY,
     description VARCHAR(800) NOT NULL,
@@ -97,14 +108,17 @@ DROP TABLE IF EXISTS Product;
 CREATE TABLE IF NOT EXISTS Product (
     product_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL UNIQUE KEY,
-    price VARCHAR(50) NOT NULL,
+    price varchar(50) NOT NULL,
     product_info VARCHAR(200) NOT NULL,
     product_detail VARCHAR(500),
     rating_star TINYINT UNSIGNED,
     product_image_name VARCHAR(500) NOT NULL,
+    manufacturer_id SMALLINT UNSIGNED NOT NULL,
     category_id SMALLINT UNSIGNED NOT NULL,
+    FOREIGN KEY (manufacturer_id)
+        REFERENCES Manufacturer (manufacturer_id),
     FOREIGN KEY (category_id)
-        REFERENCES Categories (category_id)
+        REFERENCES Category (category_id)
 );
 
 -- --------------------------------------------------------
@@ -137,15 +151,15 @@ FOREIGN KEY (product_id) REFERENCES `Product` (product_id) ON DELETE CASCADE
 );
 
 -- --------------------------------------------------------
-DROP TABLE IF EXISTS `Order`;
-CREATE TABLE IF NOT EXISTS `Order` (
+DROP TABLE IF EXISTS `Checkout`;
+CREATE TABLE IF NOT EXISTS `Checkout` (
     order_id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_id BIGINT NOT NULL,
     session_id BIGINT NOT NULL,
     first_name VARCHAR(20) NOT NULL,
     last_name VARCHAR(20) NOT NULL,
     mobile VARCHAR(10) NOT NULL, 
-   --  status ENUM('Chờ Xác Nhận', 'Đang Chuẩn Bị Hàng', 'Đang Giao Hàng', 'Đã Giao Hàng'),
+    status ENUM('Chờ Xác Nhận', 'Đang Chuẩn Bị Hàng', 'Đang Giao Hàng', 'Đã Giao Hàng'),
     delivery_address VARCHAR(400),
     payment_type TINYINT DEFAULT 0, -- 0: COD, 1: Banking
     created_At DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -167,7 +181,7 @@ CREATE TABLE IF NOT EXISTS `Order_Items` (
   quantity int not null,
   created_At DATETIME DEFAULT current_timestamp,
   modified_At  DATETIME DEFAULT current_timestamp,
-  FOREIGN KEY (order_id) REFERENCES `Order` (order_id) ON DELETE CASCADE,
+  FOREIGN KEY (order_id) REFERENCES `Checkout` (order_id) ON DELETE CASCADE,
   FOREIGN KEY (product_id) REFERENCES `Product` (product_id) ON DELETE CASCADE);
 
 
@@ -208,11 +222,23 @@ CREATE TABLE IF NOT EXISTS `Payment_Details` (
 -- Dumping data for table `User`
 --
 INSERT INTO `user` (`username`,`email`,`mobile`,`password`, `avatar_path`, `status`) VALUES 
-('admin1', 'madboss1803@gmail.com', '0984328735', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', ' ', '1'),
+('admin1', 'admin1@gmail.com', '0984328735', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', ' ', '1'),
 ('admin2', 'admin2@gmail.com', '0684621963', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', ' ', '1'),
-('user1', 'madboss1801@gmail.com', '084984161', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', ' ', '0'),
+('manager1', 'manager1@gmail.com', '084984161', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', ' ', '0'),
+('manager2', 'manager2@gmail.com', '084984161', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', ' ', '0'),
+('manager3', 'manager3@gmail.com', '084984161', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', ' ', '0'),
+('user1', 'user1@gmail.com', '084984161', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', ' ', '0'),
 ('user2', 'user2@gmail.com', '084984161', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', ' ', '0'),
-('user3', 'user3@gmail.com', '084984161', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', ' ', '0');
+('user3', 'user3@gmail.com', '084984161', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', ' ', '0'),
+('user4', 'user4@gmail.com', '084984161', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', ' ', '0'),
+('user5', 'user5@gmail.com', '084984161', '$2a$12$sMExyEbvpAu432Iaci3HKer1CXG8h8YECE7gIkUGw3MPJTR5fjGCK', ' ', '0'),
+('user6', 'user6@gmail.com', '084984161', '$2a$12$sMExyEbvpAu432Iaci3HKer1CXG8h8YECE7gIkUGw3MPJTR5fjGCK', ' ', '0'),
+('user7', 'user7@gmail.com', '084984161', '$2a$12$sMExyEbvpAu432Iaci3HKer1CXG8h8YECE7gIkUGw3MPJTR5fjGCK', ' ', '0'),
+('user8', 'user8@gmail.com', '084984161', '$2a$12$h0wlfbltPOuFRggGTMqFGuHAA/T6o0JBl5chKo1BpwyMmpvxefYP2
+', ' ', '1'),
+('user9', 'user9@gmail.com', '0849841612', '$2a$12$gJir45gPwRAusyuQ5J/PHuzIGAd7LZy6iIMy3qoe1giH3A3lX0o1q
+', ' ', '0'),
+('user10', 'user10@gmail.com', '0849841612', '$2a$12$QWUSgWW4PAPxCoSFoD4cOekdp0TRqpmFxbzdf7iZZ7CkqWwbLY3eO', ' ', '1');
 
 -- --------------------------------------------------------
 --
@@ -220,6 +246,7 @@ INSERT INTO `user` (`username`,`email`,`mobile`,`password`, `avatar_path`, `stat
 --
 INSERT INTO `role` (`name`) VALUES 
 ('ADMIN'),
+('MANAGER'),
 ('USER');
 
 -- --------------------------------------------------------
@@ -231,48 +258,43 @@ INSERT INTO `user_role` (`user_id`, `role_id`) VALUES
 ('2','1'),
 ('3','2'),
 ('4','2'),
-('5','2');
+('5','2'),
+('6','3'),
+('7','3'),
+('8','3'),
+('9','3'),
+('10','3'),
+('11','3'),
+('12','3'),
+('13','3'),
+('14','3'),
+('15','3');
+
+-- Add data Manufacturer
+INSERT INTO Manufacturer	(manufacturer_name	) 
+VALUES 					   ('SAMSUNG'	        ),
+						   ('APPLE'		        ),
+					       ('XIAOMI'        	),
+						   ('OPPO'		        ); 
                            
--- Add data Categories
-INSERT INTO Categories(category_name) 
+-- Add data Category
+INSERT INTO Category(category_name) 
 VALUES
-						('Sữa rửa mặt'), 
-						('Tẩy tế bào chết'),
-                        ('Toners'),
-                        ('Retinols'),
-                        ('Peels và mặt nạ'),
-                        ('Chống nắng'),
-                        ('Chăm sóc mắt'),
-                        ('Dưỡng ẩm'),
-						('Dưỡng thể');      
+						('Điện thoại'),
+						('Tablet'	),
+						('Laptop'	);      
                         
 -- Add data Product
-INSERT INTO Product (name,    price,    product_info,    product_detail,    rating_star,    product_image_name,    category_id)			
-VALUES 				('GENTLE CLEANSER', '1600000',	'Sữa rửa mặt dịu nhẹ cho mọi loại da',	
-'ProductDetail1',    5,	   'gentleCleanser.png',    '1'),			
-				    ('EXFOLIATING CLEANSER', '9000000',	'Sữa rửa mặt dịu nhẹ cho da thường đến da khô',	
-                    'ProductDetail2',    4,	   'exfoliatingCleanser.png',    '1'),
-                    ('HYDRATING CLEANSER', '10100000',	'Màn hình Super AMOLED tần số quét 90Hz, độ sáng cao 800 nit.',	
-                    'ProductDetail3',        3,	   'hydratingCleanser.png',    '1'),
-					('EYE BRIGHTENING CRÈME','11690000', 'Hiệu năng mượt mà, ổn định - Chip A13, RAM 4GB',	'ProductDetail4',    4,	   'eyeBrightening.png',    '1'),
-                    ('RENEWAL CRÈME', '29690000',	'Hiệu năng vượt trội - Chip Apple A15 Bionic mạnh mẽ, hỗ trợ mạng 5G',	'ProductDetail5',    5,	   'renewalPads.png',    '8'),
-                    ('RECOVERY CRÈME', '29690000',	'Hiệu năng vượt trội - Chip Apple A15 Bionic mạnh mẽ, hỗ trợ mạng 5G',	'ProductDetail5',    5,	   'recoveryCreme.png',    '8'),
-                    ('GROWTH FACTOR EYE SERUM', '19990000',	'Đỉnh cao công nghệ màn hình - Màn hình Liquid Retina, tần số quét 120Hz',	'ProductDetail6',    4,	   'renewalPads.png',    '2'),
-                    ('EXFOLIATING POLISH', '8990000',	'Thiết kế mỏng nhẹ, tinh tế - Thiết kế vuông vức, chỉ dày khoảng 7mm',	'ProductDetail7',    5,	   'polish.png',    '2'),
-                    ('HYDRATING CRÈME', '8990000',	'Thiết kế mỏng nhẹ, tinh tế - Thiết kế vuông vức, chỉ dày khoảng 7mm',	'ProductDetail7',    5,	   'hydratingCreme.png',    '8'),
-                    ('COMPLEXTION CLEARING MASQUE', '8990000',	'Thiết kế mỏng nhẹ, tinh tế - Thiết kế vuông vức, chỉ dày khoảng 7mm',	'ProductDetail7',    5,	   'clearingMasque.png',    '5'),
-                    ('ENZYMATIC PEEL', '8990000',	'Thiết kế mỏng nhẹ, tinh tế - Thiết kế vuông vức, chỉ dày khoảng 7mm',	'ProductDetail7',    5,	   'enzymaticPeel.png',    '2'),
-                    ('BODY EMULSION', '8990000',	'Thiết kế mỏng nhẹ, tinh tế - Thiết kế vuông vức, chỉ dày khoảng 7mm',	'ProductDetail7',    5,	   'bodyEmulsion.png',    '9'),
-                    ('CELLULITE CONTROL', '30300000',	'Xử lý đồ hoạ mượt mà - Chip M1',	'ProductDetail8',        5,	   'cellulite.png',    '9'),
-                    ('RADICAL NIGHT REPAIR', '30300000',	'Xử lý đồ hoạ mượt mà - Chip M1',	'ProductDetail8',        5,	   'radicalNightRepair.png',    '4'),
-                    ('WRINKLE + TEXTURE REPAIR', '30300000',	'Xử lý đồ hoạ mượt mà - Chip M1',	'ProductDetail8',        5,	   'textureRepair.png',    '4'),
-                    ('CALMING TONER', '1400000',	'Xử lý đồ hoạ mượt mà - Chip M1',	'ProductDetail8',        5,	   'calmingToner.png',    '4'),
-                    ('COMPLEXTION RENEWAL PADS', '1600000',	'Xử lý đồ hoạ mượt mà - Chip M1',	'ProductDetail8',        5,	   'renewalPads.png',    '4'),
-                    ('DAILY SHEER BROAD SPECTRUM SPF 50', '30300000',	'Xử lý đồ hoạ mượt mà - Chip M1',	'ProductDetail8',        5,	   'dailySheer.png',    '4'),
-                    ('SUNSCREEN + POWDER BROAD-SPECTRUM - LIGHT', '30300000',	'Xử lý đồ hoạ mượt mà - Chip M1',	'ProductDetail8',        5,	   'powderBroad.png',    '4'),
-                    ('SUNSCREEN + PRIMER SPF 30', '30300000',	'Xử lý đồ hoạ mượt mà - Chip M1',	'ProductDetail8',        5,	   'primer.png',    '4'),
-                    ('SMART TONE BROAD SPECTRUM SPF 50', '30300000',	'Xử lý đồ hoạ mượt mà - Chip M1',	'ProductDetail8',        5,	   'smartTone.png',    '4'),
-                    ('INTENSE EYE CRÈME', '17500000',	'Đa nhiệm tốt - Ram 8GB cho phép mở cùng lúc nhiều ứng dụng',	                'ProductDetail9',        4,	   'eyeCreme.png',    '3');		
+INSERT INTO Product (name, 							price,		 	product_info,																	 product_detail, 	rating_star,  product_image_name, manufacturer_id, category_id)			
+VALUES 				('Samsung Galaxy S22 Ultra 5G', '30990000',	'6.9 inches, Chip MediaTek Helio G85 (12nm) mạnh mẽ, Ram 4G, Pin 7000 mAh ',	'ProductDetail1',        5,	       'ImgMobile1.png',         '1',       '1'),			
+				    ('Samsung Galaxy A52s 5G',      '9000000',	'Hiệu năng ưu việt, đa nhiệm- Chip xử lí Snapdragon 778G 5G và RAM 8GB',	    'ProductDetail2',        4,	       'ImgMobile2.png',         '1',       '1'),
+                    ('Samsung Galaxy A72',         '10100000',	'Màn hình Super AMOLED tần số quét 90Hz, độ sáng cao 800 nit.',	                'ProductDetail3',        3,	       'ImgMobile3.png',         '1',       '1'),
+					('iPhone 11 64GB I Chính hãng','11690000',	'Hiệu năng mượt mà, ổn định - Chip A13, RAM 4GB',	                            'ProductDetail4',        4,	       'ImgMobile4.png',         '2',       '1'),
+                    ('iPhone 13 Pro Max 128GB',    '29690000',	'Hiệu năng vượt trội - Chip Apple A15 Bionic mạnh mẽ, hỗ trợ mạng 5G',	        'ProductDetail5',        5,	       'ImgMobile5.png',         '2',       '1'),
+                    ('Apple iPad Pro 11 2021',     '19990000',	'Đỉnh cao công nghệ màn hình - Màn hình Liquid Retina, tần số quét 120Hz',	    'ProductDetail6',        4,	       'ImgMobile6.png',         '2',       '2'),
+                    ('Xiaomi Pad 5',               '8990000',	'Thiết kế mỏng nhẹ, tinh tế - Thiết kế vuông vức, chỉ dày khoảng 7mm',	        	'ProductDetail7',        5,	       'ImgMobile7.png',         '3',       '2'),
+                    ('Apple MacBook Pro 13',       '30300000',	'Xử lý đồ hoạ mượt mà - Chip M1',	                                            'ProductDetail8',        5,	       'ImgMobile8.png',         '2',       '3'),
+                    ('Apple Mac mini M1 256GB',    '17500000',	'Đa nhiệm tốt - Ram 8GB cho phép mở cùng lúc nhiều ứng dụng',	                'ProductDetail9',        4,	       'ImgMobile1.png',         '2',       '3');		
 
 -- Add data Cart
 INSERT INTO `Cart` (`cart_id`, `user_id`, `product_id`, `quantity`, `total_price`,`created_At`)

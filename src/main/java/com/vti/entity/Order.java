@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "Order")
+@Table(name = "`Order`")
 public class Order implements Serializable {
 	@Column(name = "order_id")
 	@Id

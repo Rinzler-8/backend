@@ -38,10 +38,6 @@ public interface IUserService extends UserDetailsService {
 
 	void sendResetPasswordViaEmail(String email);
 
-	public void upBlockExpDate(int id, Integer date);
-
-	public void unBlockExpDate(int id);
-
 	ByteArrayResource getAvatar(int id);
 
 	void registerUser(User user);

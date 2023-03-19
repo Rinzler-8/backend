@@ -28,10 +28,8 @@ public class ProductService implements IProductService {
 		Specification<Product> whereProduct = null;
 		if (!StringUtils.isEmpty(search)) {
 			ProductSpecification nameSpecification = new ProductSpecification("name", "LIKE", search);
-			ProductSpecification manufacturerSpecification = new ProductSpecification("manufacturer", "LIKE", search);
 			ProductSpecification categorySpecification = new ProductSpecification("category", "LIKE", search);
-			whereProduct = Specification.where(nameSpecification).or(manufacturerSpecification)
-					.or(categorySpecification);
+			whereProduct = Specification.where(nameSpecification).or(categorySpecification);
 		}
 
 		return productRepository.findAll(whereProduct, pageable); // findAll - phuong thuc co san cua JPA da duoc xay

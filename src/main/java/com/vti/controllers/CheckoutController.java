@@ -39,17 +39,17 @@ public class CheckoutController {
 			cart.setUser_id(id);
 			cart.setDelivery_address(checkoutDto.getDelivery_address());
 			cart.setPaymentType(checkoutDto.getPaymentType());
+			cart.setSession_id(getOrderId());
 			cartService.saveProductsForCheckout(cart);
 			List<OrderItems> orderItemList = new ArrayList<OrderItems>();
 			for (int i = 0; i < cartItems.size(); i++) {
 				OrderItems item = new OrderItems();
 				item.setOrder_id(cart.getOrder_id());
-				item.setSession_id(getOrderId());
+				item.setSession_id(cart.getSession_id());
 				item.setProduct(cartItems.get(i).getProduct());
 				item.setQuantity(cartItems.get(i).getQuantity());
 				orderItemList.add(item);
 			}
-			System.out.println(checkoutDto.getPaymentType());
 			cartService.saveOrderItems(orderItemList);
 			return ResponseEntity.ok(cart);
 		} catch (Exception e) {

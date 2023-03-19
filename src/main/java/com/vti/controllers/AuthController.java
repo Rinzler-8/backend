@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.vti.dto.ResetDTO;
 import com.vti.entity.ERole;
 import com.vti.entity.Role;
 import com.vti.entity.User;
@@ -38,7 +39,7 @@ import com.vti.security.jwt.JwtUtils;
 import com.vti.security.service.IUserService;
 import com.vti.security.service.UserDetailsImpl;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = { "http://localhost:3000" })
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -174,14 +175,14 @@ public class AuthController {
 		return new ResponseEntity<>("We have sent an email. Please check email to reset password!", HttpStatus.OK);
 	}
 
-	@GetMapping("/resetPassword")
+	@PostMapping("/resetPassword")
 	// validate: check exists, check not expired
-	public ResponseEntity<?> resetPasswordViaEmail(@RequestParam String token, @RequestParam String newPassword) {
-
+	public ResponseEntity<?> resetPasswordViaEmail(@RequestParam String token, @RequestBody ResetDTO newPassword) {
+		String pass = newPassword.getPassword();
 		// reset password
-		userService.resetPassword(token, newPassword);
+		userService.resetPassword(token, pass);
 
-		return new ResponseEntity<>("Reset Password success!", HttpStatus.OK);
+		return new ResponseEntity<>(newPassword, HttpStatus.OK);
 	}
 
 	@PostMapping("/signout")

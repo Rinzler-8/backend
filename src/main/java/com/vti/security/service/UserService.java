@@ -208,22 +208,6 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public void upBlockExpDate(int id, Integer date) {
-		User user = userRepository.getById(id);
-		Date dateBlock = addSeconds(new Date(), date);
-//		user.setBlockExpDate(dateBlock);
-		userRepository.save(user);
-
-	}
-
-	@Override
-	public void unBlockExpDate(int id) {
-		User user = userRepository.getById(id);
-//		user.setBlockExpDate(null);
-		userRepository.save(user);
-	}
-
-	@Override
 	public User createAccount(AccountFormForCreating accountNewForm) {
 		User account = new User();
 		account.setUsername(accountNewForm.getUsername());
