@@ -2,12 +2,39 @@ package com.vti.form;
 
 public class AccountFormForUpdating {
 	private String username;
+	private String firstName;
+	private String lastName;
+	private String address;
 	private String mobile;
 	private String urlAvatar;
 	private String email;
 
 	public AccountFormForUpdating() {
 		super();
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getMobile() {

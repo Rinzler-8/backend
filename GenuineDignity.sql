@@ -20,14 +20,16 @@ DROP TABLE IF EXISTS `User`;
 CREATE TABLE IF NOT EXISTS `User` (
     id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL UNIQUE KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
     email VARCHAR(150) NOT NULL UNIQUE KEY,
     mobile VARCHAR(10) NOT NULL,
+    address VARCHAR(400),
     `password` VARCHAR(120) NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     update_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     avatar_path TEXT,
-    url_avatar VARCHAR(100) UNIQUE KEY,
-    `status` TINYINT DEFAULT 0, -- 0: Not Active, 1: Active
+    `status` TINYINT DEFAULT 0,
     token VARCHAR(255),
     token_creation_date DATETIME
 )  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
@@ -110,9 +112,9 @@ CREATE TABLE IF NOT EXISTS Product (
 -- --------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS `Discount` (
-    discountID BIGINT NOT NULL PRIMARY KEY,
-    discountName VARCHAR(100) NOT NULL,
-    discountPercent DECIMAL NOT NULL,
+    discount_id BIGINT NOT NULL PRIMARY KEY,
+    discount_name VARCHAR(100) NOT NULL,
+    discount_percent DECIMAL NOT NULL,
     active BOOLEAN NOT NULL,
     created_At DATETIME DEFAULT CURRENT_TIMESTAMP,
     modified_At DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -142,15 +144,15 @@ CREATE TABLE IF NOT EXISTS `Order` (
     order_id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_id BIGINT NOT NULL,
     session_id BIGINT NOT NULL,
-    first_name VARCHAR(20) NOT NULL,
-    last_name VARCHAR(20) NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
     mobile VARCHAR(10) NOT NULL, 
-   --  status ENUM('Chờ Xác Nhận', 'Đang Chuẩn Bị Hàng', 'Đang Giao Hàng', 'Đã Giao Hàng'),
+    status ENUM('Chờ Xác Nhận', 'Đang Chuẩn Bị Hàng', 'Đang Giao Hàng', 'Đã Giao Hàng'),
     delivery_address VARCHAR(400),
     payment_type TINYINT DEFAULT 0, -- 0: COD, 1: Banking
     created_At DATETIME DEFAULT CURRENT_TIMESTAMP,
     modified_At DATETIME DEFAULT CURRENT_TIMESTAMP,
-    Note VARCHAR(535),
+    Note VARCHAR(800),
     FOREIGN KEY (user_id) REFERENCES User (id) ON DELETE CASCADE
 );
 
@@ -176,7 +178,7 @@ CREATE TABLE IF NOT EXISTS `Order_Items` (
 --
   
 CREATE TABLE IF NOT EXISTS `Payment_Details` (
-  paymentID bigint NOT NULL PRIMARY KEY,
+  payment_id bigint NOT NULL PRIMARY KEY,
   user_id bigint NOT NULL,
   amount int not null,
   paymentStatus ENUM('Chờ Thanh Toán', 'Đã Thanh Toán')NOT NULL,
@@ -207,12 +209,12 @@ CREATE TABLE IF NOT EXISTS `Payment_Details` (
 --
 -- Dumping data for table `User`
 --
-INSERT INTO `user` (`username`,`email`,`mobile`,`password`, `avatar_path`, `status`) VALUES 
-('admin1', 'madboss1803@gmail.com', '0984328735', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', ' ', '1'),
-('admin2', 'admin2@gmail.com', '0684621963', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', ' ', '1'),
-('user1', 'madboss1801@gmail.com', '084984161', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', ' ', '0'),
-('user2', 'user2@gmail.com', '084984161', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', ' ', '0'),
-('user3', 'user3@gmail.com', '084984161', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', ' ', '0');
+INSERT INTO `user` (`username`,`email`, `first_name`, `last_name`,`mobile`, `address`,`password`, `avatar_path`, `status`) VALUES 
+('admin1', 'madboss1803@gmail.com', 'Phuc', 'Nguyen','0984328735', 'Hanoi', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', 'gentleCleanser.png', '1'),
+('admin2', 'admin2@gmail.com', 'Viktor', 'Nguyen','0684621963', 'HCM','$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', 'gentleCleanser.png', '1'),
+('user1', 'crazyboss1801@gmail.com', 'Quyen', 'Luu','084984161', 'Da Nang','$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', 'gentleCleanser.png', '0'),
+('user2', 'user2@gmail.com', 'Thao', 'Ngo','084984161', 'Phu Quoc','$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', 'polish.png', '0'),
+('user3', 'user3@gmail.com', 'TH', 'Truemilk','084984161', 'Bac Giang','$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', 'polish.png', '0');
 
 -- --------------------------------------------------------
 --
@@ -253,25 +255,43 @@ VALUES 				('GENTLE CLEANSER', '1600000',	'Sữa rửa mặt dịu nhẹ cho m�
 				    ('EXFOLIATING CLEANSER', '9000000',	'Sữa rửa mặt dịu nhẹ cho da thường đến da khô',	
                     'ProductDetail2',    4,	   'exfoliatingCleanser.png',    '1'),
                     ('HYDRATING CLEANSER', '10100000',	'Màn hình Super AMOLED tần số quét 90Hz, độ sáng cao 800 nit.',	
-                    'ProductDetail3',        3,	   'hydratingCleanser.png',    '1'),
-					('EYE BRIGHTENING CRÈME','11690000', 'Hiệu năng mượt mà, ổn định - Chip A13, RAM 4GB',	'ProductDetail4',    4,	   'eyeBrightening.png',    '1'),
-                    ('RENEWAL CRÈME', '29690000',	'Hiệu năng vượt trội - Chip Apple A15 Bionic mạnh mẽ, hỗ trợ mạng 5G',	'ProductDetail5',    5,	   'renewalPads.png',    '8'),
-                    ('RECOVERY CRÈME', '29690000',	'Hiệu năng vượt trội - Chip Apple A15 Bionic mạnh mẽ, hỗ trợ mạng 5G',	'ProductDetail5',    5,	   'recoveryCreme.png',    '8'),
-                    ('GROWTH FACTOR EYE SERUM', '19990000',	'Đỉnh cao công nghệ màn hình - Màn hình Liquid Retina, tần số quét 120Hz',	'ProductDetail6',    4,	   'renewalPads.png',    '2'),
-                    ('EXFOLIATING POLISH', '8990000',	'Thiết kế mỏng nhẹ, tinh tế - Thiết kế vuông vức, chỉ dày khoảng 7mm',	'ProductDetail7',    5,	   'polish.png',    '2'),
-                    ('HYDRATING CRÈME', '8990000',	'Thiết kế mỏng nhẹ, tinh tế - Thiết kế vuông vức, chỉ dày khoảng 7mm',	'ProductDetail7',    5,	   'hydratingCreme.png',    '8'),
-                    ('COMPLEXTION CLEARING MASQUE', '8990000',	'Thiết kế mỏng nhẹ, tinh tế - Thiết kế vuông vức, chỉ dày khoảng 7mm',	'ProductDetail7',    5,	   'clearingMasque.png',    '5'),
-                    ('ENZYMATIC PEEL', '8990000',	'Thiết kế mỏng nhẹ, tinh tế - Thiết kế vuông vức, chỉ dày khoảng 7mm',	'ProductDetail7',    5,	   'enzymaticPeel.png',    '2'),
-                    ('BODY EMULSION', '8990000',	'Thiết kế mỏng nhẹ, tinh tế - Thiết kế vuông vức, chỉ dày khoảng 7mm',	'ProductDetail7',    5,	   'bodyEmulsion.png',    '9'),
-                    ('CELLULITE CONTROL', '30300000',	'Xử lý đồ hoạ mượt mà - Chip M1',	'ProductDetail8',        5,	   'cellulite.png',    '9'),
-                    ('RADICAL NIGHT REPAIR', '30300000',	'Xử lý đồ hoạ mượt mà - Chip M1',	'ProductDetail8',        5,	   'radicalNightRepair.png',    '4'),
-                    ('WRINKLE + TEXTURE REPAIR', '30300000',	'Xử lý đồ hoạ mượt mà - Chip M1',	'ProductDetail8',        5,	   'textureRepair.png',    '4'),
-                    ('CALMING TONER', '1400000',	'Xử lý đồ hoạ mượt mà - Chip M1',	'ProductDetail8',        5,	   'calmingToner.png',    '4'),
-                    ('COMPLEXTION RENEWAL PADS', '1600000',	'Xử lý đồ hoạ mượt mà - Chip M1',	'ProductDetail8',        5,	   'renewalPads.png',    '4'),
-                    ('DAILY SHEER BROAD SPECTRUM SPF 50', '30300000',	'Xử lý đồ hoạ mượt mà - Chip M1',	'ProductDetail8',        5,	   'dailySheer.png',    '4'),
-                    ('SUNSCREEN + POWDER BROAD-SPECTRUM - LIGHT', '30300000',	'Xử lý đồ hoạ mượt mà - Chip M1',	'ProductDetail8',        5,	   'powderBroad.png',    '4'),
-                    ('SUNSCREEN + PRIMER SPF 30', '30300000',	'Xử lý đồ hoạ mượt mà - Chip M1',	'ProductDetail8',        5,	   'primer.png',    '4'),
-                    ('SMART TONE BROAD SPECTRUM SPF 50', '30300000',	'Xử lý đồ hoạ mượt mà - Chip M1',	'ProductDetail8',        5,	   'smartTone.png',    '4'),
+                    'ProductDetail3',    3,	   'hydratingCleanser.png',    '1'),
+					('EYE BRIGHTENING CRÈME','11690000', 'Hiệu năng mượt mà, ổn định - Chip A13, RAM 4GB',	
+                    'ProductDetail4',    4,	   'eyeBrightening.png',    '1'),
+                    ('RENEWAL CRÈME', '29690000',	'Hiệu năng vượt trội - Chip Apple A15 Bionic mạnh mẽ, hỗ trợ mạng 5G',	
+                    'ProductDetail5',    5,	   'renewalPads.png',    '8'),
+                    ('RECOVERY CRÈME', '29690000',	'Hiệu năng vượt trội - Chip Apple A15 Bionic mạnh mẽ, hỗ trợ mạng 5G',	
+                    'ProductDetail5',    5,	   'recoveryCreme.png',    '8'),
+                    ('GROWTH FACTOR EYE SERUM', '19990000',	'Đỉnh cao công nghệ màn hình - Màn hình Liquid Retina, tần số quét 120Hz',	
+                    'ProductDetail6',    4,	   'renewalPads.png',    '2'),
+                    ('EXFOLIATING POLISH', '8990000',	'Thiết kế mỏng nhẹ, tinh tế - Thiết kế vuông vức, chỉ dày khoảng 7mm',	
+                    'ProductDetail7',    5,	   'polish.png',    '2'),
+                    ('HYDRATING CRÈME', '8990000',	'Thiết kế mỏng nhẹ, tinh tế - Thiết kế vuông vức, chỉ dày khoảng 7mm',	
+                    'ProductDetail7',    5,	   'hydratingCreme.png',    '8'),
+                    ('COMPLEXTION CLEARING MASQUE', '8990000',	'Thiết kế mỏng nhẹ, tinh tế - Thiết kế vuông vức, chỉ dày khoảng 7mm',	
+                    'ProductDetail7',    5,	   'clearingMasque.png',    '5'),
+                    ('ENZYMATIC PEEL', '8990000',	'Thiết kế mỏng nhẹ, tinh tế - Thiết kế vuông vức, chỉ dày khoảng 7mm',	
+                    'ProductDetail7',    5,	   'enzymaticPeel.png',    '2'),
+                    ('BODY EMULSION', '8990000',	'Thiết kế mỏng nhẹ, tinh tế - Thiết kế vuông vức, chỉ dày khoảng 7mm',	
+                    'ProductDetail7',    5,	   'bodyEmulsion.png',    '9'),
+                    ('CELLULITE CONTROL', '30300000',	'Xử lý đồ hoạ mượt mà - Chip M1',	
+                    'ProductDetail8',    5,	   'cellulite.png',    '9'),
+                    ('RADICAL NIGHT REPAIR', '30300000',	'Xử lý đồ hoạ mượt mà - Chip M1',	
+                    'ProductDetail8',    5,	   'radicalNightRepair.png',    '4'),
+                    ('WRINKLE + TEXTURE REPAIR', '30300000',	'Xử lý đồ hoạ mượt mà - Chip M1',	
+                    'ProductDetail8',    5,	   'textureRepair.png',    '4'),
+                    ('CALMING TONER', '1400000',	'Xử lý đồ hoạ mượt mà - Chip M1',	
+                    'ProductDetail8',    5,	   'calmingToner.png',    '4'),
+                    ('COMPLEXTION RENEWAL PADS', '1600000',	'Xử lý đồ hoạ mượt mà - Chip M1',	
+                    'ProductDetail8',    5,	   'renewalPads.png',    '4'),
+                    ('DAILY SHEER BROAD SPECTRUM SPF 50', '30300000',	'Xử lý đồ hoạ mượt mà - Chip M1',	
+                    'ProductDetail8',    5,	   'dailySheer.png',    '4'),
+                    ('SUNSCREEN + POWDER BROAD-SPECTRUM - LIGHT', '30300000',	'Xử lý đồ hoạ mượt mà - Chip M1',	
+                    'ProductDetail8',    5,	   'powderBroad.png',    '4'),
+                    ('SUNSCREEN + PRIMER SPF 30', '30300000',	'Xử lý đồ hoạ mượt mà - Chip M1',	
+                    'ProductDetail8',    5,	   'primer.png',    '4'),
+                    ('SMART TONE BROAD SPECTRUM SPF 50', '30300000',	'Xử lý đồ hoạ mượt mà - Chip M1',	
+                    'ProductDetail8',    5,	   'smartTone.png',    '4'),
                     ('INTENSE EYE CRÈME', '17500000',	'Đa nhiệm tốt - Ram 8GB cho phép mở cùng lúc nhiều ứng dụng',	                'ProductDetail9',        4,	   'eyeCreme.png',    '3');		
 
 -- Add data Cart

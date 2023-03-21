@@ -23,7 +23,7 @@ public class CategoryController {
 	private ICategoryService categoryService;
 
 	@GetMapping()
-	public ResponseEntity<?> getAllCategorys() {
+	public ResponseEntity<?> getAllCategories() {
 		List<Category> categoryListDB = categoryService.getAllCategories();
 		List<CategoryDto> categoryListDto = new ArrayList<>();
 

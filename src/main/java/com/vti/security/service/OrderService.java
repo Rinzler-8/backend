@@ -22,9 +22,9 @@ public class OrderService implements IOrderService {
 	public Page<Order> getAllOrders(Pageable pageable, String search) {
 		Specification<Order> whereOrder = null;
 		if (!StringUtils.isEmpty(search)) {
-			OrderSpecification nameSpecification = new OrderSpecification("name", "LIKE", search);
-			OrderSpecification categorySpecification = new OrderSpecification("category", "LIKE", search);
-//			whereOrder = Specification.where(nameSpecification);
+			OrderSpecification idSpecification = new OrderSpecification("order_id", "LIKE", search);
+			OrderSpecification sessionSpecification = new OrderSpecification("session_id", "LIKE", search);
+			whereOrder = Specification.where(idSpecification).or(sessionSpecification);
 		}
 
 		return orderRepository.findAll(whereOrder, pageable); // findAll - phuong thuc co san cua JPA da duoc xay
@@ -32,19 +32,19 @@ public class OrderService implements IOrderService {
 	}
 
 	@Override
-	public Order getOrderById(int id) {
-		return orderRepository.getById(id);
+	public Order getOrderById(int order_id) {
+		return orderRepository.getById(order_id);
 	}
 
 	@Override
-	public void deleteOrderById(int id) {
-		orderRepository.deleteById(id);
+	public void deleteOrderById(int order_id) {
+		orderRepository.deleteById(order_id);
 	}
 
 	@Override
 	public Order createOrder(OrderFormForCreating orderNewForm) {
 		Order order = new Order();
-		order.setOrder_id(orderNewForm.getOrder_id());
+		order.setId(orderNewForm.getOrder_id());
 		order.setSession_id(orderNewForm.getSession_id());
 		order.setFirst_name(orderNewForm.getFirst_name());
 		order.setLast_name(orderNewForm.getLast_name());
@@ -57,8 +57,8 @@ public class OrderService implements IOrderService {
 	}
 
 	@Override
-	public Order updateOrder(int id, OrderFormForUpdating orderUpdateForm) {
-		Order order = orderRepository.getById(id);
+	public Order updateOrder(int order_id, OrderFormForUpdating orderUpdateForm) {
+		Order order = orderRepository.getById(order_id);
 
 		order.setFirst_name(orderUpdateForm.getFirst_name());
 		order.setLast_name(orderUpdateForm.getLast_name());

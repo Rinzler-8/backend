@@ -97,7 +97,7 @@ public class CartSerivceImpl implements ICartService {
 	public Order saveProductsForCheckout(Order tmp) throws Exception {
 		try {
 			int user_id = tmp.getUser_id();
-			int order_id = tmp.getOrder_id();
+			int order_id = tmp.getId();
 			checkOutRepo.save(tmp);
 			return this.getOrderInfo(order_id);
 

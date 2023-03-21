@@ -63,8 +63,11 @@ public class UserController {
 				AccountDTO AccountDTO = new AccountDTO();
 				AccountDTO.setId(user.getId());
 				AccountDTO.setEmail(user.getEmail());
-				AccountDTO.setMobile(user.getMobile());
 				AccountDTO.setUsername(user.getUsername());
+				AccountDTO.setFirstName(user.getFirstName());
+				AccountDTO.setMobile(user.getMobile());
+				AccountDTO.setUrlAvatar(user.getUrlAvatar());
+				AccountDTO.setLastName(user.getLastName());
 				AccountDTO.setRole(user.getRole());
 				AccountDTO.setStatus(user.getStatus());
 				return AccountDTO;
@@ -86,6 +89,11 @@ public class UserController {
 			AccountDTO.setId(accountDB.getId());
 			AccountDTO.setEmail(accountDB.getEmail());
 			AccountDTO.setUsername(accountDB.getUsername());
+			AccountDTO.setFirstName(accountDB.getFirstName());
+			AccountDTO.setLastName(accountDB.getLastName());
+			AccountDTO.setMobile(accountDB.getMobile());
+			AccountDTO.setAddress(accountDB.getAddress());
+			AccountDTO.setUrlAvatar(accountDB.getUrlAvatar());
 			AccountDTO.setRole(accountDB.getRole());
 			AccountDTO.setStatus(accountDB.getStatus());
 			return new ResponseEntity<>(AccountDTO, HttpStatus.OK);
@@ -108,6 +116,8 @@ public class UserController {
 			accountNewDto.setId(accountNew.getId());
 			accountNewDto.setEmail(accountNew.getEmail());
 			accountNewDto.setUsername(accountNew.getUsername());
+			accountNewDto.setFirstName(accountNew.getFirstName());
+			accountNewDto.setLastName(accountNew.getLastName());
 			accountNewDto.setMobile(accountNew.getMobile());
 			accountNewDto.setUrlAvatar(accountNew.getUrlAvatar());
 

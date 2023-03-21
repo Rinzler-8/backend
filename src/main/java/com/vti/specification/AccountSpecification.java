@@ -14,6 +14,21 @@ public class AccountSpecification implements Specification<User> {
 	private String operator;
 	private Object value;
 
+//	@Override
+//	public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+//		if (operator.equalsIgnoreCase("LIKE")) {
+//			if (field.equalsIgnoreCase("department")) {
+//				return criteriaBuilder.like(root.get("department").get("name"), "%" + value.toString() + "%");
+//			} else if (field.equalsIgnoreCase("position")) {
+//				return criteriaBuilder.like(root.get("position").get("name").as(String.class),
+//						"%" + value.toString() + "%");
+//			} else {
+//				return criteriaBuilder.like(root.get(field), "%" + value.toString() + "%");
+//			}
+//		}
+//
+//		return null;
+//	}
 	@Override
 	public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 		if (operator.equalsIgnoreCase("LIKE")) {

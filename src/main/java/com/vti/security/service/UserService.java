@@ -221,10 +221,13 @@ public class UserService implements IUserService {
 	@Override
 	public void updateAccount(int id, AccountFormForUpdating form) {
 		User account = userRepository.getById(id);
-		account.setUsername(form.getUsername());
+//		account.setUsername(form.getUsername());
+		account.setFirstName(form.getFirstName());
+		account.setLastName(form.getLastName());
+		account.setAddress(form.getAddress());
 		account.setMobile(form.getMobile());
-		account.setUrlAvatar(form.getUrlAvatar());
-		account.setEmail(form.getEmail());
+//		account.setUrlAvatar(form.getUrlAvatar());
+//		account.setEmail(form.getEmail());
 		userRepository.save(account);
 	}
 

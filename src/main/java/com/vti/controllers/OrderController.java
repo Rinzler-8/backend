@@ -34,7 +34,7 @@ public class OrderController {
 
 	// Lấy danh sách tất cả order
 	@GetMapping()
-	public ResponseEntity<?> getAllorder(Pageable pageable, @RequestParam(required = false) String search) {
+	public ResponseEntity<?> getAllOrders(Pageable pageable, @RequestParam(required = false) String search) {
 		Page<Order> orderPage_DB = orderService.getAllOrders(pageable, search);
 		// Dữ liệu lấy ở DB, đã được thực hiện phân trang và sort dữ liệu
 		// Chuyển đổi dữ liệu
@@ -42,7 +42,7 @@ public class OrderController {
 			@Override
 			public OrderDto apply(Order order) {
 				OrderDto orderDto = new OrderDto();
-				orderDto.setOrder_id(order.getOrder_id());
+				orderDto.setOrder_id(order.getId());
 				orderDto.setSession_id(order.getSession_id());
 				orderDto.setFirst_name(order.getFirst_name());
 				orderDto.setLast_name(order.getLast_name());
@@ -64,7 +64,7 @@ public class OrderController {
 			Order orderDB = orderService.getOrderById(id);
 
 			OrderDto orderDto = new OrderDto();
-			orderDto.setOrder_id(orderDB.getOrder_id());
+			orderDto.setOrder_id(orderDB.getId());
 			orderDto.setSession_id(orderDB.getSession_id());
 			orderDto.setFirst_name(orderDB.getFirst_name());
 			orderDto.setLast_name(orderDB.getLast_name());
@@ -82,7 +82,7 @@ public class OrderController {
 
 //	Thêm mới sản phẩm
 	@PostMapping()
-	public ResponseEntity<?> createNeworder(@RequestBody OrderFormForCreating orderNewForm) {
+	public ResponseEntity<?> createNewOrder(@RequestBody OrderFormForCreating orderNewForm) {
 		try {
 //			Thêm mới Order
 //			Sau khi thêm mới, trả về thông tin Order vừa thêm
@@ -90,7 +90,7 @@ public class OrderController {
 
 //			Convert
 			OrderDto orderNewDto = new OrderDto();
-			orderNewDto.setOrder_id(orderNew.getOrder_id());
+			orderNewDto.setOrder_id(orderNew.getId());
 			orderNewDto.setSession_id(orderNew.getSession_id());
 			orderNewDto.setFirst_name(orderNew.getFirst_name());
 			orderNewDto.setLast_name(orderNew.getLast_name());

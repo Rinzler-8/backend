@@ -16,7 +16,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
@@ -37,23 +36,28 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@NotBlank
 	@Size(max = 20)
 	@Column(name = "username", length = 50)
 	private String username;
 
-	@NotBlank
 	@Size(max = 50)
 	@Email
 	private String email;
 
+	@Column(name = "first_name", length = 50)
+	private String firstName;
+
+	@Column(name = "last_name", length = 50)
+	private String lastName;
+
 	@Column(name = "mobile", length = 10)
 	private String mobile;
 
-	@Column(name = "url_avatar", length = 100)
+	private String address;
+
+	@Column(name = "avatar_path")
 	private String urlAvatar;
 
-	@NotBlank
 	@Size(max = 120)
 	@Column(name = "password", length = 120)
 	private String password;
@@ -139,6 +143,30 @@ public class User {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 }

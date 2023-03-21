@@ -17,14 +17,18 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "`Order`")
+@Table(name = "`Order`", catalog = "Genuine_Dignity")
 public class Order implements Serializable {
+	/**
+	 * 
+	 */
+	private static final int serialVersionUID = (int) 1L;
 	@Column(name = "order_id")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int order_id;
+	private int id;
 
-	private String delivery_address, first_name, last_name, mobile;
+	private String delivery_address, first_name, last_name, mobile, note;
 	private int user_id;
 
 	@Enumerated(EnumType.ORDINAL)
@@ -54,12 +58,12 @@ public class Order implements Serializable {
 		this.session_id = session_id;
 	}
 
-	public int getOrder_id() {
-		return order_id;
+	public int getId() {
+		return id;
 	}
 
-	public void setOrder_id(int order_id) {
-		this.order_id = order_id;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public PaymentType getPaymentType() {
@@ -108,6 +112,14 @@ public class Order implements Serializable {
 
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 
 }

@@ -10,8 +10,8 @@ import com.vti.entity.Order;
 
 @Repository
 public interface ICheckoutRepo extends JpaRepository<Order, Integer>, JpaSpecificationExecutor<Order> {
-	@Query("Select checkCart FROM Order checkCart WHERE checkCart.order_id=:order_id")
-	Order getOrderInfo(@Param("order_id") int order_id);
+	@Query("Select checkCart FROM Order checkCart WHERE checkCart.id=:id")
+	Order getOrderInfo(@Param("id") int order_id);
 
 	public Order findById(int order_id);
 }

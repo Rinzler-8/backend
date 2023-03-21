@@ -33,29 +33,6 @@ public class ProductController {
 
 	// Lấy All danh sách sản phẩm
 	@GetMapping()
-//	public ResponseEntity<?> getAllProducts() {
-//		List<Product> productListDB = productService.getAllProducts();
-//		List<ProductDto> productListDto = new ArrayList<>();
-//
-//		// convert productListDB --> productListDto
-//		for (Product productDB : productListDB) {
-//			ProductDto productDto = new ProductDto();
-//			productDto.setId(productDB.getId());
-//			productDto.setName(productDB.getName());
-//			productDto.setPrice(productDB.getPrice());
-//			productDto.setInfo(productDB.getInfo());
-//			productDto.setDetail(productDB.getDetail());
-//			productDto.setRatingStar(productDB.getRatingStar());
-//			productDto.setImageName(productDB.getImageName());
-//			productDto.setManufacturerName(productDB.getManufacturer().getName().toString());
-//			productDto.setCategoryName(productDB.getCategory().getName());
-//
-//			productListDto.add(productDto);
-//		}
-//
-//		return new ResponseEntity<>(productListDto, HttpStatus.OK);
-//	}
-
 	public ResponseEntity<?> getAllproduct(Pageable pageable, @RequestParam(required = false) String search) {
 		Page<Product> productPage_DB = productService.getAllProducts(pageable, search);
 		// Dữ liệu lấy ở DB, đã được thực hiện phân trang và sort dữ liệu

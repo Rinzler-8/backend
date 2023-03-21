@@ -44,7 +44,7 @@ public class CheckoutController {
 			List<OrderItems> orderItemList = new ArrayList<OrderItems>();
 			for (int i = 0; i < cartItems.size(); i++) {
 				OrderItems item = new OrderItems();
-				item.setOrder_id(cart.getOrder_id());
+				item.setOrder_id(cart.getId());
 				item.setSession_id(cart.getSession_id());
 				item.setProduct(cartItems.get(i).getProduct());
 				item.setQuantity(cartItems.get(i).getQuantity());

@@ -5,7 +5,7 @@ import com.vti.entity.PaymentType;
 public class OrderDto {
 	private int order_id;
 
-	private String delivery_address, first_name, last_name, mobile;
+	private String delivery_address, first_name, last_name, mobile, note;
 	private int user_id, session_id;
 	private PaymentType paymentType;
 
@@ -71,6 +71,14 @@ public class OrderDto {
 
 	public void setPaymentType(PaymentType paymentType) {
 		this.paymentType = paymentType;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 
 }

@@ -23,9 +23,20 @@ public class AccountDTO {
 	private String email;
 	private String mobile;
 	private String username;
+	private String firstName;
+	private String lastName;
 	private String urlAvatar;
+	private String address;
 	private List<Role> role;
 	private Status status;
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
 	public int getId() {
 		return id;
@@ -82,4 +93,21 @@ public class AccountDTO {
 	public void setUrlAvatar(String urlAvatar) {
 		this.urlAvatar = urlAvatar;
 	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
 }
