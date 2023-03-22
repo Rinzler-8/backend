@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `User` (
     `password` VARCHAR(120) NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     update_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    avatar_path TEXT,
+    url_avatar VARCHAR(400),
     `status` TINYINT DEFAULT 0,
     token VARCHAR(255),
     token_creation_date DATETIME
@@ -126,16 +126,16 @@ CREATE TABLE IF NOT EXISTS `Discount` (
 -- Table structure for table `Cart`
 --
 DROP TABLE IF EXISTS `Cart`;
-CREATE TABLE IF NOT EXISTS `Cart`(
-cart_id bigint NOT NULL PRIMARY KEY auto_increment,
-user_id int DEFAULT NULL,
-product_id SMALLINT UNSIGNED DEFAULT NULL,
-quantity int DEFAULT NULL,
-total_price double DEFAULT NULL,
--- image VARCHAR(500) NOT NULL,
-created_At DATETIME DEFAULT current_timestamp,
-FOREIGN KEY (product_id) REFERENCES `Product` (product_id) ON DELETE CASCADE
--- FOREIGN KEY (user_id) REFERENCES `User` (id) ON DELETE CASCADE
+CREATE TABLE IF NOT EXISTS `Cart` (
+    cart_id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    user_id INT DEFAULT NULL,
+    product_id SMALLINT UNSIGNED DEFAULT NULL,
+    quantity INT DEFAULT NULL,
+    total_price DOUBLE DEFAULT NULL,
+    created_At DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id)
+        REFERENCES `Product` (product_id)
+        ON DELETE CASCADE
 );
 
 -- --------------------------------------------------------
@@ -147,7 +147,8 @@ CREATE TABLE IF NOT EXISTS `Order` (
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     mobile VARCHAR(10) NOT NULL, 
-    status ENUM('Chờ Xác Nhận', 'Đang Chuẩn Bị Hàng', 'Đang Giao Hàng', 'Đã Giao Hàng'),
+    -- status ENUM('Đã Xác Nhận', 'Đang Chuẩn Bị Hàng', 'Đang Giao Hàng', 'Đã Giao Hàng'),
+    status ENUM('CONFIRMED', 'PREPARING', 'DELIVERING', 'DELIVERED') NOT NULL,
     delivery_address VARCHAR(400),
     payment_type TINYINT DEFAULT 0, -- 0: COD, 1: Banking
     created_At DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -209,7 +210,7 @@ CREATE TABLE IF NOT EXISTS `Payment_Details` (
 --
 -- Dumping data for table `User`
 --
-INSERT INTO `user` (`username`,`email`, `first_name`, `last_name`,`mobile`, `address`,`password`, `avatar_path`, `status`) VALUES 
+INSERT INTO `user` (`username`,`email`, `first_name`, `last_name`,`mobile`, `address`,`password`, `url_avatar`, `status`) VALUES 
 ('admin1', 'madboss1803@gmail.com', 'Phuc', 'Nguyen','0984328735', 'Hanoi', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', 'gentleCleanser.png', '1'),
 ('admin2', 'admin2@gmail.com', 'Viktor', 'Nguyen','0684621963', 'HCM','$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', 'gentleCleanser.png', '1'),
 ('user1', 'crazyboss1801@gmail.com', 'Quyen', 'Luu','084984161', 'Da Nang','$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', 'gentleCleanser.png', '0'),

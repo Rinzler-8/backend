@@ -5,6 +5,8 @@ public class AccountFormForCreating {
 	private int id;
 	private String email;
 	private String username;
+	private String firstName;
+	private String lastName;
 	private String urlAvatar;
 	private String mobile;
 	private String address;
@@ -59,6 +61,22 @@ public class AccountFormForCreating {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 }

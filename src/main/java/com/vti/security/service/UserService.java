@@ -211,6 +211,8 @@ public class UserService implements IUserService {
 	public User createAccount(AccountFormForCreating accountNewForm) {
 		User account = new User();
 		account.setUsername(accountNewForm.getUsername());
+		account.setFirstName(accountNewForm.getFirstName());
+		account.setLastName(accountNewForm.getLastName());
 		account.setMobile(accountNewForm.getMobile());
 		account.setUrlAvatar(accountNewForm.getUrlAvatar());
 		account.setEmail(accountNewForm.getEmail());
@@ -226,7 +228,7 @@ public class UserService implements IUserService {
 		account.setLastName(form.getLastName());
 		account.setAddress(form.getAddress());
 		account.setMobile(form.getMobile());
-//		account.setUrlAvatar(form.getUrlAvatar());
+		account.setUrlAvatar(form.getUrlAvatar());
 //		account.setEmail(form.getEmail());
 		userRepository.save(account);
 	}

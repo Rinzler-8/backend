@@ -20,12 +20,13 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class ImageStorageService implements IStorageService {
 
-	private final Path storageFolder = Paths.get("uploads");
+	private final Path uploadFolder = Paths.get("uploads");
+	private final Path storageFolder = Paths.get("images");
 
 	// constructor create uploads folder
 	public ImageStorageService() {
 		try {
-			Files.createDirectories(storageFolder);
+			Files.createDirectories(uploadFolder);
 
 		} catch (IOException e) {
 			throw new RuntimeException("Cannot initialize storage", e);
@@ -63,9 +64,9 @@ public class ImageStorageService implements IStorageService {
 
 			generatedFileName = generatedFileName + "." + fileExtension;
 
-			Path destinationFilePath = this.storageFolder.resolve(Paths.get(generatedFileName)).normalize()
+			Path destinationFilePath = this.uploadFolder.resolve(Paths.get(generatedFileName)).normalize()
 					.toAbsolutePath();
-			if (!destinationFilePath.getParent().equals(this.storageFolder.toAbsolutePath())) {
+			if (!destinationFilePath.getParent().equals(this.uploadFolder.toAbsolutePath())) {
 				throw new RuntimeException("Cannot store file outside current directory");
 			}
 

@@ -5,17 +5,14 @@ import java.util.List;
 import com.vti.entity.Role;
 import com.vti.entity.Status;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Data
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 //chuyển đổi giữa dữ liệu lấy được từ DB đẩy lên Frontend.
 public class AccountDTO {
 
@@ -29,6 +26,25 @@ public class AccountDTO {
 	private String address;
 	private List<Role> role;
 	private Status status;
+
+	public AccountDTO(int id, String email, String mobile, String username, String firstName, String lastName,
+			String urlAvatar, String address, List<Role> role, Status status) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.mobile = mobile;
+		this.username = username;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.urlAvatar = urlAvatar;
+		this.address = address;
+		this.role = role;
+		this.status = status;
+	}
+
+	public AccountDTO() {
+		super();
+	}
 
 	public String getAddress() {
 		return address;

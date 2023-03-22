@@ -30,7 +30,7 @@ public class FileUploadController {
 	private IStorageService storageService;
 
 	@PostMapping()
-	public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
+	public ResponseEntity<?> uploadFile(@RequestParam("image") MultipartFile file) {
 		try {
 
 			// save file to a folder

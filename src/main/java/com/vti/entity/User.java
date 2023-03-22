@@ -55,7 +55,7 @@ public class User {
 
 	private String address;
 
-	@Column(name = "avatar_path")
+	@Column(name = "url_avatar")
 	private String urlAvatar;
 
 	@Size(max = 120)
