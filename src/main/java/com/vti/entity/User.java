@@ -36,7 +36,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Size(max = 20)
+	@Size(max = 200)
 	@Column(name = "username", length = 50)
 	private String username;
 

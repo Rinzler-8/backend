@@ -43,7 +43,7 @@ DROP TABLE IF EXISTS 	`Registration_User_Token`;
 CREATE TABLE IF NOT EXISTS `Registration_User_Token` (
     id INT AUTO_INCREMENT PRIMARY KEY,
     `token` CHAR(36) NOT NULL UNIQUE,
-    user_id SMALLINT NOT NULL,
+    user_id BIGINT NOT NULL,
     expiry_date DATETIME NOT NULL
 );                  
    
@@ -55,7 +55,7 @@ DROP TABLE IF EXISTS 	`Reset_Password_Token`;
 CREATE TABLE IF NOT EXISTS `Reset_Password_Token` (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `token` CHAR(36) NOT NULL UNIQUE,
-    user_id SMALLINT NOT NULL,
+    user_id BIGINT NOT NULL,
     expiry_date DATETIME NOT NULL
 );
 
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `user_role` (
 --
 DROP TABLE IF EXISTS Categories;
 CREATE TABLE IF NOT EXISTS Categories (
-    category_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    category_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     category_name VARCHAR(30) NOT NULL UNIQUE KEY,
     description VARCHAR(800) NOT NULL,
     created_At DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -97,14 +97,14 @@ CREATE TABLE IF NOT EXISTS Categories (
 --
 DROP TABLE IF EXISTS Product;
 CREATE TABLE IF NOT EXISTS Product (
-    product_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    product_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL UNIQUE KEY,
     price VARCHAR(50) NOT NULL,
     product_info VARCHAR(200) NOT NULL,
     product_detail VARCHAR(500),
     rating_star TINYINT UNSIGNED,
     product_image_name VARCHAR(500) NOT NULL,
-    category_id SMALLINT UNSIGNED NOT NULL,
+    category_id BIGINT UNSIGNED NOT NULL,
     FOREIGN KEY (category_id)
         REFERENCES Categories (category_id)
 );
@@ -128,8 +128,8 @@ CREATE TABLE IF NOT EXISTS `Discount` (
 DROP TABLE IF EXISTS `Cart`;
 CREATE TABLE IF NOT EXISTS `Cart` (
     cart_id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    user_id INT DEFAULT NULL,
-    product_id SMALLINT UNSIGNED DEFAULT NULL,
+    user_id BIGINT NOT NULL,
+    product_id BIGINT UNSIGNED NOT NULL,
     quantity INT DEFAULT NULL,
     total_price DOUBLE DEFAULT NULL,
     created_At DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -163,13 +163,13 @@ CREATE TABLE IF NOT EXISTS `Order` (
 --
 
 CREATE TABLE IF NOT EXISTS `Order_Items` (
-  item_id bigint NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  order_id bigint NOT NULL,
+  item_id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  order_id BIGINT NOT NULL,
   session_id BIGINT NOT NULL,
-  product_id SMALLINT UNSIGNED NOT NULL,
-  quantity int not null,
-  created_At DATETIME DEFAULT current_timestamp,
-  modified_At  DATETIME DEFAULT current_timestamp,
+  product_id BIGINT UNSIGNED NOT NULL,
+  quantity int NOT NULL,
+  created_At DATETIME DEFAULT CURRENT_TIMESTAMP,
+  modified_At  DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (order_id) REFERENCES `Order` (order_id) ON DELETE CASCADE,
   FOREIGN KEY (product_id) REFERENCES `Product` (product_id) ON DELETE CASCADE);
 
@@ -179,13 +179,13 @@ CREATE TABLE IF NOT EXISTS `Order_Items` (
 --
   
 CREATE TABLE IF NOT EXISTS `Payment_Details` (
-  payment_id bigint NOT NULL PRIMARY KEY,
-  user_id bigint NOT NULL,
-  amount int not null,
+  payment_id BIGINT NOT NULL PRIMARY KEY,
+  user_id BIGINT NOT NULL,
+  amount int NOT NULL,
   paymentStatus ENUM('Chờ Thanh Toán', 'Đã Thanh Toán')NOT NULL,
-  paymentType ENUM("COD", "BANKING" , "MOMO", "VNPAY") not null,
-  created_At DATETIME DEFAULT current_timestamp,
-  modified_At  DATETIME DEFAULT current_timestamp,
+  paymentType ENUM("COD", "BANKING" , "MOMO", "VNPAY") NOT NULL,
+  created_At DATETIME DEFAULT CURRENT_TIMESTAMP,
+  modified_At  DATETIME DEFAULT CURRENT_TIMESTAMP,
   Note VARCHAR (535),
   FOREIGN KEY (user_id) REFERENCES `User` (id) ON DELETE CASCADE );
 
@@ -196,8 +196,8 @@ CREATE TABLE IF NOT EXISTS `Payment_Details` (
 --
 
 -- CREATE TABLE IF NOT EXISTS `Order_Payment` (
---   orderID bigint NOT NULL,
---   paymentID bigint NOT NULL,
+--   orderID BIGINT NOT NULL,
+--   paymentID BIGINT NOT NULL,
 --   FOREIGN KEY (orderID) REFERENCES `Order_Details` (orderID) ON DELETE CASCADE,
 --   FOREIGN KEY (paymentID) REFERENCES `Payment_Details` (paymentID) ON DELETE CASCADE);
 
@@ -211,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `Payment_Details` (
 -- Dumping data for table `User`
 --
 INSERT INTO `user` (`username`,`email`, `first_name`, `last_name`,`mobile`, `address`,`password`, `url_avatar`, `status`) VALUES 
-('admin1', 'madboss1803@gmail.com', 'Phuc', 'Nguyen','0984328735', 'Hanoi', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', 'gentleCleanser.png', '1'),
+('Chu đáo - Tin cậy, 77 Hàng Đào', 'madboss1803@gmail.com', 'Phuc', 'Nguyen','0984328735', 'Hanoi', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', 'chudao.png', '1'),
 ('admin2', 'admin2@gmail.com', 'Viktor', 'Nguyen','0684621963', 'HCM','$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', 'gentleCleanser.png', '1'),
 ('user1', 'crazyboss1801@gmail.com', 'Quyen', 'Luu','084984161', 'Da Nang','$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', 'gentleCleanser.png', '0'),
 ('user2', 'user2@gmail.com', 'Thao', 'Ngo','084984161', 'Phu Quoc','$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', 'polish.png', '0'),
@@ -253,9 +253,9 @@ VALUES
 INSERT INTO Product (name,    price,    product_info,    product_detail,    rating_star,    product_image_name,    category_id)			
 VALUES 				('GENTLE CLEANSER', '1600000',	'Sữa rửa mặt dịu nhẹ cho mọi loại da',	
 'ProductDetail1',    5,	   'gentleCleanser.png',    '1'),			
-				    ('EXFOLIATING CLEANSER', '9000000',	'Sữa rửa mặt dịu nhẹ cho da thường đến da khô',	
+				    ('EXFOLIATING CLEANSER', '9000000',	'Sữa rửa mặt dịu nhẹ cho da thường đến da dầu',	
                     'ProductDetail2',    4,	   'exfoliatingCleanser.png',    '1'),
-                    ('HYDRATING CLEANSER', '10100000',	'Màn hình Super AMOLED tần số quét 90Hz, độ sáng cao 800 nit.',	
+                    ('HYDRATING CLEANSER', '10100000',	'Sữa rửa mặt dịu nhẹ cho da thường đến da khô',	
                     'ProductDetail3',    3,	   'hydratingCleanser.png',    '1'),
 					('EYE BRIGHTENING CRÈME','11690000', 'Hiệu năng mượt mà, ổn định - Chip A13, RAM 4GB',	
                     'ProductDetail4',    4,	   'eyeBrightening.png',    '1'),
