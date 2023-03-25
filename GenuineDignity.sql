@@ -146,18 +146,20 @@ CREATE TABLE IF NOT EXISTS `Order` (
     session_id BIGINT NOT NULL,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
-    mobile VARCHAR(10) NOT NULL, 
-    -- status ENUM('Đã Xác Nhận', 'Đang Chuẩn Bị Hàng', 'Đang Giao Hàng', 'Đã Giao Hàng'),
-    status ENUM('CONFIRMED', 'PREPARING', 'DELIVERING', 'DELIVERED') NOT NULL,
+    mobile VARCHAR(10) NOT NULL,
+    -- status ENUM('UNCONFIRMED', 'CONFIRMED', 'PREPARING', 'DELIVERING', 'DELIVERED') NOT NULL,
+    status TINYINT DEFAULT 0,
     delivery_address VARCHAR(400),
-    payment_type TINYINT DEFAULT 0, -- 0: COD, 1: Banking
+    payment_type TINYINT DEFAULT 0,
     created_At DATETIME DEFAULT CURRENT_TIMESTAMP,
     modified_At DATETIME DEFAULT CURRENT_TIMESTAMP,
     Note VARCHAR(800),
-    FOREIGN KEY (user_id) REFERENCES User (id) ON DELETE CASCADE
+    FOREIGN KEY (user_id)
+        REFERENCES User (id)
+        ON DELETE CASCADE
 );
 
--- F:\Documents\ISD\Project\backend\shop.sql 
+
 -- ----------------------------------------------
 -- Table structure for table `Order_Items`
 --
@@ -211,7 +213,7 @@ CREATE TABLE IF NOT EXISTS `Payment_Details` (
 -- Dumping data for table `User`
 --
 INSERT INTO `user` (`username`,`email`, `first_name`, `last_name`,`mobile`, `address`,`password`, `url_avatar`, `status`) VALUES 
-('Chu đáo - Tin cậy, 77 Hàng Đào', 'madboss1803@gmail.com', 'Phuc', 'Nguyen','0984328735', 'Hanoi', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', 'chudao.png', '1'),
+('admin1', 'madboss1803@gmail.com', 'Phuc', 'Nguyen','0984328735', 'Hanoi', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', '141.png', '1'),
 ('admin2', 'admin2@gmail.com', 'Viktor', 'Nguyen','0684621963', 'HCM','$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', 'gentleCleanser.png', '1'),
 ('user1', 'crazyboss1801@gmail.com', 'Quyen', 'Luu','084984161', 'Da Nang','$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', 'gentleCleanser.png', '0'),
 ('user2', 'user2@gmail.com', 'Thao', 'Ngo','084984161', 'Phu Quoc','$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', 'polish.png', '0'),

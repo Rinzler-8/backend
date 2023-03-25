@@ -1,5 +1,9 @@
 package com.vti.form;
 
+import org.springframework.lang.Nullable;
+
+//@Configuration
+//@PropertySource("classpath:myproject.properties")
 public class AccountFormForUpdating {
 	private String username;
 	private String firstName;
@@ -13,6 +17,7 @@ public class AccountFormForUpdating {
 		super();
 	}
 
+	@Nullable
 	public String getFirstName() {
 		return firstName;
 	}

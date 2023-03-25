@@ -42,6 +42,10 @@ public class Order implements Serializable {
 	@CreationTimestamp
 	private Date created_at;
 
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name = "status", nullable = false)
+	private OrderStatus status = OrderStatus.PENDING;
+
 	public Date getCreated_at() {
 		return created_at;
 	}
@@ -120,6 +124,14 @@ public class Order implements Serializable {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public OrderStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(OrderStatus status) {
+		this.status = status;
 	}
 
 }

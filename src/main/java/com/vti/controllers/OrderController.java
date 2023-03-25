@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vti.dto.OrderDto;
 import com.vti.entity.Order;
+import com.vti.entity.OrderStatus;
 import com.vti.form.OrderFormForCreating;
-import com.vti.form.OrderFormForUpdating;
 import com.vti.security.service.IOrderService;
 
 @RestController
@@ -71,6 +71,7 @@ public class OrderController {
 			orderDto.setMobile(orderDB.getMobile());
 			orderDto.setDelivery_address(orderDB.getDelivery_address());
 			orderDto.setPaymentType(orderDB.getPaymentType());
+			orderDto.setOrderStatus(orderDB.getStatus());
 
 			return new ResponseEntity<>(orderDto, HttpStatus.OK);
 		} catch (Exception e) {
@@ -105,20 +106,28 @@ public class OrderController {
 
 	}
 
-// Update sản phẩm
+//	@PutMapping(value = "/{id}")
+//	public ResponseEntity<?> updateOrder(@PathVariable(name = "id") int id,
+//			@RequestBody OrderFormForUpdating orderUpdateForm) {
+//		try {
+//			orderService.updateOrder(id, orderUpdateForm);
+//			return new ResponseEntity<>("Update order ok", HttpStatus.OK);
+//		} catch (Exception e) {
+//			return new ResponseEntity<>("Can not update order", HttpStatus.NOT_FOUND);
+//		}
+//	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<?> updateOrder(@PathVariable(name = "id") int id,
-			@RequestBody OrderFormForUpdating orderUpdateForm) {
+	public ResponseEntity<?> updateOrderStatus(@PathVariable(name = "id") int id,
+			@RequestParam OrderStatus orderStatus) {
 		try {
-			orderService.updateOrder(id, orderUpdateForm);
-			return new ResponseEntity<>("Update order ok", HttpStatus.OK);
+			orderService.updateOrderStatus(id, orderStatus);
+			return new ResponseEntity<>("Update status successfully", HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>("Can not update order", HttpStatus.NOT_FOUND);
 		}
 	}
 
-//	Xóa sản phẩm theo id
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<?> deleteOrderById(@PathVariable(name = "id") int id) {
 		try {

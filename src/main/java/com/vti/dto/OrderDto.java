@@ -1,5 +1,6 @@
 package com.vti.dto;
 
+import com.vti.entity.OrderStatus;
 import com.vti.entity.PaymentType;
 
 public class OrderDto {
@@ -8,6 +9,7 @@ public class OrderDto {
 	private String delivery_address, first_name, last_name, mobile, note;
 	private int user_id, session_id;
 	private PaymentType paymentType;
+	private OrderStatus orderStatus;
 
 	public int getOrder_id() {
 		return order_id;
@@ -79,6 +81,14 @@ public class OrderDto {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public OrderStatus getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(OrderStatus orderStatus) {
+		this.orderStatus = orderStatus;
 	}
 
 }
