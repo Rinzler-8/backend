@@ -1,5 +1,7 @@
 package com.vti.dto;
 
+import java.util.Date;
+
 import com.vti.entity.OrderStatus;
 import com.vti.entity.PaymentType;
 
@@ -10,6 +12,15 @@ public class OrderDto {
 	private int user_id, session_id;
 	private PaymentType paymentType;
 	private OrderStatus orderStatus;
+	private Date created_At;
+
+	public Date getCreated_At() {
+		return created_At;
+	}
+
+	public void setCreated_At(Date created_At) {
+		this.created_At = created_At;
+	}
 
 	public int getOrder_id() {
 		return order_id;

@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 import com.vti.entity.Order;
 import com.vti.entity.OrderStatus;
 import com.vti.form.OrderFormForCreating;
+import com.vti.form.OrderFormForUpdating;
 import com.vti.repository.ICheckoutRepo;
 import com.vti.specification.OrderSpecification;
 
@@ -54,6 +55,20 @@ public class OrderService implements IOrderService {
 		Order orderNew = orderRepository.save(order);
 		return orderNew;
 
+	}
+
+	@Override
+	public Order updateOrder(int order_id, OrderFormForUpdating orderUpdateForm) {
+		Order order = orderRepository.getById(order_id);
+
+		order.setFirst_name(orderUpdateForm.getFirst_name());
+		order.setLast_name(orderUpdateForm.getLast_name());
+		order.setMobile(orderUpdateForm.getMobile());
+		order.setDelivery_address(orderUpdateForm.getDelivery_address());
+		order.setPaymentType(orderUpdateForm.getPaymentType());
+
+		Order orderUpdate = orderRepository.save(order);
+		return orderUpdate;
 	}
 
 	@Override
