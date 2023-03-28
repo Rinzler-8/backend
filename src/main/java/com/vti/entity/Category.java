@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Categories", catalog = "Genuine_Dignity")
+@Table(name = "Category", catalog = "Genuine_Dignity")
 public class Category implements Serializable {
 
 	/**
@@ -24,7 +24,7 @@ public class Category implements Serializable {
 	@Column(name = "category_id")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private short id;
+	private int id;
 
 	@Column(name = "category_name", length = 30, nullable = false, unique = true)
 	private String name;
@@ -37,11 +37,11 @@ public class Category implements Serializable {
 		super();
 	}
 
-	public short getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(short id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

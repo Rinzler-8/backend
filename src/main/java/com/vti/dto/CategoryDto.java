@@ -1,15 +1,15 @@
 package com.vti.dto;
 
 public class CategoryDto {
-	private short id;
+	private int id;
 
 	private String name;
 
-	public short getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(short id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -21,5 +21,4 @@ public class CategoryDto {
 		this.name = name;
 	}
 
-	
 }

@@ -8,10 +8,10 @@ import com.vti.entity.Category;
 public interface ICategoryService {
 	public List<Category> getAllCategories();
 
-	public Category getCategoryByID(short idInput);
+	public Category getCategoryByID(int idInput);
 
 //	void createCategory(CategoryFormForCreating CategoryFormCreate);
 
-	public Category getCategoryByName(String nameDep);
+	public Category getCategoryByName(String name);
 
 }

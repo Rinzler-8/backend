@@ -7,7 +7,7 @@ public class ProductFormForCreating {
 	private String detail;
 	private short ratingStar;
 	private String imageName;
-	private short categoryId;
+	private int categoryId;
 
 	public ProductFormForCreating() {
 		super();
@@ -61,11 +61,11 @@ public class ProductFormForCreating {
 		this.imageName = imageName;
 	}
 
-	public short getCategoryId() {
+	public int getCategoryId() {
 		return categoryId;
 	}
 
-	public void setCategoryId(short categoryId) {
+	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
 	}
 
