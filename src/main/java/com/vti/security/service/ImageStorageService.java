@@ -37,7 +37,7 @@ public class ImageStorageService implements IStorageService {
 
 		// FileNameUtils common-io
 		String fileExtension = FilenameUtils.getExtension(file.getOriginalFilename());
-		return Arrays.asList(new String[] { "png", "jpeg" }).contains(fileExtension.trim().toLowerCase());
+		return Arrays.asList(new String[] { "png", "jpeg", "jpg" }).contains(fileExtension.trim().toLowerCase());
 	}
 
 	@Override
