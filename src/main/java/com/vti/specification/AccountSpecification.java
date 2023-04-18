@@ -38,6 +38,7 @@ public class AccountSpecification implements Specification<User> {
 				return criteriaBuilder.like(root.get("position").get("name").as(String.class),
 						"%" + value.toString() + "%");
 			} else {
+//				System.out.println("df " + field);
 				return criteriaBuilder.like(root.get(field), "%" + value.toString() + "%");
 			}
 		}

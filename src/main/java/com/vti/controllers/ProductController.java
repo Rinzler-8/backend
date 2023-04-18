@@ -51,7 +51,6 @@ public class ProductController {
 				productDto.setCategoryName(product.getCategory().getName());
 				return productDto;
 			}
-
 		});
 
 		return new ResponseEntity<>(productPage_Dtos, HttpStatus.OK);

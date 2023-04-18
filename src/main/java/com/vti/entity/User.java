@@ -18,16 +18,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
 @Entity
-@Data
-@Getter
-@Setter
-@AllArgsConstructor
 @Table(name = "User", uniqueConstraints = { @UniqueConstraint(columnNames = "username"),
 		@UniqueConstraint(columnNames = "email") })
 public class User {
@@ -36,11 +27,9 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Size(max = 200)
 	@Column(name = "username", length = 50)
 	private String username;
 
-	@Size(max = 50)
 	@Email
 	private String email;
 

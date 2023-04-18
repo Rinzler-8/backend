@@ -80,9 +80,9 @@ public class UserService implements IUserService {
 		Specification<User> whereAccount = null;
 		if (!StringUtils.isEmpty(search)) {
 			AccountSpecification usernameSpecification = new AccountSpecification("username", "LIKE", search);
-			AccountSpecification roleSpecification = new AccountSpecification("role", "LIKE", search);
+//			AccountSpecification roleSpecification = new AccountSpecification("role", "LIKE", search);
 			AccountSpecification emailSpecification = new AccountSpecification("email", "LIKE", search);
-			whereAccount = Specification.where(usernameSpecification).or(roleSpecification).or(emailSpecification);
+			whereAccount = Specification.where(usernameSpecification).or(emailSpecification);
 		}
 
 		return userRepository.findAll(whereAccount, pageable); // findAll - phuong thuc co san cua JPA da duoc xay
