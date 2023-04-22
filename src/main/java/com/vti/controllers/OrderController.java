@@ -47,6 +47,7 @@ public class OrderController {
 				orderDto.setSession_id(order.getSession_id());
 				orderDto.setFirst_name(order.getFirst_name());
 				orderDto.setLast_name(order.getLast_name());
+				orderDto.setUser_id(order.getUser_id());
 				orderDto.setMobile(order.getMobile());
 				orderDto.setDelivery_address(order.getDelivery_address());
 				orderDto.setPaymentType(order.getPaymentType());
@@ -71,6 +72,7 @@ public class OrderController {
 			orderDto.setSession_id(orderDB.getSession_id());
 			orderDto.setFirst_name(orderDB.getFirst_name());
 			orderDto.setLast_name(orderDB.getLast_name());
+			orderDto.setUser_id(orderDB.getUser_id());
 			orderDto.setMobile(orderDB.getMobile());
 			orderDto.setDelivery_address(orderDB.getDelivery_address());
 			orderDto.setPaymentType(orderDB.getPaymentType());

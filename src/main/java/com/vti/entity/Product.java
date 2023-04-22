@@ -42,6 +42,9 @@ public class Product implements Serializable {
 	@JoinColumn(name = "category_id", nullable = false)
 	private Category category;
 
+	@Column(name = "stock_qty", nullable = false)
+	private int stockQty;
+
 	public Product() {
 		super();
 	}
@@ -108,6 +111,14 @@ public class Product implements Serializable {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public int getStockQty() {
+		return stockQty;
+	}
+
+	public void setStockQty(int stockQty) {
+		this.stockQty = stockQty;
 	}
 
 }

@@ -33,7 +33,7 @@ public interface IAddToCartRepo extends JpaRepository<Cart, Integer> {
 
 	@Modifying
 	@Transactional
-	@Query("DELETE  FROM Cart item WHERE item.cart_id =:cart_id   and item.user_id=:user_id")
+	@Query("DELETE FROM Cart item WHERE item.cart_id =:cart_id  and item.user_id=:user_id")
 	void deleteCartByIdAndUserId(@Param("cart_id") int cart_id, @Param("user_id") int user_id);
 
 	@Modifying

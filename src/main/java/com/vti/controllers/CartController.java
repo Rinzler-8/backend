@@ -73,6 +73,16 @@ public class CartController {
 		}
 	}
 
+	@DeleteMapping(value = "removeAllProductsCart/{userId}")
+	public ResponseEntity<?> removeCartwithUserId(@PathVariable(name = "userId") int userId) {
+		try {
+			List<Cart> obj = cartService.removeAllCartByUserId(userId);
+			return ResponseEntity.ok(obj);
+		} catch (Exception e) {
+			return new ResponseEntity<>("Not found", HttpStatus.NOT_FOUND);
+		}
+	}
+
 	@GetMapping(value = "/getCartsByUserId/{id}")
 	public ResponseEntity<?> getCartsByUserId(@PathVariable(name = "id") int id) {
 		try {

@@ -17,6 +17,8 @@ public class ProductDto {
 
 	private String categoryName;
 
+	private int stockQty;
+
 	public int getProduct_id() {
 		return product_id;
 	}
@@ -83,6 +85,14 @@ public class ProductDto {
 
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+
+	public int getStockQty() {
+		return stockQty;
+	}
+
+	public void setStockQty(int stockQty) {
+		this.stockQty = stockQty;
 	}
 
 }

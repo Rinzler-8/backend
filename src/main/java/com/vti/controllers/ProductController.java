@@ -49,6 +49,7 @@ public class ProductController {
 				productDto.setRatingStar(product.getRatingStar());
 				productDto.setImageName(product.getImageName());
 				productDto.setCategoryName(product.getCategory().getName());
+				productDto.setStockQty(product.getStockQty());
 				return productDto;
 			}
 		});
@@ -71,6 +72,7 @@ public class ProductController {
 			productDto.setRatingStar(productDB.getRatingStar());
 			productDto.setImageName(productDB.getImageName());
 			productDto.setCategoryName(productDB.getCategory().getName());
+			productDto.setStockQty(productDB.getStockQty());
 
 			return new ResponseEntity<>(productDto, HttpStatus.OK);
 		} catch (Exception e) {
@@ -98,6 +100,7 @@ public class ProductController {
 			productNewDto.setRatingStar(productNew.getRatingStar());
 			productNewDto.setImageName(productNew.getImageName());
 			productNewDto.setCategoryName(productNew.getCategory().getName());
+			productNewDto.setStockQty(productNew.getStockQty());
 
 			return new ResponseEntity<>(productNewDto, HttpStatus.CREATED);
 		} catch (Exception e) {

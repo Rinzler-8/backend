@@ -32,17 +32,18 @@ public class CartSerivceImpl implements ICartService {
 	public List<Cart> addCartbyUserIdAndProductId(int productId, int userId, int quantity, double price)
 			throws Exception {
 		try {
-			if (addCartRepo.getCartByProductIdAnduserId(userId, productId).isPresent()) {
-				throw new Exception("Product is already exist.");
-			}
 			Cart obj = new Cart();
 			Product pro = proServices.getProductById(productId);
 			obj.setProduct(pro);
 			obj.setUser_id(userId);
 			obj.setQuantity(quantity);
-			// TODO price has to check with quantity
 			obj.setPrice(price);
 			addCartRepo.save(obj);
+//			if (addCartRepo.getCartByProductIdAnduserId(userId, productId).isPresent()) {
+//				obj.setQuantity(quantity + 1);
+//				addCartRepo.save(obj);
+////				throw new Exception("Product is already exist.");
+//			}
 			return this.getCartByUserId(userId);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,6 +61,12 @@ public class CartSerivceImpl implements ICartService {
 	@Override
 	public List<Cart> removeCartByUserId(int cartId, int userId) {
 		addCartRepo.deleteCartByIdAndUserId(cartId, userId);
+		return this.getCartByUserId(userId);
+	}
+
+	@Override
+	public List<Cart> removeAllCartByUserId(int userId) {
+		addCartRepo.deleteAllCartByUserId(userId);
 		return this.getCartByUserId(userId);
 	}
 
@@ -121,12 +128,6 @@ public class CartSerivceImpl implements ICartService {
 			throw new Exception("Error while checkout " + e.getMessage());
 		}
 
-	}
-
-	@Override
-	public List<Cart> removeAllCartByUserId(int userId) {
-		addCartRepo.deleteAllCartByUserId(userId);
-		return null;
 	}
 
 }
