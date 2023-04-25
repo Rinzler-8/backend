@@ -165,10 +165,7 @@ CREATE TABLE IF NOT EXISTS `Order` (
     payment_type TINYINT DEFAULT 0,
     created_At DATETIME DEFAULT CURRENT_TIMESTAMP,
     modified_At DATETIME DEFAULT CURRENT_TIMESTAMP,
-    Note VARCHAR(800),
-    FOREIGN KEY (user_id)
-        REFERENCES User (id)
-        ON DELETE CASCADE
+    Note VARCHAR(800)
 );
 
 

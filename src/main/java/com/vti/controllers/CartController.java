@@ -27,11 +27,11 @@ public class CartController {
 	@Autowired
 	private ICartService cartService;
 
-	@PostMapping("addToCart/{id}")
-	public ResponseEntity<?> addCartwithProduct(@PathVariable(name = "id") int id, @RequestBody CartDTO cartDto) {
+	@PostMapping("addToCart")
+	public ResponseEntity<?> addCartwithProduct(@RequestBody CartDTO cartDto) {
 		try {
 			int productId = cartDto.getProduct_id();
-			int userId = id;
+			int userId = cartDto.getUser_id();
 			int quantity = cartDto.getQuantity();
 			double price = cartDto.getPrice();
 			List<Cart> obj = cartService.addCartbyUserIdAndProductId(productId, userId, quantity, price);
@@ -40,7 +40,6 @@ public class CartController {
 			e.printStackTrace();
 			return new ResponseEntity<>("Can not add to cart", HttpStatus.NOT_FOUND);
 		}
-
 	}
 
 	@PutMapping("updateQtyForCart/{id}")

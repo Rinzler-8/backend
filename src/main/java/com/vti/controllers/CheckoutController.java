@@ -28,15 +28,15 @@ public class CheckoutController {
 	@Autowired
 	private ICartService cartService;
 
-	@PostMapping("/checkout/{id}")
-	public ResponseEntity<?> createOrder(@PathVariable(name = "id") int id, @RequestBody CheckoutDTO checkoutDto) {
+	@PostMapping("/checkout")
+	public ResponseEntity<?> createOrder(@RequestBody CheckoutDTO checkoutDto) {
 		try {
-			List<Cart> cartItems = cartService.getCartByUserId(id);
+			List<Cart> cartItems = cartService.getCartByUserId(checkoutDto.getUser_id());
 			Order cart = new Order();
 			cart.setFirst_name(checkoutDto.getFirst_name());
 			cart.setLast_name(checkoutDto.getLast_name());
 			cart.setMobile(checkoutDto.getMobile());
-			cart.setUser_id(id);
+			cart.setUser_id(checkoutDto.getUser_id());
 			cart.setDelivery_address(checkoutDto.getDelivery_address());
 			cart.setPaymentType(checkoutDto.getPaymentType());
 			cart.setSession_id(getOrderId());
