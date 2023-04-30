@@ -61,11 +61,7 @@ public class OrderService implements IOrderService {
 	public Order updateOrder(int order_id, OrderFormForUpdating orderUpdateForm) {
 		Order order = orderRepository.getById(order_id);
 
-		order.setFirst_name(orderUpdateForm.getFirst_name());
-		order.setLast_name(orderUpdateForm.getLast_name());
-		order.setMobile(orderUpdateForm.getMobile());
-		order.setDelivery_address(orderUpdateForm.getDelivery_address());
-		order.setPaymentType(orderUpdateForm.getPaymentType());
+		order.setStatus(orderUpdateForm.getStatus());
 
 		Order orderUpdate = orderRepository.save(order);
 		return orderUpdate;
