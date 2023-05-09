@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.vti.entity.Status;
 import com.vti.entity.User;
 import com.vti.form.AccountFormForCreating;
 import com.vti.form.AccountFormForUpdating;
@@ -43,6 +44,8 @@ public interface IUserService extends UserDetailsService {
 	void registerUser(User user);
 
 	public void updateAccount(int id, AccountFormForUpdating form);
+
+	public User updateUserStatus(int user_id, Status status);
 
 	public User createAccount(AccountFormForCreating accountNewForm);
 

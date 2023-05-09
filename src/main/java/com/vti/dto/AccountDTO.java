@@ -24,11 +24,12 @@ public class AccountDTO {
 	private String lastName;
 	private String urlAvatar;
 	private String address;
+	private String password;
 	private List<Role> role;
 	private Status status;
 
 	public AccountDTO(int id, String email, String mobile, String username, String firstName, String lastName,
-			String urlAvatar, String address, List<Role> role, Status status) {
+			String urlAvatar, String address, List<Role> role, Status status, String password) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -40,6 +41,7 @@ public class AccountDTO {
 		this.address = address;
 		this.role = role;
 		this.status = status;
+		this.password = password;
 	}
 
 	public AccountDTO() {

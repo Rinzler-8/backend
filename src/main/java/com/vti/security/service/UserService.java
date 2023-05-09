@@ -211,6 +211,7 @@ public class UserService implements IUserService {
 	public User createAccount(AccountFormForCreating accountNewForm) {
 		User account = new User();
 		account.setUsername(accountNewForm.getUsername());
+		account.setPassword(bCryptPasswordEncoder.encode(accountNewForm.getPassword()));
 		account.setFirstName(accountNewForm.getFirstName());
 		account.setLastName(accountNewForm.getLastName());
 		account.setMobile(accountNewForm.getMobile());
@@ -231,6 +232,16 @@ public class UserService implements IUserService {
 		account.setUrlAvatar(form.getUrlAvatar());
 //		account.setEmail(form.getEmail());
 		userRepository.save(account);
+	}
+
+	@Override
+	public User updateUserStatus(int user_id, Status status) {
+		User user = userRepository.getById(user_id);
+
+		user.setStatus(status);
+
+		User statusUpdate = userRepository.save(user);
+		return statusUpdate;
 	}
 
 	@Override

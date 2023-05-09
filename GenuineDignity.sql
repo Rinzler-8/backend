@@ -221,10 +221,10 @@ CREATE TABLE IF NOT EXISTS `Payment_Details` (
 -- Dumping data for table `User`
 --
 INSERT INTO `user` (`username`,`email`, `first_name`, `last_name`,`mobile`, `address`,`password`, `url_avatar`, `status`) VALUES 
-('admin1', 'madboss1803@gmail.com', 'Phuc', 'Nguyen','0984328735', 'Hanoi', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', '141.png', '1'),
-('admin2', 'admin2@gmail.com', 'Viktor', 'Nguyen','0684621963', 'HCM','$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', 'gentleCleanser.png', '1'),
-('user1', 'crazyboss1801@gmail.com', 'Quyen', 'Luu','084984161', 'Da Nang','$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', '', '1'),
-('user2', 'madboss1801@gmail.com', 'Thao', 'Ngo','084984161', 'Phu Quoc','$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', '141.png', '1'),
+('admin1', 'madboss1803@gmail.com', 'Phuc', 'Nguyen','0969935388', 'Hanoi', '$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', '141.png', '1'),
+('admin2', 'admin2@gmail.com', 'Viktor', 'Nguyen','0969935388', 'HCM','$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', 'gentleCleanser.png', '1'),
+('user1', 'crazyboss1801@gmail.com', 'Quyen', 'Luu','0849841615', 'Da Nang','$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', '141.png', '1'),
+('user2', 'madboss1801@gmail.com', 'Thao', 'Ngo','0913345869', 'Phu Quoc','$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', '141.png', '1'),
 ('user3', 'user3@gmail.com', 'TH', 'Truemilk','084984161', 'Bac Giang','$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', 'polish.png', '0'),
 ('user4', 'user4@gmail.com', 'TH', 'Truemilk','084984161', 'Bac Giang','$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', 'polish.png', '0'),
 ('user5', 'user5@gmail.com', 'TH', 'Truemilk','084984161', 'Bac Giang','$2a$12$9Ed36smLhYCCl1V5.7EWguLdY9asTwrvUUoyix5Du/T1CcyswdAwa', 'polish.png', '0'),

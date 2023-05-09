@@ -4,6 +4,7 @@ package com.vti.form;
 public class AccountFormForCreating {
 	private int id;
 	private String email;
+	private String password;
 	private String username;
 	private String firstName;
 	private String lastName;
@@ -77,6 +78,14 @@ public class AccountFormForCreating {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

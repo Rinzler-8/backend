@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,10 @@ import com.vti.security.service.IUserService;
 @RequestMapping(value = "api/v1/accounts")
 @CrossOrigin("*")
 public class UserController {
+
+	@Autowired
+	PasswordEncoder encoder;
+
 	@Autowired
 	private IUserService userService;
 
@@ -70,6 +75,7 @@ public class UserController {
 				AccountDTO.setLastName(user.getLastName());
 				AccountDTO.setRole(user.getRole());
 				AccountDTO.setStatus(user.getStatus());
+				AccountDTO.setPassword(user.getPassword());
 				return AccountDTO;
 			}
 
@@ -96,6 +102,7 @@ public class UserController {
 			AccountDTO.setUrlAvatar(accountDB.getUrlAvatar());
 			AccountDTO.setRole(accountDB.getRole());
 			AccountDTO.setStatus(accountDB.getStatus());
+			AccountDTO.setPassword(accountDB.getPassword());
 			return new ResponseEntity<>(AccountDTO, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>("Not found", HttpStatus.NOT_FOUND);
@@ -104,7 +111,7 @@ public class UserController {
 	}
 
 //	Thêm mới sản phẩm
-	@PostMapping()
+	@PostMapping(value = "/create")
 	public ResponseEntity<?> createNewAccount(@RequestBody AccountFormForCreating accountNewForm) {
 		try {
 //			Thêm mới Account
@@ -115,6 +122,7 @@ public class UserController {
 			AccountDTO accountNewDto = new AccountDTO();
 			accountNewDto.setId(accountNew.getId());
 			accountNewDto.setEmail(accountNew.getEmail());
+			accountNewDto.setPassword(encoder.encode(accountNew.getPassword()));
 			accountNewDto.setUsername(accountNew.getUsername());
 			accountNewDto.setFirstName(accountNew.getFirstName());
 			accountNewDto.setLastName(accountNew.getLastName());
