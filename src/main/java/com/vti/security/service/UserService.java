@@ -231,12 +231,12 @@ public class UserService implements IUserService {
 					Role adminRole = roleRepository.findByName(ERole.ADMIN)
 							.orElseThrow(() -> new RuntimeException("Error: Admin Role is not found."));
 					roles.add(adminRole);
-
 					break;
-				default:
+				case "USER":
 					Role userRole = roleRepository.findByName(ERole.USER)
 							.orElseThrow(() -> new RuntimeException("Error: User Role is not found."));
 					roles.add(userRole);
+					break;
 				}
 			});
 		}
