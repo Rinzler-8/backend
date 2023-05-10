@@ -126,6 +126,7 @@ public class UserController {
 			accountNewDto.setUsername(accountNew.getUsername());
 			accountNewDto.setFirstName(accountNew.getFirstName());
 			accountNewDto.setLastName(accountNew.getLastName());
+			accountNewDto.setRole(accountNew.getRole());
 			accountNewDto.setMobile(accountNew.getMobile());
 			accountNewDto.setUrlAvatar(accountNew.getUrlAvatar());
 

@@ -1,6 +1,10 @@
 
 package com.vti.form;
 
+import java.util.List;
+
+import com.vti.entity.Status;
+
 public class AccountFormForCreating {
 	private int id;
 	private String email;
@@ -9,8 +13,10 @@ public class AccountFormForCreating {
 	private String firstName;
 	private String lastName;
 	private String urlAvatar;
+	private List<String> role;
 	private String mobile;
 	private String address;
+	private Status status;
 
 	public int getId() {
 		return id;
@@ -86,6 +92,22 @@ public class AccountFormForCreating {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public List<String> getRole() {
+		return role;
+	}
+
+	public void setRole(List<String> role) {
+		this.role = role;
 	}
 
 }

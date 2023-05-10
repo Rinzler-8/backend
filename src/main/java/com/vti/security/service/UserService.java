@@ -2,8 +2,10 @@ package com.vti.security.service;
 
 import java.io.File;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -21,8 +23,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StringUtils;
 
+import com.vti.entity.ERole;
 import com.vti.entity.RegistrationUserToken;
 import com.vti.entity.ResetPasswordToken;
+import com.vti.entity.Role;
 import com.vti.entity.Status;
 import com.vti.entity.User;
 import com.vti.event.OnResetPasswordViaEmailEvent;
@@ -33,6 +37,7 @@ import com.vti.form.AccountFormForCreating;
 import com.vti.form.AccountFormForUpdating;
 import com.vti.repository.RegistrationUserTokenRepository;
 import com.vti.repository.ResetPasswordTokenRepository;
+import com.vti.repository.RoleRepository;
 import com.vti.repository.UserRepository;
 import com.vti.specification.AccountSpecification;
 
@@ -50,6 +55,9 @@ public class UserService implements IUserService {
 
 	@Autowired
 	private ApplicationEventPublisher eventPublisher;
+
+	@Autowired
+	RoleRepository roleRepository;
 
 	BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(10, new SecureRandom());
 
@@ -210,10 +218,34 @@ public class UserService implements IUserService {
 	@Override
 	public User createAccount(AccountFormForCreating accountNewForm) {
 		User account = new User();
+		List<String> strRoles = accountNewForm.getRole();
+		List<Role> roles = new ArrayList<>();
+		if (strRoles == null) {
+			Role userRole = roleRepository.findByName(ERole.USER)
+					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+			roles.add(userRole);
+		} else {
+			strRoles.forEach(role -> {
+				switch (role) {
+				case "ADMIN":
+					Role adminRole = roleRepository.findByName(ERole.ADMIN)
+							.orElseThrow(() -> new RuntimeException("Error: Admin Role is not found."));
+					roles.add(adminRole);
+
+					break;
+				default:
+					Role userRole = roleRepository.findByName(ERole.USER)
+							.orElseThrow(() -> new RuntimeException("Error: User Role is not found."));
+					roles.add(userRole);
+				}
+			});
+		}
 		account.setUsername(accountNewForm.getUsername());
 		account.setPassword(bCryptPasswordEncoder.encode(accountNewForm.getPassword()));
 		account.setFirstName(accountNewForm.getFirstName());
 		account.setLastName(accountNewForm.getLastName());
+		account.setStatus(accountNewForm.getStatus());
+		account.setRole(roles);
 		account.setMobile(accountNewForm.getMobile());
 		account.setUrlAvatar(accountNewForm.getUrlAvatar());
 		account.setEmail(accountNewForm.getEmail());
@@ -224,13 +256,38 @@ public class UserService implements IUserService {
 	@Override
 	public void updateAccount(int id, AccountFormForUpdating form) {
 		User account = userRepository.getById(id);
+		List<String> strRoles = form.getRole();
+		List<Role> roles = new ArrayList<>();
+		if (strRoles == null) {
+			Role userRole = roleRepository.findByName(ERole.USER)
+					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+			roles.add(userRole);
+		} else {
+			strRoles.forEach(role -> {
+//				ERole roleName = ERole.valueOf(role.toUpperCase());
+				switch (role) {
+				case "ADMIN":
+					Role adminRole = roleRepository.findByName(ERole.ADMIN)
+							.orElseThrow(() -> new RuntimeException("Error: Admin Role is not found."));
+					roles.add(adminRole);
+
+					break;
+				default:
+					Role userRole = roleRepository.findByName(ERole.USER)
+							.orElseThrow(() -> new RuntimeException("Error: User Role is not found."));
+					roles.add(userRole);
+				}
+			});
+		}
 //		account.setUsername(form.getUsername());
 		account.setFirstName(form.getFirstName());
 		account.setLastName(form.getLastName());
+		account.setStatus(form.getStatus());
+		account.setRole(roles);
 		account.setAddress(form.getAddress());
 		account.setMobile(form.getMobile());
 		account.setUrlAvatar(form.getUrlAvatar());
-//		account.setEmail(form.getEmail());
+		account.setEmail(form.getEmail());
 		userRepository.save(account);
 	}
 

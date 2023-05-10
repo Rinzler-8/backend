@@ -1,6 +1,10 @@
 package com.vti.form;
 
+import java.util.List;
+
 import org.springframework.lang.Nullable;
+
+import com.vti.entity.Status;
 
 //@Configuration
 //@PropertySource("classpath:myproject.properties")
@@ -11,7 +15,9 @@ public class AccountFormForUpdating {
 	private String address;
 	private String mobile;
 	private String urlAvatar;
+	private List<String> role;
 	private String email;
+	private Status status;
 
 	public AccountFormForUpdating() {
 		super();
@@ -74,4 +80,19 @@ public class AccountFormForUpdating {
 		this.email = email;
 	}
 
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public List<String> getRole() {
+		return role;
+	}
+
+	public void setRole(List<String> role) {
+		this.role = role;
+	}
 }
