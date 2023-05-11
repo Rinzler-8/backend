@@ -72,6 +72,7 @@ public class UserController {
 				AccountDTO.setFirstName(user.getFirstName());
 				AccountDTO.setMobile(user.getMobile());
 				AccountDTO.setUrlAvatar(user.getUrlAvatar());
+				AccountDTO.setAddress(user.getAddress());
 				AccountDTO.setLastName(user.getLastName());
 				AccountDTO.setRole(user.getRole());
 				AccountDTO.setStatus(user.getStatus());

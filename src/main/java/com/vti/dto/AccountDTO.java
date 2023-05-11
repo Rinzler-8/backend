@@ -5,14 +5,6 @@ import java.util.List;
 import com.vti.entity.Role;
 import com.vti.entity.Status;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
-@Data
-@Getter
-@Setter
-
 //chuyển đổi giữa dữ liệu lấy được từ DB đẩy lên Frontend.
 public class AccountDTO {
 
@@ -126,6 +118,14 @@ public class AccountDTO {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

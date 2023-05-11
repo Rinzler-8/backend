@@ -279,7 +279,7 @@ public class UserService implements IUserService {
 				}
 			});
 		}
-//		account.setUsername(form.getUsername());
+		account.setUsername(form.getUsername());
 		account.setFirstName(form.getFirstName());
 		account.setLastName(form.getLastName());
 		account.setStatus(form.getStatus());
