@@ -7,18 +7,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vti.entity.Status;
+import com.vti.entity.ERole;
 
 @RestController
-@RequestMapping(value = "api/v1/userStatus")
+@RequestMapping(value = "api/v1/role")
 @CrossOrigin("*")
 public class RoleController {
 
-	private Status status;
-
 	@GetMapping()
-	public ResponseEntity<?> getAllStatus() {
-		Status[] values = Status.values();
+	public ResponseEntity<?> getAllRoles() {
+		ERole[] values = ERole.values();
 		return new ResponseEntity<>(values, HttpStatus.OK);
 	}
 
