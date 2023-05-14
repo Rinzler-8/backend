@@ -279,16 +279,31 @@ public class UserService implements IUserService {
 				}
 			});
 		}
-		account.setUsername(form.getUsername());
-		account.setFirstName(form.getFirstName());
-		account.setLastName(form.getLastName());
 		account.setStatus(form.getStatus());
 		account.setRole(roles);
+		account.setFirstName(form.getFirstName());
+		account.setLastName(form.getLastName());
 		account.setAddress(form.getAddress());
 		account.setMobile(form.getMobile());
 		account.setUrlAvatar(form.getUrlAvatar());
 		account.setEmail(form.getEmail());
+
 		userRepository.save(account);
+//			System.out.println(account.getRole().get(0).toString());
+//		System.out.println("role: " + role.toString());
+//		if (role.toString() == "ADMIN") {
+//			account.setStatus(form.getStatus());
+//			account.setRole(roles);
+//		} else {
+//			account.setStatus(form.getStatus());
+//			account.setRole(roles);
+//			account.setFirstName(form.getFirstName());
+//			account.setLastName(form.getLastName());
+//			account.setAddress(form.getAddress());
+//			account.setMobile(form.getMobile());
+//			account.setUrlAvatar(form.getUrlAvatar());
+//			account.setEmail(form.getEmail());
+//		}
 	}
 
 	@Override

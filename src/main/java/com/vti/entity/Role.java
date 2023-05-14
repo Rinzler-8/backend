@@ -43,4 +43,9 @@ public class Role {
 	public void setName(ERole name) {
 		this.name = name;
 	}
+
+	@Override
+	public String toString() {
+		return name.toString(); // Assuming "name" is the role name property
+	}
 }
