@@ -7,8 +7,8 @@ import com.vti.entity.PaymentType;
 //chuyển đổi giữa dữ liệu lấy được từ DB đẩy lên Frontend.
 public class CheckoutDTO {
 
-	private int order_id, user_id, product_id, quantity, session_id;
-	private String first_name, last_name, mobile, delivery_address;
+	private int id, user_id, product_id, quantity, session_id;
+	private String first_name, last_name, mobile, delivery_address, note;
 	private Date created_at;
 
 	public Date getCreated_at() {
@@ -37,12 +37,12 @@ public class CheckoutDTO {
 		this.paymentType = paymentType;
 	}
 
-	public int getOrder_id() {
-		return order_id;
+	public int getid() {
+		return id;
 	}
 
-	public void setOrder_id(int order_id) {
-		this.order_id = order_id;
+	public void setid(int id) {
+		this.id = id;
 	}
 
 	public int getQuantity() {
@@ -99,6 +99,14 @@ public class CheckoutDTO {
 
 	public void setDelivery_address(String delivery_address) {
 		this.delivery_address = delivery_address;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 
 }

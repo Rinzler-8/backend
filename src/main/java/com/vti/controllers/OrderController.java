@@ -43,13 +43,14 @@ public class OrderController {
 			@Override
 			public OrderDto apply(Order order) {
 				OrderDto orderDto = new OrderDto();
-				orderDto.setOrder_id(order.getId());
+				orderDto.setid(order.getid());
 				orderDto.setSession_id(order.getSession_id());
 				orderDto.setFirst_name(order.getFirst_name());
 				orderDto.setLast_name(order.getLast_name());
 				orderDto.setUser_id(order.getUser_id());
 				orderDto.setMobile(order.getMobile());
 				orderDto.setDelivery_address(order.getDelivery_address());
+				orderDto.setNote(order.getNote());
 				orderDto.setPaymentType(order.getPaymentType());
 				orderDto.setOrderStatus(order.getStatus());
 				orderDto.setCreated_At(order.getCreated_at());
@@ -68,7 +69,7 @@ public class OrderController {
 			Order orderDB = orderService.getOrderById(id);
 
 			OrderDto orderDto = new OrderDto();
-			orderDto.setOrder_id(orderDB.getId());
+			orderDto.setid(orderDB.getid());
 			orderDto.setSession_id(orderDB.getSession_id());
 			orderDto.setFirst_name(orderDB.getFirst_name());
 			orderDto.setLast_name(orderDB.getLast_name());
@@ -97,7 +98,7 @@ public class OrderController {
 
 //			Convert
 			OrderDto orderNewDto = new OrderDto();
-			orderNewDto.setOrder_id(orderNew.getId());
+			orderNewDto.setid(orderNew.getid());
 			orderNewDto.setSession_id(orderNew.getSession_id());
 			orderNewDto.setFirst_name(orderNew.getFirst_name());
 			orderNewDto.setLast_name(orderNew.getLast_name());
@@ -124,9 +125,9 @@ public class OrderController {
 	}
 
 	@PutMapping()
-	public ResponseEntity<?> updateOrderStatus(@RequestParam int order_id, @RequestParam OrderStatus orderStatus) {
+	public ResponseEntity<?> updateOrderStatus(@RequestParam int id, @RequestParam OrderStatus orderStatus) {
 		try {
-			orderService.updateOrderStatus(order_id, orderStatus);
+			orderService.updateOrderStatus(id, orderStatus);
 			return new ResponseEntity<>("Update status successfully", HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>("Can not update order", HttpStatus.NOT_FOUND);

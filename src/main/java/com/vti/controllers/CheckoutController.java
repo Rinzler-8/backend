@@ -38,13 +38,14 @@ public class CheckoutController {
 			cart.setMobile(checkoutDto.getMobile());
 			cart.setUser_id(checkoutDto.getUser_id());
 			cart.setDelivery_address(checkoutDto.getDelivery_address());
+			cart.setNote(checkoutDto.getNote());
 			cart.setPaymentType(checkoutDto.getPaymentType());
 			cart.setSession_id(getOrderId());
 			cartService.saveProductsForCheckout(cart);
 			List<OrderItems> orderItemList = new ArrayList<OrderItems>();
 			for (int i = 0; i < cartItems.size(); i++) {
 				OrderItems item = new OrderItems();
-				item.setOrder_id(cart.getId());
+				item.setid(cart.getid());
 				item.setSession_id(cart.getSession_id());
 				item.setProduct(cartItems.get(i).getProduct());
 				item.setQuantity(cartItems.get(i).getQuantity());
@@ -58,17 +59,17 @@ public class CheckoutController {
 		}
 	}
 
-//	@PostMapping("/checkout/{user_id}/{order_id}")
+//	@PostMapping("/checkout/{user_id}/{id}")
 //	public ResponseEntity<?> checkout(@PathVariable(name = "user_id") int user_id,
-//			@PathVariable(name = "order_id") int order_id, @RequestBody CheckoutDTO checkoutDto) {
+//			@PathVariable(name = "id") int id, @RequestBody CheckoutDTO checkoutDto) {
 //		try {
 //			this.createOrder(user_id, checkoutDto);
 //			List<Cart> cartItems = cartService.getCartByUserId(user_id);
-//			Checkout orderItems = cartService.getOrderInfo(order_id);
+//			Checkout orderItems = cartService.getOrderInfo(id);
 //			List<OrderItems> tmp2 = new ArrayList<OrderItems>();
 //			for (int i = 0; i < cartItems.size(); i++) {
 //				OrderItems item = new OrderItems();
-//				item.setOrder_id(orderItems.getOrder_id());
+//				item.setid(orderItems.getid());
 //				item.setSession_id(orderItems.getSession_id());
 //				item.setProduct(cartItems.get(i).getProduct());
 //				item.setQuantity(cartItems.get(i).getQuantity());
@@ -87,10 +88,10 @@ public class CheckoutController {
 		return 10000 + r.nextInt(20000);
 	}
 
-	@GetMapping(value = "/getOrderInfo/{order_id}")
-	public ResponseEntity<?> getOrderDetailsByUserId(@PathVariable(name = "order_id") int order_id) {
+	@GetMapping(value = "/getOrderInfo/{id}")
+	public ResponseEntity<?> getOrderDetailsByUserId(@PathVariable(name = "id") int id) {
 		try {
-			Order obj = cartService.getOrderInfo(order_id);
+			Order obj = cartService.getOrderInfo(id);
 			return ResponseEntity.ok(obj);
 		} catch (Exception e) {
 			return new ResponseEntity<>("Can not get checkout by user id", HttpStatus.NOT_FOUND);

@@ -23,8 +23,8 @@ public class OrderItems {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int item_id;
 
-	@JoinTable(name = "`Order`", joinColumns = @JoinColumn(name = "order_id"))
-	private int order_id;
+	@JoinTable(name = "`Order`", joinColumns = @JoinColumn(name = "id"))
+	private int id;
 
 	@JoinTable(name = "`Order`", joinColumns = @JoinColumn(name = "session_id"))
 	private int session_id;
@@ -52,12 +52,12 @@ public class OrderItems {
 		this.quantity = quantity;
 	}
 
-	public int getOrder_id() {
-		return order_id;
+	public int getid() {
+		return id;
 	}
 
-	public void setOrder_id(int order_id) {
-		this.order_id = order_id;
+	public void setid(int id) {
+		this.id = id;
 	}
 
 	public String getProductName() {

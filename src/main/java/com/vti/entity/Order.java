@@ -23,7 +23,7 @@ public class Order implements Serializable {
 	 * 
 	 */
 	private static final int serialVersionUID = (int) 1L;
-	@Column(name = "order_id")
+	@Column(name = "id")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -62,11 +62,11 @@ public class Order implements Serializable {
 		this.session_id = session_id;
 	}
 
-	public int getId() {
+	public int getid() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setid(int id) {
 		this.id = id;
 	}
 

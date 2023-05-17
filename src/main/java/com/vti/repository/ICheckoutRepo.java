@@ -11,9 +11,9 @@ import com.vti.entity.Order;
 @Repository
 public interface ICheckoutRepo extends JpaRepository<Order, Integer>, JpaSpecificationExecutor<Order> {
 	@Query("Select checkCart FROM Order checkCart WHERE checkCart.id=:id")
-	Order getOrderInfo(@Param("id") int order_id);
+	Order getOrderInfo(@Param("id") int id);
 
-	public Order findById(int order_id);
+	public Order findById(int id);
 }
 
 //@Query("DELETE  FROM Cart item WHERE item.cart_id =:cart_id   and item.user_id=:user_id")

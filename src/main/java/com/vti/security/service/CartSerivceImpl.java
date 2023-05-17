@@ -104,9 +104,9 @@ public class CartSerivceImpl implements ICartService {
 	public Order saveProductsForCheckout(Order tmp) throws Exception {
 		try {
 			int user_id = tmp.getUser_id();
-			int order_id = tmp.getId();
+			int id = tmp.getid();
 			checkOutRepo.save(tmp);
-			return this.getOrderInfo(order_id);
+			return this.getOrderInfo(id);
 
 		} catch (Exception e) {
 			throw new Exception("Error while checkout " + e.getMessage());
@@ -117,10 +117,10 @@ public class CartSerivceImpl implements ICartService {
 	@Override
 	public List<OrderItems> saveOrderItems(List<OrderItems> tmp2) throws Exception {
 		try {
-			int order_id = tmp2.get(0).getOrder_id();
+			int id = tmp2.get(0).getid();
 			if (tmp2.size() > 0) {
 				orderItemsRepo.saveAll(tmp2);
-				return this.getOrderItemsByOrderId(order_id);
+				return this.getOrderItemsByOrderId(id);
 			} else {
 				throw new Exception("Should not be empty");
 			}

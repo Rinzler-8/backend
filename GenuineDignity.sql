@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `User` (
 -- --------------------------------------------------------
 --
 -- Table structure for table `Registration_User_Token`
---
+--	
 DROP TABLE IF EXISTS 	`Registration_User_Token`;
 CREATE TABLE IF NOT EXISTS `Registration_User_Token` (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS `Cart` (
 --
 DROP TABLE IF EXISTS `Order`;
 CREATE TABLE IF NOT EXISTS `Order` (
-    order_id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_id BIGINT NOT NULL,
     session_id BIGINT NOT NULL,
     first_name VARCHAR(50) NOT NULL,
@@ -174,13 +174,13 @@ CREATE TABLE IF NOT EXISTS `Order` (
 --
 CREATE TABLE IF NOT EXISTS `Order_Items` (
   item_id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  order_id BIGINT NOT NULL,
+  id BIGINT NOT NULL,
   session_id BIGINT NOT NULL,
   product_id BIGINT UNSIGNED NOT NULL,
   quantity int NOT NULL,
   created_At DATETIME DEFAULT CURRENT_TIMESTAMP,
   modified_At  DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (order_id) REFERENCES `Order` (order_id) ON DELETE CASCADE,
+  FOREIGN KEY (id) REFERENCES `Order` (id) ON DELETE CASCADE,
   FOREIGN KEY (product_id) REFERENCES `Product` (product_id) ON DELETE CASCADE);
 
 
@@ -318,3 +318,18 @@ INSERT INTO `Cart` (`cart_id`, `user_id`, `product_id`, `quantity`, `total_price
 VALUES
 	(1,1,1,1,0,NULL),
 	(2,2,2,1,0,NULL);
+    
+-- Add data Order
+INSERT INTO `Order` (`id`,`user_id`, `session_id`, `first_name`,`last_name`, `mobile`,`status`, `delivery_address`, `payment_type`, `created_At`, `Note`) VALUES 
+('1', '3', '65487', 'Phuc', 'Hoang','0969935388', '1', 'Hanoi', '1' , '2023-05-16 00:00:00', ''),
+('2', '3', '65485', 'Phuc','Hoang','0969935388', '0', 'HCM','0', '2023-05-16 00:00:00', ''),
+('3', '3', '65488', 'Phuc','Hoang','0849841615', '5', 'Da Nang','1' , '2023-05-16 00:00:00', ''),
+('4', '3', '65484', 'Phuc','Hoang','0913345869', '2', 'Phu Quoc','0','2023-05-16 00:00:00', ''),
+('5', '3', '65483', 'Phuc','Hoang','084984161', '3', 'Bac Giang','1','2023-05-16 00:00:00', ''),
+('6', '3', '65482', 'Phuc','Hoang','084984161', '4', 'Bac Giang','1','2023-05-16 00:00:00', ''),
+('7', '3', '65481', 'Phuc','Hoang','084984161', '1', 'Bac Giang','0','2023-05-16 00:00:00', ''),
+('8', '3', '65482', 'Phuc','Hoang','084984161', '4', 'Bac Giang','1','2023-05-16 00:00:00', ''),
+('9', '3', '3523', 'Phuc','Hoang','084984161', '1', 'Bac Giang','0','2023-05-16 00:00:00', ''),
+('10', '3', '43635', 'Phuc','Hoang','084984161', '4', 'Bac Giang','1','2023-05-16 00:00:00', ''),
+('11', '3', '23612', 'Phuc','Hoang','084984161', '1', 'Bac Giang','0','2023-05-16 00:00:00', '')
+    

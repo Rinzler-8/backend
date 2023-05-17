@@ -6,7 +6,7 @@ import com.vti.entity.OrderStatus;
 import com.vti.entity.PaymentType;
 
 public class OrderDto {
-	private int order_id;
+	private int id;
 
 	private String delivery_address, first_name, last_name, mobile, note;
 	private int user_id, session_id;
@@ -22,12 +22,12 @@ public class OrderDto {
 		this.created_At = created_At;
 	}
 
-	public int getOrder_id() {
-		return order_id;
+	public int getid() {
+		return id;
 	}
 
-	public void setOrder_id(int order_id) {
-		this.order_id = order_id;
+	public void setid(int id) {
+		this.id = id;
 	}
 
 	public String getDelivery_address() {

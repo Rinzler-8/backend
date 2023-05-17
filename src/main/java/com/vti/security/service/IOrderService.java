@@ -11,13 +11,13 @@ import com.vti.form.OrderFormForUpdating;
 public interface IOrderService {
 	public Page<Order> getAllOrders(Pageable pageable, String search);
 
-	public Order getOrderById(int order_id);
+	public Order getOrderById(int id);
 
 	public Order createOrder(OrderFormForCreating orderNewForm);
 
-	public Order updateOrder(int order_id, OrderFormForUpdating orderUpdateForm);
+	public Order updateOrder(int id, OrderFormForUpdating orderUpdateForm);
 
-	public Order updateOrderStatus(int order_id, OrderStatus orderStatus);
+	public Order updateOrderStatus(int id, OrderStatus orderStatus);
 
-	public void deleteOrderById(int order_id);
+	public void deleteOrderById(int id);
 }

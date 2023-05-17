@@ -23,7 +23,7 @@ public class OrderService implements IOrderService {
 	public Page<Order> getAllOrders(Pageable pageable, String search) {
 		Specification<Order> whereOrder = null;
 		if (!StringUtils.isEmpty(search)) {
-			OrderSpecification idSpecification = new OrderSpecification("order_id", "LIKE", search);
+			OrderSpecification idSpecification = new OrderSpecification("id", "LIKE", search);
 			OrderSpecification sessionSpecification = new OrderSpecification("session_id", "LIKE", search);
 			whereOrder = Specification.where(idSpecification).or(sessionSpecification);
 		}
@@ -33,19 +33,19 @@ public class OrderService implements IOrderService {
 	}
 
 	@Override
-	public Order getOrderById(int order_id) {
-		return orderRepository.getById(order_id);
+	public Order getOrderById(int id) {
+		return orderRepository.getById(id);
 	}
 
 	@Override
-	public void deleteOrderById(int order_id) {
-		orderRepository.deleteById(order_id);
+	public void deleteOrderById(int id) {
+		orderRepository.deleteById(id);
 	}
 
 	@Override
 	public Order createOrder(OrderFormForCreating orderNewForm) {
 		Order order = new Order();
-		order.setId(orderNewForm.getOrder_id());
+		order.setid(orderNewForm.getid());
 		order.setSession_id(orderNewForm.getSession_id());
 		order.setFirst_name(orderNewForm.getFirst_name());
 		order.setLast_name(orderNewForm.getLast_name());
@@ -58,8 +58,8 @@ public class OrderService implements IOrderService {
 	}
 
 	@Override
-	public Order updateOrder(int order_id, OrderFormForUpdating orderUpdateForm) {
-		Order order = orderRepository.getById(order_id);
+	public Order updateOrder(int id, OrderFormForUpdating orderUpdateForm) {
+		Order order = orderRepository.getById(id);
 
 		order.setStatus(orderUpdateForm.getStatus());
 
@@ -68,8 +68,8 @@ public class OrderService implements IOrderService {
 	}
 
 	@Override
-	public Order updateOrderStatus(int order_id, OrderStatus orderStatus) {
-		Order order = orderRepository.getById(order_id);
+	public Order updateOrderStatus(int id, OrderStatus orderStatus) {
+		Order order = orderRepository.getById(id);
 
 		order.setStatus(orderStatus);
 
