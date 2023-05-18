@@ -247,6 +247,7 @@ public class UserService implements IUserService {
 		account.setStatus(accountNewForm.getStatus());
 		account.setRole(roles);
 		account.setMobile(accountNewForm.getMobile());
+		account.setAddress(accountNewForm.getAddress());
 		account.setUrlAvatar(accountNewForm.getUrlAvatar());
 		account.setEmail(accountNewForm.getEmail());
 		User accountNew = userRepository.save(account);
