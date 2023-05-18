@@ -134,7 +134,7 @@ public class Cart {
 	}
 
 	public int getProductId() {
-		return productId;
+		return product.getProductId();
 	}
 
 	public void setProductId(int productId) {

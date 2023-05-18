@@ -314,10 +314,10 @@ VALUES 				('GENTLE CLEANSER', '1600000',	'Sữa rửa mặt dịu nhẹ cho m�
 	                'Điều trị mắt bằng retinol được nhắm mục tiêu để giảm nếp nhăn và đường nhăn rõ rệt, đồng thời cải thiện làn da và kết cấu da tổng thể. Bộ khuếch tán quang học giúp giảm quầng thâm và bọng mắt',    4,	   'eyeCreme.png',    '7',  '50');		
 
 -- Add data Cart
-INSERT INTO `Cart` (`cart_id`, `user_id`, `product_id`, `quantity`, `total_price`,`created_At`)
-VALUES
-	(1,1,1,1,0,NULL),
-	(2,2,2,1,0,NULL);
+-- INSERT INTO `Cart` (`cart_id`, `user_id`, `product_id`, `quantity`, `total_price`,`created_At`)
+-- VALUES
+-- 	(1,1,1,1,0,NULL),
+-- 	(2,2,2,1,0,NULL);
     
 -- Add data Order
 INSERT INTO `Order` (`id`,`user_id`, `session_id`, `first_name`,`last_name`, `mobile`,`status`, `delivery_address`, `payment_type`, `created_At`, `Note`) VALUES 
