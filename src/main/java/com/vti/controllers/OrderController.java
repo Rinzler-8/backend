@@ -44,9 +44,9 @@ public class OrderController {
 			public OrderDto apply(Order order) {
 				OrderDto orderDto = new OrderDto();
 				orderDto.setid(order.getid());
-				orderDto.setSession_id(order.getSession_id());
-				orderDto.setFirst_name(order.getFirst_name());
-				orderDto.setLast_name(order.getLast_name());
+				orderDto.setSessionId(order.getSessionId());
+				orderDto.setFirstName(order.getFirstName());
+				orderDto.setLastName(order.getLastName());
 				orderDto.setUser_id(order.getUser_id());
 				orderDto.setMobile(order.getMobile());
 				orderDto.setDelivery_address(order.getDelivery_address());
@@ -70,9 +70,9 @@ public class OrderController {
 
 			OrderDto orderDto = new OrderDto();
 			orderDto.setid(orderDB.getid());
-			orderDto.setSession_id(orderDB.getSession_id());
-			orderDto.setFirst_name(orderDB.getFirst_name());
-			orderDto.setLast_name(orderDB.getLast_name());
+			orderDto.setSessionId(orderDB.getSessionId());
+			orderDto.setFirstName(orderDB.getFirstName());
+			orderDto.setLastName(orderDB.getLastName());
 			orderDto.setUser_id(orderDB.getUser_id());
 			orderDto.setMobile(orderDB.getMobile());
 			orderDto.setDelivery_address(orderDB.getDelivery_address());
@@ -99,9 +99,9 @@ public class OrderController {
 //			Convert
 			OrderDto orderNewDto = new OrderDto();
 			orderNewDto.setid(orderNew.getid());
-			orderNewDto.setSession_id(orderNew.getSession_id());
-			orderNewDto.setFirst_name(orderNew.getFirst_name());
-			orderNewDto.setLast_name(orderNew.getLast_name());
+			orderNewDto.setSessionId(orderNew.getSessionId());
+			orderNewDto.setFirstName(orderNew.getFirstName());
+			orderNewDto.setLastName(orderNew.getLastName());
 			orderNewDto.setMobile(orderNew.getMobile());
 			orderNewDto.setDelivery_address(orderNew.getDelivery_address());
 			orderNewDto.setPaymentType(orderNew.getPaymentType());

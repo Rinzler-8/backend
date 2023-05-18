@@ -28,8 +28,8 @@ public interface IAddToCartRepo extends JpaRepository<Cart, Integer> {
 	@Query("Select item FROM Cart item ")
 	Optional<Cart> getCartByuserIdtest();
 
-	@Query("Select item FROM Cart item WHERE item.product.id= :product_id and item.user_id=:user_id")
-	Optional<Cart> getCartByProductIdAnduserId(@Param("user_id") int user_id, @Param("product_id") int product_id);
+	@Query("Select item FROM Cart item WHERE item.product.id=:productId and item.user_id=:user_id")
+	Optional<Cart> getCartByProductIdAnduserId(@Param("user_id") int user_id, @Param("productId") int productId);
 
 	@Modifying
 	@Transactional

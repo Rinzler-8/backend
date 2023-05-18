@@ -26,8 +26,8 @@ public class OrderItems {
 	@JoinTable(name = "`Order`", joinColumns = @JoinColumn(name = "id"))
 	private int id;
 
-	@JoinTable(name = "`Order`", joinColumns = @JoinColumn(name = "session_id"))
-	private int session_id;
+	@JoinTable(name = "`Order`", joinColumns = @JoinColumn(name = "sessionId"))
+	private int sessionId;
 	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id")
@@ -42,7 +42,7 @@ public class OrderItems {
 	private String imageName, info, detail, productName;
 
 	@Transient
-	private int product_id;
+	private int productId;
 
 	public int getQuantity() {
 		return quantity;
@@ -64,12 +64,12 @@ public class OrderItems {
 		return product.getName();
 	}
 
-	public int getSession_id() {
-		return session_id;
+	public int getSessionId() {
+		return sessionId;
 	}
 
-	public void setSession_id(int session_id) {
-		this.session_id = session_id;
+	public void setSessionId(int sessionId) {
+		this.sessionId = sessionId;
 	}
 
 	public String getInfo() {
@@ -92,8 +92,12 @@ public class OrderItems {
 		this.price = price;
 	}
 
-	public int getProduct_id() {
-		return product.getId();
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 
 	public Product getProduct() {

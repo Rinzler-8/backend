@@ -30,7 +30,7 @@ public class CartController {
 	@PostMapping("addToCart")
 	public ResponseEntity<?> addCartwithProduct(@RequestBody CartDTO cartDto) {
 		try {
-			int productId = cartDto.getProduct_id();
+			int productId = cartDto.getProductId();
 			int userId = cartDto.getUser_id();
 			int quantity = cartDto.getQuantity();
 			double price = cartDto.getPrice();

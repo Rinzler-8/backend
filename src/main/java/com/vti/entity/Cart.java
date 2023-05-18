@@ -25,7 +25,7 @@ public class Cart {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id")
 	private Product product;
-	// int product_id;
+	// int id;
 	private int quantity;
 	private double total_price;
 	private int user_id;
@@ -45,7 +45,7 @@ public class Cart {
 	private String detail;
 
 	@Transient
-	private int product_id;
+	private int productId;
 
 	@Transient
 	private String productName;
@@ -133,8 +133,12 @@ public class Cart {
 		this.price = price;
 	}
 
-	public int getProduct_id() {
-		return product.getId();
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 
 }

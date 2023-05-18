@@ -7,8 +7,8 @@ import com.vti.entity.PaymentType;
 //chuyển đổi giữa dữ liệu lấy được từ DB đẩy lên Frontend.
 public class CheckoutDTO {
 
-	private int id, user_id, product_id, quantity, session_id;
-	private String first_name, last_name, mobile, delivery_address, note;
+	private int id, user_id, productId, quantity, sessionId;
+	private String firstName, lastName, mobile, delivery_address, note;
 	private Date created_at;
 
 	public Date getCreated_at() {
@@ -19,12 +19,12 @@ public class CheckoutDTO {
 		this.created_at = created_at;
 	}
 
-	public int getSession_id() {
-		return session_id;
+	public int getSessionId() {
+		return sessionId;
 	}
 
-	public void setSession_id(int session_id) {
-		this.session_id = session_id;
+	public void setSessionId(int sessionId) {
+		this.sessionId = sessionId;
 	}
 
 	private PaymentType paymentType;
@@ -37,14 +37,6 @@ public class CheckoutDTO {
 		this.paymentType = paymentType;
 	}
 
-	public int getid() {
-		return id;
-	}
-
-	public void setid(int id) {
-		this.id = id;
-	}
-
 	public int getQuantity() {
 		return quantity;
 	}
@@ -53,12 +45,12 @@ public class CheckoutDTO {
 		this.quantity = quantity;
 	}
 
-	public int getProduct_id() {
-		return product_id;
+	public int getId() {
+		return id;
 	}
 
-	public void setProduct_id(int product_id) {
-		this.product_id = product_id;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getUser_id() {
@@ -69,20 +61,20 @@ public class CheckoutDTO {
 		this.user_id = user_id;
 	}
 
-	public String getFirst_name() {
-		return first_name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getLast_name() {
-		return last_name;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getMobile() {
@@ -107,6 +99,14 @@ public class CheckoutDTO {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 
 }

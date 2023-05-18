@@ -24,7 +24,7 @@ public class OrderService implements IOrderService {
 		Specification<Order> whereOrder = null;
 		if (!StringUtils.isEmpty(search)) {
 			OrderSpecification idSpecification = new OrderSpecification("id", "LIKE", search);
-			OrderSpecification sessionSpecification = new OrderSpecification("session_id", "LIKE", search);
+			OrderSpecification sessionSpecification = new OrderSpecification("sessionId", "LIKE", search);
 			whereOrder = Specification.where(idSpecification).or(sessionSpecification);
 		}
 
@@ -46,9 +46,9 @@ public class OrderService implements IOrderService {
 	public Order createOrder(OrderFormForCreating orderNewForm) {
 		Order order = new Order();
 		order.setid(orderNewForm.getid());
-		order.setSession_id(orderNewForm.getSession_id());
-		order.setFirst_name(orderNewForm.getFirst_name());
-		order.setLast_name(orderNewForm.getLast_name());
+		order.setSessionId(orderNewForm.getSessionId());
+		order.setFirstName(orderNewForm.getFirstName());
+		order.setLastName(orderNewForm.getLastName());
 		order.setMobile(orderNewForm.getMobile());
 		order.setDelivery_address(orderNewForm.getDelivery_address());
 		order.setPaymentType(orderNewForm.getPaymentType());

@@ -53,11 +53,11 @@ public class Product implements Serializable {
 		return name;
 	}
 
-	public int getId() {
+	public int getProductId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setProductId(int id) {
 		this.id = id;
 	}
 

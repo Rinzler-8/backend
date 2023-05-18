@@ -1,7 +1,7 @@
 package com.vti.dto;
 
 public class ProductDto {
-	private int product_id;
+	private int id;
 
 	private String name;
 
@@ -19,12 +19,12 @@ public class ProductDto {
 
 	private int stockQty;
 
-	public int getProduct_id() {
-		return product_id;
+	public int getProductId() {
+		return id;
 	}
 
-	public void setProduct_id(int product_id) {
-		this.product_id = product_id;
+	public void setProductId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {

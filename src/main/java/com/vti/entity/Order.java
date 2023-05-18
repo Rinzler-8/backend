@@ -28,14 +28,14 @@ public class Order implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	private String delivery_address, first_name, last_name, mobile, note;
+	private String delivery_address, firstName, lastName, mobile, note;
 	private int user_id;
 
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "payment_type", nullable = false)
 	private PaymentType paymentType = PaymentType.COD;
 
-	private int session_id;
+	private int sessionId;
 
 	@Column(name = "created_At")
 	@Temporal(TemporalType.DATE)
@@ -54,12 +54,12 @@ public class Order implements Serializable {
 		this.created_at = created_at;
 	}
 
-	public int getSession_id() {
-		return session_id;
+	public int getSessionId() {
+		return sessionId;
 	}
 
-	public void setSession_id(int session_id) {
-		this.session_id = session_id;
+	public void setSessionId(int sessionId) {
+		this.sessionId = sessionId;
 	}
 
 	public int getid() {
@@ -94,20 +94,20 @@ public class Order implements Serializable {
 		this.user_id = user_id;
 	}
 
-	public String getFirst_name() {
-		return first_name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getLast_name() {
-		return last_name;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getMobile() {

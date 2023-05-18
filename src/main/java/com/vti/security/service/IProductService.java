@@ -10,11 +10,11 @@ import com.vti.form.ProductFormForUpdating;
 public interface IProductService {
 	public Page<Product> getAllProducts(Pageable pageable, String search);
 
-	public Product getProductById(int product_id);
+	public Product getProductById(int id);
 
 	public Product createProduct(ProductFormForCreating productNewForm);
 
-	public Product updateProduct(int product_id, ProductFormForUpdating productUpdateForm);
+	public Product updateProduct(int id, ProductFormForUpdating productUpdateForm);
 
-	public void deleteProductById(int product_id);
+	public void deleteProductById(int id);
 }

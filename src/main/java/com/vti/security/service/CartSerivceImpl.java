@@ -39,7 +39,7 @@ public class CartSerivceImpl implements ICartService {
 			obj.setQuantity(quantity);
 			obj.setPrice(price);
 			addCartRepo.save(obj);
-//			if (addCartRepo.getCartByProductIdAnduserId(userId, productId).isPresent()) {
+//			if (addCartRepo.getCartByProductIdAnduserId(userId, id).isPresent()) {
 //				obj.setQuantity(quantity + 1);
 //				addCartRepo.save(obj);
 ////				throw new Exception("Product is already exist.");

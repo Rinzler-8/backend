@@ -33,20 +33,20 @@ public class CheckoutController {
 		try {
 			List<Cart> cartItems = cartService.getCartByUserId(checkoutDto.getUser_id());
 			Order cart = new Order();
-			cart.setFirst_name(checkoutDto.getFirst_name());
-			cart.setLast_name(checkoutDto.getLast_name());
+			cart.setFirstName(checkoutDto.getFirstName());
+			cart.setLastName(checkoutDto.getLastName());
 			cart.setMobile(checkoutDto.getMobile());
 			cart.setUser_id(checkoutDto.getUser_id());
 			cart.setDelivery_address(checkoutDto.getDelivery_address());
 			cart.setNote(checkoutDto.getNote());
 			cart.setPaymentType(checkoutDto.getPaymentType());
-			cart.setSession_id(getOrderId());
+			cart.setSessionId(getOrderId());
 			cartService.saveProductsForCheckout(cart);
 			List<OrderItems> orderItemList = new ArrayList<OrderItems>();
 			for (int i = 0; i < cartItems.size(); i++) {
 				OrderItems item = new OrderItems();
 				item.setid(cart.getid());
-				item.setSession_id(cart.getSession_id());
+				item.setSessionId(cart.getSessionId());
 				item.setProduct(cartItems.get(i).getProduct());
 				item.setQuantity(cartItems.get(i).getQuantity());
 				orderItemList.add(item);
@@ -70,7 +70,7 @@ public class CheckoutController {
 //			for (int i = 0; i < cartItems.size(); i++) {
 //				OrderItems item = new OrderItems();
 //				item.setid(orderItems.getid());
-//				item.setSession_id(orderItems.getSession_id());
+//				item.setSessionId(orderItems.getSessionId());
 //				item.setProduct(cartItems.get(i).getProduct());
 //				item.setQuantity(cartItems.get(i).getQuantity());
 //				tmp2.add(item);
@@ -98,10 +98,10 @@ public class CheckoutController {
 		}
 	}
 
-	@GetMapping(value = "/getOrderItems/{session_id}")
-	public ResponseEntity<?> getFullOrderByOrderId(@PathVariable(name = "session_id") int session_id) {
+	@GetMapping(value = "/getOrderItems/{sessionId}")
+	public ResponseEntity<?> getFullOrderByOrderId(@PathVariable(name = "sessionId") int sessionId) {
 		try {
-			List<OrderItems> obj = cartService.getOrderItemsBySessionId(session_id);
+			List<OrderItems> obj = cartService.getOrderItemsBySessionId(sessionId);
 			return ResponseEntity.ok(obj);
 		} catch (Exception e) {
 			return new ResponseEntity<>("Can not get checkout by session id", HttpStatus.NOT_FOUND);

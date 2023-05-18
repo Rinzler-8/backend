@@ -10,7 +10,7 @@ import com.vti.entity.OrderItems;
 
 @Service
 public interface ICartService {
-	List<Cart> addCartbyUserIdAndProductId(int productId, int userId, int quantity, double price) throws Exception;
+	List<Cart> addCartbyUserIdAndProductId(int id, int userId, int quantity, double price) throws Exception;
 
 	Order saveProductsForCheckout(Order tmp) throws Exception;
 

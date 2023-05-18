@@ -4,7 +4,7 @@ package com.vti.dto;
 public class CartDTO {
 
 	private int cart_id;
-	private int product_id;
+	private int productId;
 	private int user_id;
 	private int quantity;
 	private double price;
@@ -17,12 +17,12 @@ public class CartDTO {
 		this.cart_id = cart_id;
 	}
 
-	public int getProduct_id() {
-		return product_id;
+	public int getProductId() {
+		return productId;
 	}
 
-	public void setProduct_id(int product_id) {
-		this.product_id = product_id;
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 
 	public int getUser_id() {

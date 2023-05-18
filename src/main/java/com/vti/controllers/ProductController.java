@@ -41,7 +41,7 @@ public class ProductController {
 			@Override
 			public ProductDto apply(Product product) {
 				ProductDto productDto = new ProductDto();
-				productDto.setProduct_id(product.getId());
+				productDto.setProductId(product.getProductId());
 				productDto.setName(product.getName());
 				productDto.setPrice(product.getPrice());
 				productDto.setInfo(product.getInfo());
@@ -64,7 +64,7 @@ public class ProductController {
 			Product productDB = productService.getProductById(id);
 
 			ProductDto productDto = new ProductDto();
-			productDto.setProduct_id(productDB.getId());
+			productDto.setProductId(productDB.getProductId());
 			productDto.setName(productDB.getName());
 			productDto.setPrice(productDB.getPrice());
 			productDto.setInfo(productDB.getInfo());
@@ -92,7 +92,7 @@ public class ProductController {
 
 //			Convert
 			ProductDto productNewDto = new ProductDto();
-			productNewDto.setProduct_id(productNew.getId());
+			productNewDto.setProductId(productNew.getProductId());
 			productNewDto.setName(productNew.getName());
 			productNewDto.setPrice(productNew.getPrice());
 			productNewDto.setInfo(productNew.getInfo());

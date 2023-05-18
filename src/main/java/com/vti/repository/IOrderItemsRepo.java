@@ -15,6 +15,6 @@ public interface IOrderItemsRepo extends JpaRepository<OrderItems, Integer> {
 	@Query("Select item FROM OrderItems item WHERE item.id=id")
 	List<OrderItems> getOrderItemsByOrderId(@Param("id") int id);
 
-	@Query("Select item FROM OrderItems item WHERE item.session_id=:session_id")
-	List<OrderItems> getOrderItemsBySessionId(@Param("session_id") int session_id);
+	@Query("Select item FROM OrderItems item WHERE item.sessionId=:sessionId")
+	List<OrderItems> getOrderItemsBySessionId(@Param("sessionId") int sessionId);
 }

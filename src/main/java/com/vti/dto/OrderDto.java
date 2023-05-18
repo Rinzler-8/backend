@@ -8,8 +8,8 @@ import com.vti.entity.PaymentType;
 public class OrderDto {
 	private int id;
 
-	private String delivery_address, first_name, last_name, mobile, note;
-	private int user_id, session_id;
+	private String delivery_address, firstName, lastName, mobile, note;
+	private int user_id, sessionId;
 	private PaymentType paymentType;
 	private OrderStatus orderStatus;
 	private Date created_At;
@@ -38,20 +38,20 @@ public class OrderDto {
 		this.delivery_address = delivery_address;
 	}
 
-	public String getFirst_name() {
-		return first_name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getLast_name() {
-		return last_name;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getMobile() {
@@ -70,12 +70,12 @@ public class OrderDto {
 		this.user_id = user_id;
 	}
 
-	public int getSession_id() {
-		return session_id;
+	public int getSessionId() {
+		return sessionId;
 	}
 
-	public void setSession_id(int session_id) {
-		this.session_id = session_id;
+	public void setSessionId(int sessionId) {
+		this.sessionId = sessionId;
 	}
 
 	public PaymentType getPaymentType() {
