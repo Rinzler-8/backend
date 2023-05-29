@@ -6,6 +6,7 @@ import com.vti.entity.Status;
 
 public class UserInfoResponse {
 	private String token;
+	private String refreshToken;
 	private String type = "Bearer";
 	private int id;
 	private String username;
@@ -13,10 +14,11 @@ public class UserInfoResponse {
 	private List<String> roles;
 	private Status status;
 
-	public UserInfoResponse(String accessToken, int id, String username, String email, List<String> roles,
-			Status status) {
+	public UserInfoResponse(String accessToken, String refreshToken, int id, String username, String email,
+			List<String> roles, Status status) {
 		super();
 		this.token = accessToken;
+		this.refreshToken = refreshToken;
 		this.id = id;
 		this.username = username;
 		this.email = email;
@@ -30,6 +32,14 @@ public class UserInfoResponse {
 
 	public void setAccessToken(String accessToken) {
 		this.token = accessToken;
+	}
+
+	public String getRefreshToken() {
+		return refreshToken;
+	}
+
+	public void setRefreshToken(String refreshToken) {
+		this.refreshToken = refreshToken;
 	}
 
 	public String getTokenType() {

@@ -3,9 +3,7 @@ package com.vti.security.service;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.vti.entity.Status;
 import com.vti.entity.User;
@@ -17,13 +15,11 @@ public interface IUserService extends UserDetailsService {
 
 	public User getAccountByID(int id);
 
-	public User findByUsername(String username);
+//	public User findByUsername(String username);
 
-	UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+//	UserDetails loadUserByUsername(String email) throws UsernameNotFoundException;
 
 	User findUserByEmail(String email);
-
-	User findUserByUsername(String username);
 
 	void activeUser(String token);
 
@@ -50,7 +46,5 @@ public interface IUserService extends UserDetailsService {
 	public User createAccount(AccountFormForCreating accountNewForm);
 
 	public void deleteAccountById(int id);
-
-	UserDetails loadUserByEmail(String email) throws UsernameNotFoundException;
 
 }

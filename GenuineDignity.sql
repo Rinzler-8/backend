@@ -8,12 +8,12 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `Genuine_Dignity`
+-- Database: `GenuineDignity`
 --
-
 DROP DATABASE IF EXISTS Genuine_Dignity;
-CREATE DATABASE Genuine_Dignity;
-USE Genuine_Dignity;
+DROP DATABASE IF EXISTS GenuineDignity;
+CREATE DATABASE GenuineDignity;
+USE GenuineDignity;
 
 -- --------------------------------------------------------
 --
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `User` (
 --
 -- Table structure for table `Registration_User_Token`
 --	
-DROP TABLE IF EXISTS 	`Registration_User_Token`;
+DROP TABLE IF EXISTS `Registration_User_Token`;
 CREATE TABLE IF NOT EXISTS `Registration_User_Token` (
     id INT AUTO_INCREMENT PRIMARY KEY,
     `token` CHAR(36) NOT NULL UNIQUE,
@@ -52,9 +52,21 @@ CREATE TABLE IF NOT EXISTS `Registration_User_Token` (
    
 -- --------------------------------------------------------
 --
+-- Table structure for table `Refresh_Token`
+--	
+DROP TABLE IF EXISTS `Refresh_Token`;
+CREATE TABLE IF NOT EXISTS `Refresh_Token` (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    `token` CHAR(36) NOT NULL UNIQUE,
+    user_id BIGINT NOT NULL,
+    expiry_date DATETIME NOT NULL
+);        
+   
+-- --------------------------------------------------------
+--
 -- Table structure for table Reset_Password_Token
 --
-DROP TABLE IF EXISTS 	`Reset_Password_Token`;
+DROP TABLE IF EXISTS `Reset_Password_Token`;
 CREATE TABLE IF NOT EXISTS `Reset_Password_Token` (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `token` CHAR(36) NOT NULL UNIQUE,

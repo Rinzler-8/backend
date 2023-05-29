@@ -33,8 +33,10 @@ public class User {
 	@Email
 	private String email;
 
+	@Column(name = "first_name")
 	private String firstName;
 
+	@Column(name = "last_name")
 	private String lastName;
 
 	@Column(name = "mobile", length = 10)

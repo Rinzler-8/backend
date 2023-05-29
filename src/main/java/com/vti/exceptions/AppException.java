@@ -52,7 +52,7 @@ public class AppException extends RuntimeException {
 			this.code = ErrorResponseBase.NOT_FOUND.status.value();
 			this.message = ErrorResponseBase.NOT_FOUND.getMessage();
 		} else if (mes.contains("Bad credentials")) {
-			this.code = ErrorResponseBase.UNAUTHORIZED.status.value();
+			this.code = ErrorResponseBase.USER_NOT_EXISTED.status.value();
 			this.message = "Sai email hoặc password";
 		} else {
 			this.code = HttpStatus.INTERNAL_SERVER_ERROR.value();

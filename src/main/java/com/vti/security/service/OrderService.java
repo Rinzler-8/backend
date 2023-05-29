@@ -24,7 +24,7 @@ public class OrderService implements IOrderService {
 		Specification<Order> whereOrder = null;
 		if (!StringUtils.isEmpty(search)) {
 			OrderSpecification idSpecification = new OrderSpecification("id", "LIKE", search);
-			OrderSpecification sessionSpecification = new OrderSpecification("sessionId", "LIKE", search);
+			OrderSpecification sessionSpecification = new OrderSpecification("sessionId", "=", search);
 			whereOrder = Specification.where(idSpecification).or(sessionSpecification);
 		}
 

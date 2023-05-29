@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
@@ -26,23 +27,31 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vti.dto.ResetDTO;
 import com.vti.entity.ERole;
+import com.vti.entity.RefreshToken;
 import com.vti.entity.Role;
 import com.vti.entity.User;
 import com.vti.exceptions.AppException;
+import com.vti.exceptions.TokenRefreshException;
 import com.vti.payload.request.LoginRequest;
+import com.vti.payload.request.RefreshTokenRequest;
 import com.vti.payload.request.SignupRequest;
 import com.vti.payload.response.MessageResponse;
+import com.vti.payload.response.TokenRefreshResponse;
 import com.vti.payload.response.UserInfoResponse;
 import com.vti.repository.RoleRepository;
 import com.vti.repository.UserRepository;
 import com.vti.security.jwt.JwtUtils;
 import com.vti.security.service.IUserService;
+import com.vti.security.service.RefreshTokenService;
 import com.vti.security.service.UserDetailsImpl;
 
 @CrossOrigin(origins = { "http://localhost:3000" })
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+	@Value("${GenuineDignity.app.jwtSecret}")
+	private String jwtSecret;
+
 	@Autowired
 	AuthenticationManager authenticationManager;
 
@@ -57,6 +66,9 @@ public class AuthController {
 
 	@Autowired
 	PasswordEncoder encoder;
+
+	@Autowired
+	RefreshTokenService refreshTokenService;
 
 	@Autowired
 	JwtUtils jwtUtils;
@@ -81,12 +93,16 @@ public class AuthController {
 		ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 
 		String jwt = jwtUtils.generateJwtToken(authentication);
-
+//		System.out.println(
+//				"doRefresh " + Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(jwt).getBody().getExpiration());
 		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
+
+		RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
+
 		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-				.body(new UserInfoResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(),
-						roles, userDetails.getStatus()));
+				.body(new UserInfoResponse(jwt, refreshToken.getRefreshToken(), userDetails.getId(),
+						userDetails.getUsername(), userDetails.getEmail(), roles, userDetails.getStatus()));
 	}
 
 	@PostMapping("/signup")
@@ -135,6 +151,20 @@ public class AuthController {
 
 		return new ResponseEntity<>("We have sent an email. Please check email to activate your account!",
 				HttpStatus.OK);
+	}
+
+	@PostMapping("/refreshtoken")
+	public ResponseEntity<?> refreshtoken(@Valid @RequestBody RefreshTokenRequest request) {
+		String requestRefreshToken = request.getRefreshToken();
+
+		return refreshTokenService.findByRefreshToken(requestRefreshToken).map(refreshTokenService::verifyExpiration)
+				.map(RefreshToken::getUser).map(user -> {
+					String token = jwtUtils.generateTokenFromEmail(user.getEmail());
+//					System.out.println("doRefresh "
+//							+ Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getExpiration());
+					return ResponseEntity.ok(new TokenRefreshResponse(token, requestRefreshToken));
+				})
+				.orElseThrow(() -> new TokenRefreshException(requestRefreshToken, "Refresh token is not in database!"));
 	}
 
 	@GetMapping("/activeUser")

@@ -17,14 +17,9 @@ public class OrderSpecification implements Specification<Order> {
 	@Override
 	public Predicate toPredicate(Root<Order> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 		if (operator.equalsIgnoreCase("LIKE")) {
-			if (field.equalsIgnoreCase("category")) {
-				return criteriaBuilder.like(root.get("category").get("name"), "%" + value.toString() + "%");
-			} else if (field.equalsIgnoreCase("manufacturer")) {
-				return criteriaBuilder.like(root.get("manufacturer").get("name").as(String.class),
-						"%" + value.toString() + "%");
-			} else {
-				return criteriaBuilder.like(root.get(field), "%" + value.toString() + "%");
-			}
+			return criteriaBuilder.like(root.get(field).as(String.class), "%" + value + "%");
+		} else if (operator.equalsIgnoreCase("=")) {
+			return criteriaBuilder.equal(root.get(field), value);
 		}
 
 		return null;

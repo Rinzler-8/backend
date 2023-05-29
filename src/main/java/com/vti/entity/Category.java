@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Category", catalog = "Genuine_Dignity")
+@Table(name = "Category", catalog = "GenuineDignity")
 public class Category implements Serializable {
 
 	/**

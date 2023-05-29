@@ -8,7 +8,7 @@ import com.vti.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>, JpaSpecificationExecutor<User> {
-	public User findByUsername(String username);
+//	public User findByUsername(String username);
 
 	public boolean existsByUsername(String username);
 

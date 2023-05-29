@@ -26,20 +26,28 @@ import io.jsonwebtoken.UnsupportedJwtException;
 public class JwtUtils {
 	private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-	@Value("${shop.app.jwtSecret}")
+	@Value("${GenuineDignity.app.jwtSecret}")
 	private String jwtSecret;
 
-	@Value("${shop.app.jwtExpirationMs}")
+	@Value("${GenuineDignity.app.jwtExpirationMs}")
 	private int jwtExpirationMs;
 
-	@Value("${shop.app.jwtCookieName}")
+	@Value("${GenuineDignity.app.jwtCookieName}")
 	private String jwtCookie;
+
+//	public String generateJwtToken(Authentication authentication) {
+//
+//		UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+//		System.out.println("doEmail " + userPrincipal.getEmail());
+//		return Jwts.builder().setSubject((userPrincipal.getEmail())).setIssuedAt(new Date())
+//				.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+//				.signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
+//	}
 
 	public String generateJwtToken(Authentication authentication) {
 
 		UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
-
-		return Jwts.builder().setSubject((userPrincipal.getUsername())).setIssuedAt(new Date())
+		return Jwts.builder().setSubject((userPrincipal.getEmail())).setIssuedAt(new Date())
 				.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
 				.signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
 	}
@@ -53,14 +61,14 @@ public class JwtUtils {
 		}
 	}
 
-	public String generateTokenFromUsername(String username) {
-		return Jwts.builder().setSubject(username).setIssuedAt(new Date())
-				.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+	public String generateTokenFromEmail(String email) {
+		return Jwts.builder().setSubject(email).setIssuedAt(new Date())
+				.setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
 				.signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
 	}
 
 	public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
-		String jwt = generateTokenFromUsername(userPrincipal.getUsername());
+		String jwt = generateTokenFromEmail(userPrincipal.getEmail());
 		ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(24 * 60 * 60).httpOnly(true)
 				.build();
 		return cookie;
@@ -71,7 +79,7 @@ public class JwtUtils {
 		return cookie;
 	}
 
-	public String getUsernameFromJwtToken(String token) {
+	public String getEmailFromJwtToken(String token) {
 		return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
 	}
 

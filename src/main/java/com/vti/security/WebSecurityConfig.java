@@ -56,10 +56,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
 //				.antMatchers("/api/auth/**").permitAll()
 				.antMatchers("/api/auth/signup").anonymous().antMatchers("/api/auth/signin").anonymous()
-				.antMatchers("/api/v1/accounts").anonymous().antMatchers("/api/v1/accounts/username/**").anonymous()
+				.antMatchers("/api/v1/accounts").hasAuthority("ADMIN").antMatchers("/api/v1/accounts/username/**")
+				.anonymous()
+//				.antMatchers("/api/test/**").permitAll();
 				.antMatchers("/api/test/all").anonymous().antMatchers("/api/v1/accounts/email/**").anonymous()
-				.antMatchers("/api/test/user").hasAnyAuthority("USER", "MANAGER", "ADMIN")
-				.antMatchers("/api/test/admin").hasAuthority("ADMIN").anyRequest().permitAll();
+				.antMatchers("/api/test/user").hasAnyAuthority("USER", "ADMIN").antMatchers("/api/test/admin")
+				.hasAuthority("ADMIN").anyRequest().permitAll();
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}

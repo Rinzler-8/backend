@@ -63,19 +63,9 @@ public class UserService implements IUserService {
 
 	@Override
 	@Transactional
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepository.findByEmail(username);
-		if (user == null) {
-			throw new UsernameNotFoundException("Account not found with username: " + username);
-		} else {
-			return UserDetailsImpl.build(user);
-		}
-	}
-
-	@Override
-	@Transactional
-	public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		User user = userRepository.findByEmail(email);
+
 		if (user == null) {
 			throw new UsernameNotFoundException("Account not found with email: " + email);
 		} else {
@@ -108,11 +98,11 @@ public class UserService implements IUserService {
 		return userRepository.getById(id);
 	}
 
-	@Override
-	public User findByUsername(String username) {
-		// TODO Auto-generated method stub
-		return userRepository.findByUsername(username);
-	}
+//	@Override
+//	public User findByUsername(String username) {
+//		// TODO Auto-generated method stub
+//		return userRepository.findByUsername(username);
+//	}
 
 	public void createNewRegistrationUserToken(User user) {
 
@@ -131,11 +121,6 @@ public class UserService implements IUserService {
 	@Override
 	public User findUserByEmail(String email) {
 		return userRepository.findByEmail(email);
-	}
-
-	@Override
-	public User findUserByUsername(String username) {
-		return userRepository.findByUsername(username);
 	}
 
 	@Override

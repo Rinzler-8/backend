@@ -26,7 +26,7 @@ import com.vti.security.service.IProductService;
 
 @RestController
 @RequestMapping(value = "api/v1/products")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class ProductController {
 	@Autowired
 	private IProductService productService;
