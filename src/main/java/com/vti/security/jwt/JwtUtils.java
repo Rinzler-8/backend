@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;
 
@@ -38,17 +39,18 @@ public class JwtUtils {
 	@Value("${GenuineDignity.app.jwtRefreshCookieName}")
 	private String jwtRefreshCookie;
 
-//	public String generateJwtToken(Authentication authentication) {
-//
-//		UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
-//		return Jwts.builder().setSubject((userPrincipal.getEmail())).setIssuedAt(new Date())
-//				.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-//				.signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
-//	}
+	public String generateJwtToken(Authentication authentication) {
+
+		UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+		return Jwts.builder().setSubject((userPrincipal.getEmail())).setIssuedAt(new Date())
+				.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+				.signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
+	}
 
 	public ResponseCookie generateCookie(String name, String value, String path) {
-		ResponseCookie cookie = ResponseCookie.from(name, value).path("/api").maxAge(24 * 60 * 60).httpOnly(true)
-				.build();
+		ResponseCookie cookie = ResponseCookie.from(name, value).path("/api")
+//				.maxAge(24 * 60 * 60)
+				.maxAge(jwtExpirationMs / 1000).httpOnly(true).build();
 		return cookie;
 	}
 
@@ -64,7 +66,8 @@ public class JwtUtils {
 
 	public String generateTokenFromEmail(String email) {
 		return Jwts.builder().setSubject(email).setIssuedAt(new Date())
-				.setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
+//				.setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
+				.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
 				.signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
 	}
 

@@ -17,7 +17,7 @@ public class Product implements Serializable {
 	/**
 	 * 
 	 */
-	private static final int serialVersionUID = (int) 1L;
+	private static final long serialVersionUID = (int) 1L;
 
 	@Column(name = "product_id")
 	@Id

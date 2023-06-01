@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +33,10 @@ import com.vti.entity.User;
 import com.vti.exceptions.AppException;
 import com.vti.exceptions.TokenRefreshException;
 import com.vti.payload.request.LoginRequest;
+import com.vti.payload.request.RefreshTokenRequest;
 import com.vti.payload.request.SignupRequest;
 import com.vti.payload.response.MessageResponse;
+import com.vti.payload.response.TokenRefreshResponse;
 import com.vti.payload.response.UserInfoResponse;
 import com.vti.repository.RoleRepository;
 import com.vti.repository.UserRepository;
@@ -90,15 +91,16 @@ public class AuthController {
 //			throw new AppException(ErrorResponseBase.USER_BLOCKED);
 //		}
 		ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+		String jwt = jwtUtils.generateJwtToken(authentication);
 		RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
 		ResponseCookie jwtRefreshCookie = jwtUtils.generateRefreshJwtCookie(refreshToken.getRefreshToken());
 		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
-
+		System.out.println("doSW " + jwtCookie);
 		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
 				.header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString())
-				.body(new UserInfoResponse(userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(),
-						roles, userDetails.getStatus()));
+				.body(new UserInfoResponse(jwt, refreshToken.getRefreshToken(), userDetails.getId(),
+						userDetails.getUsername(), userDetails.getEmail(), roles, userDetails.getStatus()));
 	}
 
 	@PostMapping("/signup")
@@ -149,19 +151,31 @@ public class AuthController {
 				HttpStatus.OK);
 	}
 
-	@PostMapping("/refreshtoken")
-	public ResponseEntity<?> refreshtoken(@Valid HttpServletRequest request) {
-		String refreshToken = jwtUtils.getJwtRefreshFromCookies(request);
+//	@PostMapping("/refreshtoken")
+//	public ResponseEntity<?> refreshtoken(@Valid HttpServletRequest request) {
+//		String refreshToken = jwtUtils.getJwtRefreshFromCookies(request);
+//
+//		if ((refreshToken != null) && (refreshToken.length() > 0)) {
+//			return refreshTokenService.findByRefreshToken(refreshToken).map(refreshTokenService::verifyExpiration)
+//					.map(RefreshToken::getUser).map(user -> {
+//						ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(user);
+//						return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+//								.body(new MessageResponse("Token is refreshed successfully!"));
+//					}).orElseThrow(() -> new TokenRefreshException(refreshToken, "Refresh token is not in database!"));
+//		}
+//		return ResponseEntity.badRequest().body(new MessageResponse("Refresh Token is empty!"));
+//	}
 
-		if ((refreshToken != null) && (refreshToken.length() > 0)) {
-			return refreshTokenService.findByRefreshToken(refreshToken).map(refreshTokenService::verifyExpiration)
-					.map(RefreshToken::getUser).map(user -> {
-						ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(user);
-						return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-								.body(new MessageResponse("Token is refreshed successfully!"));
-					}).orElseThrow(() -> new TokenRefreshException(refreshToken, "Refresh token is not in database!"));
-		}
-		return ResponseEntity.badRequest().body(new MessageResponse("Refresh Token is empty!"));
+	@PostMapping("/refreshtoken")
+	public ResponseEntity<?> refreshtoken(@Valid @RequestBody RefreshTokenRequest request) {
+		String requestRefreshToken = request.getRefreshToken();
+
+		return refreshTokenService.findByRefreshToken(requestRefreshToken).map(refreshTokenService::verifyExpiration)
+				.map(RefreshToken::getUser).map(user -> {
+					String token = jwtUtils.generateTokenFromEmail(user.getEmail());
+					return ResponseEntity.ok(new TokenRefreshResponse(token, requestRefreshToken));
+				})
+				.orElseThrow(() -> new TokenRefreshException(requestRefreshToken, "Refresh token is not in database!"));
 	}
 
 	@GetMapping("/activeUser")

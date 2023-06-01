@@ -11,14 +11,35 @@ public class UserInfoResponse {
 	private String email;
 	private List<String> roles;
 	private Status status;
+	private String token;
+	private String refreshToken;
 
-	public UserInfoResponse(int id, String username, String email, List<String> roles, Status status) {
+	public UserInfoResponse(String token, String refreshToken, int id, String username, String email,
+			List<String> roles, Status status) {
 		super();
 		this.id = id;
+		this.token = token;
+		this.refreshToken = refreshToken;
 		this.username = username;
 		this.email = email;
 		this.roles = roles;
 		this.status = status;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public String getRefreshToken() {
+		return refreshToken;
+	}
+
+	public void setRefreshToken(String refreshToken) {
+		this.refreshToken = refreshToken;
 	}
 
 	public String getTokenType() {
