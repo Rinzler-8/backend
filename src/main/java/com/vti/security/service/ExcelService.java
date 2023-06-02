@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.vti.entity.Product;
-import com.vti.exceptions.ExcelHelper;
 import com.vti.repository.IProductRepository;
 
 @Service
@@ -23,8 +22,14 @@ public class ExcelService implements IExcelService {
 	public void save(MultipartFile file) {
 		try {
 			ExcelHelper excelHelper = new ExcelHelper();
-			List<Product> products = excelHelper.excelToProducts(file.getInputStream(), categoryService);
-			prodRepository.saveAll(products);
+			if (excelHelper.hasExcelFormat(file)) {
+				List<Product> xlsxProducts = excelHelper.excelToProducts(file.getInputStream(), categoryService);
+				prodRepository.saveAll(xlsxProducts);
+			} else {
+				List<Product> csvProducts = excelHelper.csvToProducts(file.getInputStream(), categoryService);
+				prodRepository.saveAll(csvProducts);
+			}
+
 		} catch (IOException e) {
 			throw new RuntimeException("fail to store excel data: " + e.getMessage());
 		}

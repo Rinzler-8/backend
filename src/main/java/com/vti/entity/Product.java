@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "Product", catalog = "GenuineDignity")
 public class Product implements Serializable {
@@ -39,6 +41,7 @@ public class Product implements Serializable {
 	private String imageName;
 
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "category_id", nullable = false)
 	private Category category;
 
@@ -47,6 +50,20 @@ public class Product implements Serializable {
 
 	public Product() {
 		super();
+	}
+
+	public Product(int id, String name, double price, String info, String detail, short ratingStar, String imageName,
+			Category category, int stockQty) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.info = info;
+		this.detail = detail;
+		this.ratingStar = ratingStar;
+		this.imageName = imageName;
+		this.category = category;
+		this.stockQty = stockQty;
 	}
 
 	public String getName() {
