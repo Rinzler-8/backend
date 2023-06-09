@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.vti.entity.Product;
-import com.vti.exceptions.ExcelHelper;
 import com.vti.payload.response.MessageResponse;
+import com.vti.security.service.ExcelHelper;
 import com.vti.security.service.ExcelService;
 
 @RestController
@@ -37,16 +37,24 @@ public class ExcelController {
 		if (excelHelper.hasExcelFormat(file)) {
 			try {
 				fileService.save(file);
-
-				message = "Uploaded the file successfully: " + file.getOriginalFilename();
+				message = "Uploaded xlsx file successfully: " + file.getOriginalFilename();
 				return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message));
 			} catch (Exception e) {
-				message = "Could not upload the file: " + file.getOriginalFilename() + "!";
+				message = "Could not upload xlsx file: " + file.getOriginalFilename() + "!";
 				System.out.println("e " + e);
 				return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageResponse(message));
 			}
+		} else if (excelHelper.hasCSVFormat(file)) {
+			try {
+				fileService.save(file);
+				message = "Upload file csv successfully: " + file.getOriginalFilename();
+				return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message));
+			} catch (Exception e) {
+				message = "Could not upload the csv file: " + file.getOriginalFilename() + "!";
+				System.out.println("current " + e);
+				return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageResponse(message));
+			}
 		}
-
 		message = "Please upload an excel file!";
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(message));
 	}
@@ -61,7 +69,7 @@ public class ExcelController {
 	}
 
 	@GetMapping("/products")
-	public ResponseEntity<List<Product>> getAllTutorials() {
+	public ResponseEntity<List<Product>> getAllProducts() {
 		try {
 			List<Product> products = fileService.getAllProducts();
 
