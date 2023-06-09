@@ -43,7 +43,9 @@ public class CheckoutController {
 			cart.setSessionId(getOrderId());
 			cartService.saveProductsForCheckout(cart);
 			List<OrderItems> orderItemList = new ArrayList<OrderItems>();
+
 			for (int i = 0; i < cartItems.size(); i++) {
+				System.out.println("size: " + cart.getSessionId());
 				OrderItems item = new OrderItems();
 				item.setid(cart.getid());
 				item.setSessionId(cart.getSessionId());

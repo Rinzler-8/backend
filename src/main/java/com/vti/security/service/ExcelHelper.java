@@ -6,13 +6,18 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
+import org.apache.commons.csv.QuoteMode;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -185,6 +190,28 @@ public class ExcelHelper {
 			return new ByteArrayInputStream(out.toByteArray());
 		} catch (IOException e) {
 			throw new RuntimeException("fail to import data to Excel file: " + e.getMessage());
+		}
+	}
+
+	public ByteArrayInputStream productsToCSV(List<Product> products) {
+		final CSVFormat format = CSVFormat.DEFAULT.withQuoteMode(QuoteMode.MINIMAL).withFirstRecordAsHeader()
+				.withIgnoreHeaderCase().withTrim();
+
+		try (ByteArrayOutputStream out = new ByteArrayOutputStream();
+				CSVPrinter csvPrinter = new CSVPrinter(new PrintWriter(new OutputStreamWriter(out, "UTF-8")), format)) {
+			for (Product product : products) {
+				List<String> data = Arrays.asList(String.valueOf(product.getProductId()), product.getName(),
+						String.valueOf(product.getPrice()), product.getInfo(), product.getDetail(),
+						String.valueOf(product.getRatingStar()), product.getImageName(),
+						String.valueOf(product.getCategory().getId()), String.valueOf(product.getStockQty()));
+
+				csvPrinter.printRecord(data);
+			}
+
+			csvPrinter.flush();
+			return new ByteArrayInputStream(out.toByteArray());
+		} catch (IOException e) {
+			throw new RuntimeException("fail to import data to CSV file: " + e.getMessage());
 		}
 	}
 }

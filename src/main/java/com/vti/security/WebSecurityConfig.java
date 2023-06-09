@@ -57,6 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //				.antMatchers("/api/auth/**").permitAll()
 				.antMatchers("/api/auth/signup").anonymous().antMatchers("/api/auth/signin").anonymous()
 				.antMatchers("/api/v1/accounts").hasAuthority("ADMIN").antMatchers("/api/v1/accounts/username/**")
+//				.antMatchers("/api/v1/accounts/username/**")
 				.anonymous()
 //				.antMatchers("/api/test/**").permitAll();
 				.antMatchers("/api/test/all").anonymous().antMatchers("/api/v1/accounts/email/**").anonymous()

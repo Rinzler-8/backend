@@ -15,7 +15,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "Order_Items")
+@Table(name = "`Order_Items`")
 public class OrderItems {
 
 	@Column(name = "item_id")
@@ -26,8 +26,10 @@ public class OrderItems {
 	@JoinTable(name = "`Order`", joinColumns = @JoinColumn(name = "id"))
 	private int id;
 
-	@JoinTable(name = "`Order`", joinColumns = @JoinColumn(name = "sessionId"))
+	@Column(name = "session_id")
+	@JoinTable(name = "`Order`", joinColumns = @JoinColumn(name = "session_id"))
 	private int sessionId;
+
 	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id")

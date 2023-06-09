@@ -8,7 +8,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.vti.entity.Product;
 
 public interface IExcelService {
-	ByteArrayInputStream load();
+	ByteArrayInputStream loadXLSX();
+
+	ByteArrayInputStream loadCSV();
 
 	List<Product> getAllProducts();
 

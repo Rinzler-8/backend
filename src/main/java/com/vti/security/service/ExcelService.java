@@ -35,10 +35,17 @@ public class ExcelService implements IExcelService {
 		}
 	}
 
-	public ByteArrayInputStream load() {
+	public ByteArrayInputStream loadXLSX() {
 		List<Product> products = prodRepository.findAll();
 		ExcelHelper excelHelper = new ExcelHelper();
 		ByteArrayInputStream in = excelHelper.productsToExcel(products);
+		return in;
+	}
+
+	public ByteArrayInputStream loadCSV() {
+		List<Product> products = prodRepository.findAll();
+		ExcelHelper excelHelper = new ExcelHelper();
+		ByteArrayInputStream in = excelHelper.productsToCSV(products);
 		return in;
 	}
 

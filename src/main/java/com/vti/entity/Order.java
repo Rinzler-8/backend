@@ -28,13 +28,28 @@ public class Order implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	private String delivery_address, firstName, lastName, mobile, note;
+	@Column(name = "first_name")
+	private String firstName;
+
+	@Column(name = "last_name")
+	private String lastName;
+
+	@Column(name = "mobile", length = 10)
+	private String mobile;
+
+	@Column(name = "Note")
+	private String note;
+
+	@Column(name = "delivery_address")
+	private String delivery_address;
+
 	private int user_id;
 
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "payment_type", nullable = false)
 	private PaymentType paymentType = PaymentType.COD;
 
+	@Column(name = "session_id")
 	private int sessionId;
 
 	@Column(name = "created_At")

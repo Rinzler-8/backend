@@ -22,9 +22,9 @@ import com.vti.payload.response.MessageResponse;
 import com.vti.security.service.ExcelHelper;
 import com.vti.security.service.ExcelService;
 
+@CrossOrigin(origins = { "http://localhost:3000" })
 @RestController
 @RequestMapping("/api/excel")
-@CrossOrigin(origins = "*")
 public class ExcelController {
 
 	@Autowired
@@ -59,13 +59,22 @@ public class ExcelController {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponse(message));
 	}
 
-	@GetMapping("/download")
-	public ResponseEntity<Resource> getFile() {
+	@GetMapping("/downloadXLSX")
+	public ResponseEntity<Resource> getXLSXFile() {
 		String filename = "prods.xlsx";
-		InputStreamResource file = new InputStreamResource(fileService.load());
+		InputStreamResource file = new InputStreamResource(fileService.loadXLSX());
 
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
 				.contentType(MediaType.parseMediaType("application/vnd.ms-excel")).body(file);
+	}
+
+	@GetMapping("/downloadCSV")
+	public ResponseEntity<Resource> getCSVFile() {
+		String filename = "prods.csv";
+		InputStreamResource file = new InputStreamResource(fileService.loadCSV());
+
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+				.contentType(MediaType.parseMediaType("application/csv")).body(file);
 	}
 
 	@GetMapping("/products")
