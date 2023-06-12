@@ -90,12 +90,16 @@ public class OrderItems {
 		return product.getPrice();
 	}
 
+	public short getRatingStar() {
+		return product.getRatingStar();
+	}
+
 	public void setPrice(double price) {
 		this.price = price;
 	}
 
 	public int getProductId() {
-		return productId;
+		return product.getProductId();
 	}
 
 	public void setProductId(int productId) {

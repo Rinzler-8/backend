@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 import com.vti.entity.Category;
 import com.vti.entity.Product;
 import com.vti.form.ProductFormForCreating;
+import com.vti.form.ProductFormForRating;
 import com.vti.form.ProductFormForUpdating;
 import com.vti.repository.ICategoryRepository;
 import com.vti.repository.IProductRepository;
@@ -77,6 +78,16 @@ public class ProductService implements IProductService {
 //		product.setRatingStar(productUpdateForm.getRatingStar());
 //		product.setImageName(productUpdateForm.getImageName());
 		product.setCategory(category);
+
+		Product productUpdate = productRepository.save(product);
+		return productUpdate;
+	}
+
+	@Override
+	public Product rateProduct(int id, ProductFormForRating productRateForm) {
+		Product product = productRepository.getById(id);
+
+		product.setRatingStar(productRateForm.getRatingStar());
 
 		Product productUpdate = productRepository.save(product);
 		return productUpdate;

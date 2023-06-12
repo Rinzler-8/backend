@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.vti.entity.Product;
 import com.vti.form.ProductFormForCreating;
+import com.vti.form.ProductFormForRating;
 import com.vti.form.ProductFormForUpdating;
 
 public interface IProductService {
@@ -15,6 +16,8 @@ public interface IProductService {
 	public Product createProduct(ProductFormForCreating productNewForm);
 
 	public Product updateProduct(int id, ProductFormForUpdating productUpdateForm);
+
+	public Product rateProduct(int id, ProductFormForRating productRateForm);
 
 	public void deleteProductById(int id);
 }
