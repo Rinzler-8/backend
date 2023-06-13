@@ -1,14 +1,13 @@
 package com.vti.security.service;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import java.util.List;
 
 import com.vti.dto.ReviewDto;
 import com.vti.entity.Review;
 //import com.vti.form.CategoryFormForCreating;
 
 public interface IReviewService {
-	public Page<Review> getAllReviews(Pageable pageable, String search);
+	public List<Review> getAllReviews();
 
-	public Review rateProducts(ReviewDto reviewDto);
+	public List<Review> rateProducts(List<ReviewDto> reviewDto);
 }
